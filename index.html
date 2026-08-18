@@ -16,6 +16,7 @@
   --rule:#e6e1d6;   --rule2:#d3ccbd;
   --accent:#2d5044; --accent2:#44705e; --tint:#eaefec;
   --mark:#f6e7a6;   --marktx:#3b3005;
+  --sel:#bfd9cb;    --seltx:#0f221a;  --flash:#e6ede9;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,ui-serif,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --fs:16.5px; --lh:1.66; --line:calc(var(--fs) * var(--lh));
@@ -27,6 +28,7 @@
     --rule:#292c2f;  --rule2:#3a3e42;
     --accent:#8dc4ad;--accent2:#a4d4bf;--tint:#1e2523;
     --mark:#4b3f13;  --marktx:#f4ecd3;
+    --sel:#3a5b4d;   --seltx:#f0f6f2;  --flash:#232d29;
   }
 }
 *{box-sizing:border-box}
@@ -35,7 +37,7 @@ body{margin:0;background:var(--paper);color:var(--ink);
   font:var(--fs)/var(--lh) var(--serif);
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
-::selection{background:var(--mark);color:var(--marktx)}
+::selection{background:var(--sel);color:var(--seltx)}
 :focus-visible{outline:2px solid var(--accent2);outline-offset:2px;border-radius:2px}
 .wrap{display:flex;min-height:100vh;align-items:flex-start}
 
@@ -139,9 +141,19 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
   text-wrap:pretty}
 .policy-h .pid{display:inline-block;margin-right:.45em;font:700 11.5px/1 var(--sans);
   letter-spacing:.1em;color:var(--accent);vertical-align:2.5px}
-.policy:target,.node:target>.row>.tx,.fn:target{background:var(--mark);
-  box-shadow:0 0 0 6px var(--mark);border-radius:1px}
 [id]{scroll-margin-top:26px}
+
+/* landing marker: a persistent accent bar in the margin plus a background that
+   fades away, so it never competes with the text-selection colour */
+@keyframes landing{from{background:var(--flash)}to{background:transparent}}
+.policy,.node>.row,.fn{position:relative}
+.policy:target,.node:target>.row,.fn:target{animation:landing 2.8s ease-out 1}
+.policy:target::before,.node:target>.row::before,.fn:target::before{
+  content:'';position:absolute;left:-17px;top:1px;bottom:1px;width:2px;
+  background:var(--accent);border-radius:1px}
+@media (prefers-reduced-motion:reduce){
+  .policy:target,.node:target>.row,.fn:target{animation:none;background:var(--flash)}
+}
 
 /* ---------- numbered / lettered structure ---------- */
 .node{margin:0}
@@ -512,7 +524,6 @@ table.tbl li::marker{color:var(--ink3)}
       <div class="eyebrow">Ministry of Housing, Communities &amp; Local Government</div>
       <div class="doctitle">National Planning Policy Framework</div>
       <div class="docsub">Plan-making and national decision-making policies &middot; August 2026</div>
-      
     </div>
     <div id="noresults" class="noresults">Nothing matches that search.</div>
 <section class="chapter" id="ch1" data-ch="1" data-kind="intro" data-chmode="both">
@@ -7219,169 +7230,169 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="tx srch">The content of the following Written Ministerial Statements and other documents, where they relate to planning policies or decisions, has either been fully or partially incorporated within the National Planning Policy Framework or no longer represents up-to-date government policy:</div>
 </div>
 <div class="kids">
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-66275" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-20733" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Large-scale housing site delivery (13 February 2025)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-66831" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-83450" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning policy for traveller sites (12 December 2024)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-60153" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-92200" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Solar and protecting our Food Security and Best and Most Versatile (BMV) Land (15 May 2024)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-29578" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-52074" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">The Next Stage in Our Long-Term Plan for Housing Update (19 December 2023)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-7554" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-97144" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning - Local Energy Efficiency Standards Update (13 December 2023)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-13580" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-52562" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Updated policy on planning for onshore wind development (5 September 2023)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-80103" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-82580" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">An update on Levelling Up - Onshore Wind Development in England (6 December 2022)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-31502" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-33465" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Housing Update (15 December 2021)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-10567" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-49153" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Affordable Homes Update (24 May 2021)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-37889" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-68050" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning Update - Written Statement (1 October 2019)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-13193" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-79060" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning Independent Report on Build Out Rates and Permitted Development (13 March 2019)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-25578" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-70177" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Government’s new planning rulebook to deliver more quality, well-designed homes (24 July 2018)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-2276" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-6222" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Extending Buildings Upwards to Create New Homes (5 February 2018)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-14196" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-39637" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Neighbourhood Plans - Written Statement (12 December 2016)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-55175" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-48965" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Green Belt Protection and Intentional Unauthorised Development (17 December 2015)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-29283" data-page="102">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-78889" data-page="102">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Shale gas and oil policy (16 September 2015)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-8962" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-32476" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Giving local people the final say over onshore wind farms (18 June 2015)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-32522" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-60014" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning Update (25 March 2015)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-16443" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-50452" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Community Pubs (26 January 2015)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-97964" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-86025" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Sustainable Drainage Systems (18 December 2014)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-65253" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-70872" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Small-Scale Developers (1 December 2014)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-15671" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-56545" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Business, Innovation and Skills (10 October 2013)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-32156" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-63025" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Improving planning (3 September 2013)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-71873" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-24173" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Local Planning and Onshore Wind (1 June 2013)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-95253" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-30824" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Garden Development (9 June 2010)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-12665" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-94603" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Planning - Development on Garden Land (19 January 2010)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-84037" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-88752" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Draft National Policy Statements (9 November 2009)</div>
 </div>
 </div>
-<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-5020" data-page="103">
+<div class="node bullet" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10-31884" data-page="103">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Eco-towns and zero-carbon homes (16 July 2009)</div>
@@ -7870,7 +7881,7 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="tx srch">Where an adjustment is to be made, the precise formula is as follows:</div>
 </div>
 <div class="kids">
-<div class="node note" id="annexD-the-standard-method-step-2-an-adjustment-to-take-account-of-affordability-7-70335" data-page="120">
+<div class="node note" id="annexD-the-standard-method-step-2-an-adjustment-to-take-account-of-affordability-7-99381" data-page="120">
 <div class="row">
 <div class="tx srch">Adjustment Factor = ((five year average affordability ratio-5)/5)×0.95 + 1</div>
 </div>
@@ -8161,7 +8172,7 @@ table.tbl li::marker{color:var(--ink3)}
 <td class="srch"><p>This zone comprises land where water from rivers or the sea has to flow or be stored in times of flood. The identification of functional floodplain should take account of local circumstances and not be defined solely on rigid probability parameters. Functional floodplain will normally comprise:</p><ul><li>Land having a 3.3% or greater annual probability of flooding, with any existing flood risk management infrastructure operating effectively; or</li><li>Land that is designed to flood (such as a flood attenuation scheme), even if it would only flood in more extreme events (such as 0.1% annual probability of flooding).</li></ul><p>Local planning authorities should identify in their strategic flood risk assessments areas of functional floodplain and their boundaries accordingly, in agreement with the Environment Agency (not separately distinguished from Zone 3a on the Flood Map).</p></td>
 </tr>
 </tbody></table></div>
-<div class="node note" id="annexF-78300" data-page="126">
+<div class="node note" id="annexF-63499" data-page="126">
 <div class="row">
 <div class="tx srch">Note: Flood Zones 2 and 3, shown on the Environment Agency’s Flood Map for Planning, only account for river and sea flooding, and do not account for the benefits of flood defences or the possible effects of climate change. Reference should therefore also be made to the Environment Agency&#x27;s other data on the Flood Map for Planning, and any current strategic flood risk assessment(s), when considering potential future flood risks to developments and land uses.</div>
 </div>
@@ -8171,55 +8182,55 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-essential-infrastructure">
 <h3 class="subhead srch"><strong>ESSENTIAL INFRASTRUCTURE </strong></h3>
-<div class="node bullet" id="annexF-essential-infrastructure-58518" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-52764" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Essential transport infrastructure (including mass evacuation routes) which has to cross the area at risk.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-3747" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-98401" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Essential utility infrastructure which has to be located in a flood risk area for operational reasons, including for electricity generation and storage, electricity network infrastructure, telecommunications infrastructure, water supply reservoirs and water treatment works that need to remain operational in times of flood.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-46614" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-57560" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Wind turbines.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-10220" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-5789" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Solar farms.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-83349" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-93603" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Hydrogen production facilities.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-43925" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-87958" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Carbon Capture, distribution and storage facilities.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-29889" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-50888" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Heat networks.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-2751" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-98984" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Data Centres.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-essential-infrastructure-17809" data-page="127">
+<div class="node bullet" id="annexF-essential-infrastructure-76413" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Electric vehicle charging stations.</div>
@@ -8228,37 +8239,37 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-highly-vulnerable">
 <h3 class="subhead srch"><strong>HIGHLY VULNERABLE </strong></h3>
-<div class="node bullet" id="annexF-highly-vulnerable-44232" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-63314" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Police and ambulance stations, fire stations and command centres.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-highly-vulnerable-65233" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-77954" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Emergency dispersal points.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-highly-vulnerable-53125" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-60326" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Basement dwellings.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-highly-vulnerable-25160" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-32914" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Caravans, mobile homes and park homes intended for permanent residential use.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-highly-vulnerable-36677" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-72522" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Installations requiring hazardous substances consent or which fall under The Control of Major Accident Hazards Regulations 2015. Where there is a demonstrable need for such installations – including bulk storage associated with port or similar facilities, and energy infrastructure and carbon capture or storage – to be located at coastal, water-side, or other high flood risk areas, they should be classified as ‘Essential Infrastructure’.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-highly-vulnerable-97435" data-page="127">
+<div class="node bullet" id="annexF-highly-vulnerable-60205" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Installations requiring a radioactive substances regulations permit for disposal to landfill or dedicated near-surface disposal by burial.</div>
@@ -8267,37 +8278,37 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-more-vulnerable">
 <h3 class="subhead srch"><strong>MORE VULNERABLE </strong></h3>
-<div class="node bullet" id="annexF-more-vulnerable-4945" data-page="127">
+<div class="node bullet" id="annexF-more-vulnerable-13728" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Hospitals.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-more-vulnerable-96309" data-page="127">
+<div class="node bullet" id="annexF-more-vulnerable-36130" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Residential institutions such as residential care homes, children’s homes, social services homes, prisons and hostels.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-more-vulnerable-20842" data-page="127">
+<div class="node bullet" id="annexF-more-vulnerable-56454" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Buildings used for dwelling houses (including floating/rising designs), student halls of residence, drinking establishments, nightclubs and hotels.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-more-vulnerable-15101" data-page="127">
+<div class="node bullet" id="annexF-more-vulnerable-78654" data-page="127">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Non–residential uses for health services, nurseries and educational establishments.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-more-vulnerable-3266" data-page="128">
+<div class="node bullet" id="annexF-more-vulnerable-67059" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Landfill<sup class="fnref"><a href="#fn78" id="fnref78" data-fn="78">78</a></sup> and sites used for waste management facilities for hazardous waste.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-more-vulnerable-90550" data-page="128">
+<div class="node bullet" id="annexF-more-vulnerable-60033" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Sites used for holiday or short-let caravans and camping, subject to a specific warning and evacuation plan.</div>
@@ -8306,55 +8317,55 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-less-vulnerable">
 <h3 class="subhead srch"><strong>LESS VULNERABLE </strong></h3>
-<div class="node bullet" id="annexF-less-vulnerable-98360" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-48649" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Police, ambulance and fire stations which are not required to be operational during flooding.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-56660" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-30765" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Buildings used for: shops; financial, professional and other services; restaurants, cafes and hot food takeaways; offices; general industry, storage and distribution; non-residential institutions not included in the ‘more vulnerable’ class; and assembly and leisure.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-59794" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-86327" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Land and buildings used for agriculture and forestry.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-17161" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-52817" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Waste treatment (except landfill and hazardous waste facilities).</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-51078" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-89444" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Minerals working and processing (except for sand and gravel working).</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-37693" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-19193" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Water treatment works which do not need to remain operational during times of flood.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-53773" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-15713" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Sewage treatment works, if adequate measures to control pollution and manage sewage during flooding events are in place.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-14053" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-69547" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Car parks.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-less-vulnerable-38066" data-page="128">
+<div class="node bullet" id="annexF-less-vulnerable-27072" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Land-raising (unless part of or enabling a development with a higher vulnerability classification).</div>
@@ -8363,73 +8374,73 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-water-compatible-development">
 <h3 class="subhead srch"><strong>WATER-COMPATIBLE DEVELOPMENT </strong></h3>
-<div class="node bullet" id="annexF-water-compatible-development-66746" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-51291" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Flood control infrastructure.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-71072" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-5522" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Water transmission infrastructure and pumping stations.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-19430" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-64152" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Sewage transmission infrastructure and pumping stations.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-33699" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-16376" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Sand and gravel working.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-13613" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-58229" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Docks, marinas and wharves.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-89299" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-50992" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Navigation facilities.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-97271" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-36473" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Ministry of Defence installations.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-81925" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-25337" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Ship building, repairing and dismantling, dockside fish processing and refrigeration and compatible activities requiring a waterside location.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-32105" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-31616" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Water-based recreation (excluding sleeping accommodation).</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-96399" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-10031" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Lifeguard and coastguard stations.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-23186" data-page="128">
+<div class="node bullet" id="annexF-water-compatible-development-40511" data-page="128">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Amenity open space, nature conservation and biodiversity, outdoor sports and recreation and essential facilities such as changing rooms.</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-water-compatible-development-42763" data-page="129">
+<div class="node bullet" id="annexF-water-compatible-development-64512" data-page="129">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">Essential ancillary sleeping or residential accommodation for staff required by uses in this category, subject to a specific warning and evacuation plan.</div>
@@ -8490,7 +8501,7 @@ table.tbl li::marker{color:var(--ink3)}
 </tbody></table></div>
 <div class="subgrp" id="annexF-key">
 <h3 class="subhead srch"><strong>Key: </strong></h3>
-<div class="node note" id="annexF-key-25027" data-page="130">
+<div class="node note" id="annexF-key-77716" data-page="130">
 <div class="row">
 <div class="tx srch">✓ Exception test is not required</div>
 </div>
@@ -8501,34 +8512,34 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="subgrp" id="annexF-notes-to-table-3">
 <h3 class="subhead srch"><strong>Notes to table 3: </strong></h3>
-<div class="node note" id="annexF-notes-to-table-3-40963" data-page="130">
+<div class="node note" id="annexF-notes-to-table-3-40195" data-page="130">
 <div class="row">
 <div class="tx srch">Some developments may contain different elements of vulnerability, and the highest vulnerability category should be used, unless the development is considered in its component parts.</div>
 </div>
 </div>
-<div class="node note" id="annexF-notes-to-table-3-53721" data-page="130">
+<div class="node note" id="annexF-notes-to-table-3-92066" data-page="130">
 <div class="row">
 <div class="tx srch">† In flood zone 3a essential infrastructure should be designed and constructed to remain operational and safe in times of flood.</div>
 </div>
 </div>
-<div class="node note" id="annexF-notes-to-table-3-59946" data-page="130">
+<div class="node note" id="annexF-notes-to-table-3-38757" data-page="130">
 <div class="row">
 <div class="tx srch">* In flood zone 3b (functional floodplain) essential infrastructure that has passed the exception test, and water-compatible uses, should be designed and constructed to:</div>
 </div>
 <div class="kids">
-<div class="node bullet" id="annexF-notes-to-table-3-59946-73984" data-page="130">
+<div class="node bullet" id="annexF-notes-to-table-3-38757-72153" data-page="130">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">remain operational and safe for users in times of flood;</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-notes-to-table-3-59946-56934" data-page="130">
+<div class="node bullet" id="annexF-notes-to-table-3-38757-7525" data-page="130">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">result in no net loss of floodplain storage;</div>
 </div>
 </div>
-<div class="node bullet" id="annexF-notes-to-table-3-59946-69360" data-page="130">
+<div class="node bullet" id="annexF-notes-to-table-3-38757-2429" data-page="130">
 <div class="row">
 <span class="mk">&bull;</span>
 <div class="tx srch">not impede water flows and not increase flood risk elsewhere.</div>
@@ -8611,8 +8622,7 @@ function applyMode(m){
     el.classList.toggle('mhide', m !== 'all' && dm !== 'both' && dm !== m);
   });
   deriveVisibility();
-  sub.innerHTML = sub.dataset[m];
-  sub.classList.toggle('filtered', m !== 'all');
+  if(sub){ sub.innerHTML = sub.dataset[m]; sub.classList.toggle('filtered', m !== 'all'); }
   hidePop();
   const q = input.value.trim();
   if(q.length >= 2) run(input.value); else clearAll();
