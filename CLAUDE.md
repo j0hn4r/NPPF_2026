@@ -1,8 +1,40 @@
-# NPPF reading edition — working notes
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 A single self-contained `index.html` holding the complete verbatim text of the
 **National Planning Policy Framework (MHCLG, August 2026)**, generated from the
 official PDF in `source/`. Published from the repo root via GitHub Pages.
+
+## Commands
+
+Setup (Python 3.10+; PyMuPDF is required, `poppler-utils` is optional and enables
+an extra cross-check against a second PDF engine):
+
+```bash
+pip install -r requirements.txt
+```
+
+Build + verify — the only command needed for almost every change:
+
+```bash
+python tools/build.py
+```
+
+Variants, useful while iterating:
+
+```bash
+python tools/build.py --no-verify     # rebuild index.html only, skip fidelity checks
+python tools/build.py --verify-only   # re-run checks against the already-committed index.html
+```
+
+There is no separate test framework — `verify.py` and `verify_annex.py` *are* the
+tests, and `build.py` is the only entry point that runs the full pipeline plus
+both in the right order. You can run one stage directly (e.g. `python
+tools/annex.py`) to regenerate just its `.build/*.json` for quick inspection,
+but always finish with a full `python tools/build.py` before committing — later
+stages consume earlier stages' `.build/*.json` output, so a partial run leaves
+them stale.
 
 ## The one rule that matters
 
@@ -118,6 +150,10 @@ internally consistent.
 ```bash
 python tools/build.py && git add -A && git commit -m "…"
 ```
+
+`.github/workflows/build.yml` reruns the full build on every push and fails if the
+committed `index.html` differs from a clean rebuild — the CI-side enforcement of
+the one rule above.
 
 ## Line endings
 
