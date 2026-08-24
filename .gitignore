@@ -1,0 +1,6 @@
+# intermediate build artefacts - regenerate with: python tools/build.py
+.build/
+__pycache__/
+*.pyc
+.DS_Store
+_to_delete/

@@ -1,0 +1,5 @@
+# The build writes LF. Force LF on checkout too, or Git for Windows with
+# core.autocrlf=true rewrites index.html to CRLF and every rebuild then looks
+# like a modification - which also fails the "matches a clean rebuild" CI check.
+* text=auto eol=lf
+*.pdf -text

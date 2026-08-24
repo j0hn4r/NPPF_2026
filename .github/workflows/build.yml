@@ -1,0 +1,37 @@
+name: build and verify
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      - name: Rebuild from the PDF and run the fidelity checks
+        run: python tools/build.py
+
+      - name: Fail if the committed index.html differs from a clean rebuild
+        run: |
+          if ! git diff --quiet -- index.html; then
+            echo "::error::index.html does not match a clean rebuild from source/."
+            echo "Someone edited index.html by hand, or the committed page is stale."
+            echo "Fix: run 'python tools/build.py' locally and commit the result."
+            git diff --stat -- index.html
+            exit 1
+          fi
+          echo "index.html matches a clean rebuild."

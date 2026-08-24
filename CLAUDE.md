@@ -1,0 +1,126 @@
+# NPPF reading edition — working notes
+
+A single self-contained `index.html` holding the complete verbatim text of the
+**National Planning Policy Framework (MHCLG, August 2026)**, generated from the
+official PDF in `source/`. Published from the repo root via GitHub Pages.
+
+## The one rule that matters
+
+**`index.html` is a build artefact. Never edit it by hand.**
+
+It is ~640 KB of generated markup. Any manual change is silently destroyed by the
+next build, and CI will fail the push because the committed file no longer matches
+a clean rebuild. Every change goes into the pipeline and then:
+
+```bash
+python tools/build.py          # rebuild + verify (the only command you need)
+```
+
+If you are tempted to hand-edit because "it's just one word of text" — stop. The
+text is not editorial content; it is the statutory wording of the Framework,
+verified character-for-character against the PDF. If the page shows something
+wrong, either the extraction is wrong (fix the pipeline) or the PDF says that.
+
+## Layout
+
+```
+source/nppf-august-2026.pdf   the only input; do not replace without reading below
+tools/extract.py              pages 5-100  -> .build/lines.json     span-level text
+tools/parse.py                             -> .build/doc.json       chapter hierarchy
+tools/annex.py                pages 101-130-> .build/annexes.json   annexes + tables
+tools/render.py                            -> index.html            ALL design lives here
+tools/verify.py               fidelity checks for chapters + rendered HTML
+tools/verify_annex.py         fidelity checks for the annexes and their tables
+tools/build.py                runs the lot, exits non-zero on any failure
+```
+
+`.build/` is git-ignored scratch. Delete it freely.
+
+## Where to make a change
+
+| You want to change… | Edit | Notes |
+|---|---|---|
+| Colours, type, spacing, layout, dark mode | `render.py` → the `CSS` string | One long stylesheet; tokens at the top |
+| Page furniture (header, sidebar, buttons) | `render.py` → the `HTML` template | Keep the `__CSS__` / `__NAV__` / `__BODY__` / `__JS__` placeholders |
+| Search, filter, footnote popovers, scroll-spy | `render.py` → the `JS` string | See the traps below |
+| How a block type is marked up | `render.py` → `render_block`, `walk`, `render_annex_node` | Changing text content here will fail verification |
+| Which pages are read | `extract.py` `START/END`, `annex.py` `START/END` | 0-based page indices |
+| How hierarchy is detected | `parse.py` | Indent thresholds and marker regexes |
+| Annex tables, glossary entries | `annex.py` | The trickiest code in the repo — read below |
+
+## Traps that have already bitten us
+
+Fixed bugs. Please do not reintroduce them.
+
+- **Never call `scrollIntoView` on a nav link.** On narrow screens the nav sits in
+  the page flow, so scrolling it into view scrolls the *document* and yanks the
+  reader back to the index mid-paragraph. Use `revealInNav()`, which only touches
+  `nav.scrollTop`.
+- **`::selection` must not share a colour with the `:target` highlight.** When both
+  were `--mark` yellow, selecting text over a highlighted policy showed no visible
+  change and read as "copy/paste is broken". Selection is `--sel`; the landing
+  marker is a fading `--flash` tint plus an accent margin bar.
+- **Hyphens at line ends.** A line ending `-` is joined to the next with *no*
+  space (`plan-` + `making` → `plan-making`) — but only when the character before
+  the hyphen is not a space, or link text like `new system - GOV.UK` gets mangled.
+- **Superscript `2` is not a footnote.** `m2` (square metres) appears in TC and
+  flood-risk policies. A superscript digit is a footnote reference only if it is a
+  known footnote number (1–78); everything else renders as a plain `<sup>`.
+- **Table cells are merged into single text spans.** In the annex tables the PDF
+  draws adjacent cells as one text object (`"Development Viability DM5: Development"`),
+  so `annex.py` works at *character* level and splits on column boundaries taken
+  from the drawn rules — and only where the characters either side are separated by
+  whitespace or a positional gap. Splitting naively by span breaks Annex C; splitting
+  at every boundary chops the centred header of Annex F Table 3 into fragments.
+- **Tables continue across page breaks.** Annex C and Annex E's Purpose A table
+  repeat their header row on the next page. `annex.py` merges them and drops the
+  repeat. Two header rows are intentionally not in the output — this is why the
+  pdftotext token cross-check reports a small, expected surplus on the PDF side.
+- **The introduction and the annexes are always visible** under the plan-making /
+  decision-making filter, because the document does not designate them as either.
+  They carry `data-kind` and are skipped in `deriveVisibility()`.
+
+## What the checks actually prove
+
+`verify.py` and `verify_annex.py` are not smoke tests. Ignoring whitespace, they
+assert exact character equality between:
+
+1. the raw PDF line stream and the parsed tree (chapters: 191,241 chars; footnotes: 11,012)
+2. the parsed tree and the text rendered into `index.html` (263,609 chars)
+3. the annexes: non-table stream in order (51,773), all six tables cell-by-cell,
+   annex footnotes (1,694), and a global character multiset (61,388)
+
+Plus a cross-check against a second extraction engine (`pdftotext`), which is
+skipped if poppler is not installed.
+
+**A failure means real text drift.** Read the diff it prints — it shows the first
+divergence with context on both sides. Do not "fix" a failure by loosening the
+comparison.
+
+Structural counts to sanity-check: 20 chapters, 6 annexes, **131 policies**,
+129 glossary terms, 6 tables, **78 footnotes**, 0 duplicate element ids.
+
+## Replacing the PDF with a newer Framework
+
+The pipeline is tuned to this document's typography: 24pt chapter headings, 18pt
+sections, 12pt body, 10pt footnotes, footnote rules at x≈48–192, and the indent
+ladder 48 / 66 / 84 / 102. A new edition will almost certainly shift these. Expect
+to re-derive them (dump font sizes and x-positions per line first) rather than
+hoping the current constants hold. Do not trust a build that verifies but reports
+different structural counts.
+
+## Publishing
+
+GitHub Pages serves `index.html` from the repo root. Commit the rebuilt page along
+with whatever pipeline change produced it, in the same commit, so the repo is always
+internally consistent.
+
+```bash
+python tools/build.py && git add -A && git commit -m "…"
+```
+
+## Line endings
+
+The build writes LF. `.gitattributes` forces `eol=lf` on checkout so a rebuild on
+Windows does not show up as a whole-file diff (and does not fail the CI check that
+compares the committed page with a clean rebuild). Do not remove it.
