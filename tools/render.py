@@ -153,10 +153,12 @@ for ch in chapters:
     current_mode[0] = mode_of(ch['marker'], None)
     cid = 'ch' + ch['marker']
     kindattr = ' data-kind="intro"' if ch['marker'] == '1' else ''
-    body.append(f'<section class="chapter" id="{cid}" data-ch="{ch["marker"]}"'
-                f'{kindattr} data-chmode="{mode_of(ch["marker"], None)}">')
+    body.append(f'<details class="chapter" id="{cid}" data-ch="{ch["marker"]}"'
+                f'{kindattr} data-chmode="{mode_of(ch["marker"], None)}" open>')
+    body.append('<summary>')
     body.append(f'<h1 class="chapter-h"><span class="cn">{ch["marker"]}.</span> '
                 f'<span class="srch">{html.escape(norm(ch["title"]))}</span></h1>')
+    body.append('</summary>')
     navpolicies = []
     navsections = []
 
@@ -178,8 +180,9 @@ for ch in chapters:
           k = node['type']
           if k == 'objective':
               close_policy()
-              body.append('<div class="objective srch">' +
-                          runs_html(node['runs']) + '</div>')
+              body.append('<details class="objective"><summary><h4>Objective</h4></summary>'
+                          '<div class="objective-tx srch">' +
+                          runs_html(node['runs']) + '</div></details>')
           elif k == 'section':
               close_section()
               title = plain(node['runs'])
@@ -240,7 +243,7 @@ for ch in chapters:
                 f' <a class="fnback" href="#fnref{n}" title="back to text">&#8617;</a>'
                 f'</div></div>')
         body.append('</details>')
-    body.append('</section>')
+    body.append('</details>')
 
     # ---- nav entry
     nav.append(f'<li class="nav-ch" data-chmode="{mode_of(ch["marker"], None)}"'
@@ -385,10 +388,12 @@ for an in annexes:
     current_chapter[0] = an['marker']
     current_mode[0] = 'both'
     aid = 'annex' + an['marker']
-    body.append(f'<section class="chapter annex" id="{aid}" data-kind="annex" '
-                f'data-chmode="both">')
+    body.append(f'<details class="chapter annex" id="{aid}" data-kind="annex" '
+                f'data-chmode="both" open>')
+    body.append('<summary>')
     body.append(f'<h1 class="chapter-h"><span class="cn">Annex {an["marker"]}</span> '
                 f'<span class="srch">{html.escape(norm(an["title"]))}</span></h1>')
+    body.append('</summary>')
     navsub = []
     inner = []
     for i, c in enumerate(an['children']):
@@ -419,7 +424,7 @@ for an in annexes:
                 f' <a class="fnback" href="#fnref{n}" title="back to text">&#8617;</a>'
                 f'</div></div>')
         body.append('</details>')
-    body.append('</section>')
+    body.append('</details>')
 
     annex_nav.append(f'<li class="nav-ch" data-chmode="both" data-kind="annex">'
                      f'<a href="#{aid}" class="navlink chlink" data-target="{aid}">'
@@ -561,7 +566,7 @@ nav .pid{display:inline-block;min-width:42px;color:var(--accent2);font-weight:60
 nav .nav-pol{margin:1px 0 2px 12px;padding-left:0}
 nav .navgroup{margin:22px 12px 6px;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink3);border-top:1px solid var(--rule);padding-top:12px}
-nav li.hide,section.hide,.policy.hide,.node.hide,.secgrp.hide,.fnlist.hide,
+nav li.hide,.chapter.hide,.policy.hide,.node.hide,.secgrp.hide,.fnlist.hide,
 .tblwrap.hide,.subgrp.hide,.azbar.hide{display:none}
 .mhide{display:none !important}
 .bhide{display:none !important}
@@ -583,15 +588,40 @@ main{flex:1;min-width:0;background:var(--paper);padding:0 0 90px}
   font-size:14px;line-height:1.62;color:var(--ink2)}
 
 /* ---------- chapters ---------- */
-section.chapter{padding-top:56px;scroll-margin-top:0}
+.chapter{padding-top:56px;scroll-margin-top:0}
+.chapter>summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;
+  gap:12px;-webkit-tap-highlight-color:transparent}
+.chapter>summary::-webkit-details-marker{display:none}
+.chapter>summary::before{content:'';flex:0 0 auto;margin-top:.6em;width:0;height:0;
+  border-style:solid;border-width:6px 0 6px 8px;
+  border-color:transparent transparent transparent var(--ink3);transition:transform .15s}
+.chapter[open]>summary::before{transform:rotate(90deg)}
+.chapter>summary:hover::before{border-left-color:var(--accent)}
 .chapter-h{margin:0 0 4px;padding-bottom:14px;border-bottom:1px solid var(--ink);
-  font:400 26px/1.22 var(--serif);letter-spacing:-.012em;text-wrap:balance}
+  font:400 26px/1.22 var(--serif);letter-spacing:-.012em;text-wrap:balance;flex:1 1 auto;
+  min-width:0}
 .chapter-h .cn{color:var(--accent);font-weight:400}
-section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
+.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;display:block;margin-bottom:9px;color:var(--ink3)}
 
-.objective{margin:26px 0 6px;padding:2px 0 2px 20px;border-left:2px solid var(--accent2);
-  font-style:italic;font-size:15.5px;line-height:1.6;color:var(--ink2)}
+/* ---------- collapsible disclosures: footnote lists and chapter objectives ---------- */
+.fnlist summary,.objective summary{cursor:pointer;list-style:none;display:flex;
+  align-items:center;gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
+.fnlist summary::-webkit-details-marker,.objective summary::-webkit-details-marker{
+  display:none}
+.fnlist summary::before,.objective summary::before{content:'';flex:0 0 auto;width:0;
+  height:0;border-style:solid;border-width:4px 0 4px 6px;
+  border-color:transparent transparent transparent var(--ink3);transition:transform .15s}
+.fnlist[open] summary::before,.objective[open] summary::before{transform:rotate(90deg)}
+.fnlist summary:hover::before,.objective summary:hover::before{border-left-color:var(--accent)}
+.fnlist h4,.objective h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.fnlist summary:hover h4,.objective summary:hover h4{color:var(--accent)}
+
+.objective{margin:26px 0 6px;padding:2px 0 2px 20px;border-left:2px solid var(--accent2)}
+.objective summary{margin:0}
+.objective-tx{margin-top:8px;font-style:italic;font-size:15.5px;line-height:1.6;
+  color:var(--ink2)}
 
 .section-h{margin:44px 0 2px;font:600 10.5px/1.5 var(--sans);letter-spacing:.15em;
   text-transform:uppercase;color:var(--accent);padding-bottom:8px;
@@ -661,18 +691,6 @@ sup.fnref a{text-decoration:none;font-weight:600;padding:0 .5px;color:var(--acce
   font-family:var(--sans)}
 sup.fnref a:hover{background:var(--mark);color:var(--marktx);border-radius:2px}
 .fnlist{margin:38px 0 0;padding-top:14px;border-top:1px solid var(--rule2)}
-.fnlist summary{cursor:pointer;list-style:none;display:flex;align-items:center;
-  gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
-.fnlist summary::-webkit-details-marker{display:none}
-.fnlist summary::before{content:'';flex:0 0 auto;width:0;height:0;
-  border-style:solid;border-width:4px 0 4px 6px;
-  border-color:transparent transparent transparent var(--ink3);
-  transition:transform .15s}
-.fnlist[open] summary::before{transform:rotate(90deg)}
-.fnlist summary:hover::before{border-left-color:var(--accent)}
-.fnlist h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
-  text-transform:uppercase;color:var(--ink3)}
-.fnlist summary:hover h4{color:var(--accent)}
 .fn{display:flex;gap:11px;margin:7px 0;font-size:13px;line-height:1.55;color:var(--ink2)}
 .fn .fnn{flex:0 0 22px;text-align:right;color:var(--accent2);font:600 11px/1.72 var(--sans);
   font-variant-numeric:tabular-nums}
@@ -757,9 +775,9 @@ table.tbl li::marker{color:var(--ink3)}
   .doc{max-width:none;border:0;padding:0}
   .policy,.node,table.tbl,.fnlist{break-inside:avoid}
   sup.fnref a{color:#000}
-  .fnlist summary{cursor:default}
-  .fnlist summary::before{display:none}
-  .fnlist:not([open])>*:not(summary){display:revert}
+  details summary{cursor:default}
+  details summary::before{display:none}
+  details:not([open])>*:not(summary){display:revert}
 }
 """
 
@@ -806,7 +824,7 @@ const modeBtns = Array.from(document.querySelectorAll('.modebar button'));
 const sub = document.getElementById('sub');
 
 function deriveVisibility(){
-  document.querySelectorAll('section.chapter').forEach(c=>{
+  document.querySelectorAll('.chapter').forEach(c=>{
     const vis = (!BOOKMARKS_ONLY && (MODE === 'all' || !!c.dataset.kind))
                 || !!c.querySelector('.policy:not(.mhide):not(.bhide), [data-bm]:not(.bhide)');
     c.classList.toggle('mhide', !vis);
@@ -954,15 +972,19 @@ function run(q){
   document.querySelectorAll('.policy').forEach(p=>{
     if(!p.querySelector('mark')) p.classList.add('hide');
   });
-  document.querySelectorAll('.objective,.fnlist,.tblwrap,.subgrp,.azbar').forEach(o=>{
+  document.querySelectorAll('.tblwrap,.subgrp,.azbar').forEach(o=>{
     if(!o.querySelector('mark')) o.classList.add('hide');
+  });
+  document.querySelectorAll('.objective').forEach(o=>{
+    const on = !!o.querySelector('mark');
+    if(!on) o.classList.add('hide'); else o.open = true;
   });
   document.querySelectorAll('.secgrp').forEach(s=>{
     if(!s.querySelector('mark')) s.classList.add('hide');
   });
-  document.querySelectorAll('section.chapter').forEach(c=>{
+  document.querySelectorAll('.chapter').forEach(c=>{
     const on = !!c.querySelector('mark');
-    if(!on) c.classList.add('hide');
+    if(!on) c.classList.add('hide'); else c.open = true;
     if(c.classList.contains('mhide')) return;
     const link = document.querySelector('nav .chlink[data-target="'+c.id+'"]');
     if(link) link.parentElement.classList.toggle('hide', !on);
@@ -1007,7 +1029,7 @@ navEl.addEventListener('click', e=>{
 });
 
 /* ---------- active nav on scroll ---------- */
-const targets = Array.from(document.querySelectorAll('section.chapter, .policy'));
+const targets = Array.from(document.querySelectorAll('.chapter, .policy'));
 const links = new Map();
 document.querySelectorAll('nav .navlink').forEach(a=>links.set(a.dataset.target, a));
 /* Keep the active link visible by scrolling the nav's own box only.

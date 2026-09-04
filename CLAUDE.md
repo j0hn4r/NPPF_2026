@@ -149,33 +149,63 @@ exclusion of their own. Forgetting the content-area exclusion, or renaming the
 class without updating the regex, makes every rendered-HTML fidelity check
 fail with a `★`/`☆` glyph showing up in the diff.
 
-## Footnote lists
+## Collapsible sections (chapters, objectives, footnote lists)
 
-Each chapter's and annex's `.fnlist` is a native `<details>` element (collapsed
-by default), with `<summary><h4>Footnotes</h4></summary>` as the toggle — see
-the chapter-footnotes and annex-footnotes blocks in `render.py`. This needed no
-`verify.py` change: the literal substring `<h4>Footnotes</h4>` still appears
-unchanged inside the `<summary>`, so the existing `re.sub(r'<h4>Footnotes</h4>',
-'', txt)` exclusion still strips it, and `<details>`/`<summary>` themselves are
-just more tags for the generic tag-stripping regex to remove.
+Three things in the page are native `<details>`/`<summary>` disclosures, all
+built the same way, differing only in default open/closed state:
 
-Two behaviours to keep in mind when touching this:
-- **Search auto-opens a matching list.** `run()` sets `.open = true` on any
-  `.fnlist` that ends up containing a `<mark>`, so a highlighted result inside
-  a collapsed footnote list is actually visible. It never sets `open = false`
-  anywhere — closed-by-default only describes the initial render, not
-  something the JS re-imposes, so toggling the mode/bookmark filters never
-  collapses a list the reader opened themselves.
-- **Linking directly to a footnote still works.** Clicking an in-text `sup.fnref`
-  marker shows the popover instead of navigating (see `showPop`/`FN` data), so
-  it never needs the list open at all. A bare `#fn43` URL, though, relies on
-  the browser's native behaviour of auto-expanding a closed `<details>` when
-  the fragment target is inside it — don't add JS to "fix" this; it already
-  works without it.
-- **Print needs it force-open.** The print stylesheet overrides the
-  closed-`<details>` content with `display:revert` and hides the disclosure
-  triangle, so a printed page shows full footnote text regardless of what was
-  expanded on screen.
+| Element | Default | Toggle label |
+|---|---|---|
+| `.chapter` — every numbered chapter *and* every annex | **open** | the chapter/annex `<h1>` itself |
+| `.objective` — a chapter's stated objective | closed | `<summary><h4>Objective</h4></summary>` |
+| `.fnlist` — a chapter's or annex's footnote list | closed | `<summary><h4>Footnotes</h4></summary>` |
+
+Because chapters default open and the other two default closed, `render.py`
+writes the `open` attribute literally onto the `<details class="chapter" ...>`
+tag (both in the chapter loop and the annex loop) but never onto `.objective`
+or `.fnlist`.
+
+**Chapters used to be `<section class="chapter">`.** Making them collapsible
+required switching the tag to `<details>` (a `<section>` can't disclose), with
+the existing `<h1 class="chapter-h">` moved inside a new `<summary>`. Every
+place that selected on the tag, not just the class, had to change from
+`section.chapter` to plain `.chapter` — `deriveVisibility()`, `run()`'s
+chapter-match loop, the scroll-spy `targets` list, and the CSS `section.chapter`
+/ `section.annex .chapter-h .cn` / `section.hide` rules. **If you ever add a
+new `document.querySelectorAll('section...')` or `section.chapter{...}` for
+chapters, it will silently match nothing** — chapters are `<details>` now, not
+`<section>`.
+
+The `.objective`/`.fnlist` labels ("Objective", "Footnotes") needed no
+`verify.py` change beyond one line each: the literal substrings
+`<h4>Objective</h4>` / `<h4>Footnotes</h4>` still appear unchanged inside their
+`<summary>`, so `re.sub(r'<h4>Objective</h4>', '', txt)` (alongside the
+pre-existing `Footnotes` one) strips them, and `<details>`/`<summary>`
+themselves are just more tags for the generic tag-stripping regex to remove.
+**Any new disclosure with its own label text needs the same kind of exclusion
+line** — see the bookmark-button note under "Bookmarks" above for what happens
+if you forget it (a stray literal string ends up compared against the PDF
+text).
+
+Behaviours shared by all three, worth keeping in mind when touching this:
+- **Search auto-opens a match, never force-closes anything.** `run()` sets
+  `.open = true` on any `.chapter`/`.objective`/`.fnlist` that ends up
+  containing a `<mark>`, so a highlighted result inside a collapsed one is
+  actually visible. It never sets `open = false` anywhere — the *default*
+  state only describes the initial render, not something the JS re-imposes —
+  so toggling the mode/bookmark filters can never collapse something the
+  reader opened (or expand something they closed) themselves.
+- **Linking directly to a footnote still works without special-casing.**
+  Clicking an in-text `sup.fnref` marker shows the popover instead of
+  navigating (see `showPop`/`FN` data), so it never needs anything open at
+  all. A bare `#fn43` (or `#PM1`, or any anchor inside a collapsed chapter)
+  URL relies on the browser's native behaviour of auto-expanding every closed
+  ancestor `<details>` when the fragment target is inside one — don't add JS
+  to "fix" this; it already works without it.
+- **Print needs everything force-open.** The print stylesheet overrides
+  closed-`<details>` content with `details:not([open])>*:not(summary)
+  {display:revert}` and hides the disclosure triangles, so a printed page
+  shows full text regardless of what was expanded on screen.
 
 ## Traps that have already bitten us
 

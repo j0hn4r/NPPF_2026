@@ -124,7 +124,7 @@ nav .pid{display:inline-block;min-width:42px;color:var(--accent2);font-weight:60
 nav .nav-pol{margin:1px 0 2px 12px;padding-left:0}
 nav .navgroup{margin:22px 12px 6px;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink3);border-top:1px solid var(--rule);padding-top:12px}
-nav li.hide,section.hide,.policy.hide,.node.hide,.secgrp.hide,.fnlist.hide,
+nav li.hide,.chapter.hide,.policy.hide,.node.hide,.secgrp.hide,.fnlist.hide,
 .tblwrap.hide,.subgrp.hide,.azbar.hide{display:none}
 .mhide{display:none !important}
 .bhide{display:none !important}
@@ -146,15 +146,40 @@ main{flex:1;min-width:0;background:var(--paper);padding:0 0 90px}
   font-size:14px;line-height:1.62;color:var(--ink2)}
 
 /* ---------- chapters ---------- */
-section.chapter{padding-top:56px;scroll-margin-top:0}
+.chapter{padding-top:56px;scroll-margin-top:0}
+.chapter>summary{cursor:pointer;list-style:none;display:flex;align-items:flex-start;
+  gap:12px;-webkit-tap-highlight-color:transparent}
+.chapter>summary::-webkit-details-marker{display:none}
+.chapter>summary::before{content:'';flex:0 0 auto;margin-top:.6em;width:0;height:0;
+  border-style:solid;border-width:6px 0 6px 8px;
+  border-color:transparent transparent transparent var(--ink3);transition:transform .15s}
+.chapter[open]>summary::before{transform:rotate(90deg)}
+.chapter>summary:hover::before{border-left-color:var(--accent)}
 .chapter-h{margin:0 0 4px;padding-bottom:14px;border-bottom:1px solid var(--ink);
-  font:400 26px/1.22 var(--serif);letter-spacing:-.012em;text-wrap:balance}
+  font:400 26px/1.22 var(--serif);letter-spacing:-.012em;text-wrap:balance;flex:1 1 auto;
+  min-width:0}
 .chapter-h .cn{color:var(--accent);font-weight:400}
-section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
+.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;display:block;margin-bottom:9px;color:var(--ink3)}
 
-.objective{margin:26px 0 6px;padding:2px 0 2px 20px;border-left:2px solid var(--accent2);
-  font-style:italic;font-size:15.5px;line-height:1.6;color:var(--ink2)}
+/* ---------- collapsible disclosures: footnote lists and chapter objectives ---------- */
+.fnlist summary,.objective summary{cursor:pointer;list-style:none;display:flex;
+  align-items:center;gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
+.fnlist summary::-webkit-details-marker,.objective summary::-webkit-details-marker{
+  display:none}
+.fnlist summary::before,.objective summary::before{content:'';flex:0 0 auto;width:0;
+  height:0;border-style:solid;border-width:4px 0 4px 6px;
+  border-color:transparent transparent transparent var(--ink3);transition:transform .15s}
+.fnlist[open] summary::before,.objective[open] summary::before{transform:rotate(90deg)}
+.fnlist summary:hover::before,.objective summary:hover::before{border-left-color:var(--accent)}
+.fnlist h4,.objective h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+.fnlist summary:hover h4,.objective summary:hover h4{color:var(--accent)}
+
+.objective{margin:26px 0 6px;padding:2px 0 2px 20px;border-left:2px solid var(--accent2)}
+.objective summary{margin:0}
+.objective-tx{margin-top:8px;font-style:italic;font-size:15.5px;line-height:1.6;
+  color:var(--ink2)}
 
 .section-h{margin:44px 0 2px;font:600 10.5px/1.5 var(--sans);letter-spacing:.15em;
   text-transform:uppercase;color:var(--accent);padding-bottom:8px;
@@ -224,18 +249,6 @@ sup.fnref a{text-decoration:none;font-weight:600;padding:0 .5px;color:var(--acce
   font-family:var(--sans)}
 sup.fnref a:hover{background:var(--mark);color:var(--marktx);border-radius:2px}
 .fnlist{margin:38px 0 0;padding-top:14px;border-top:1px solid var(--rule2)}
-.fnlist summary{cursor:pointer;list-style:none;display:flex;align-items:center;
-  gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
-.fnlist summary::-webkit-details-marker{display:none}
-.fnlist summary::before{content:'';flex:0 0 auto;width:0;height:0;
-  border-style:solid;border-width:4px 0 4px 6px;
-  border-color:transparent transparent transparent var(--ink3);
-  transition:transform .15s}
-.fnlist[open] summary::before{transform:rotate(90deg)}
-.fnlist summary:hover::before{border-left-color:var(--accent)}
-.fnlist h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
-  text-transform:uppercase;color:var(--ink3)}
-.fnlist summary:hover h4{color:var(--accent)}
 .fn{display:flex;gap:11px;margin:7px 0;font-size:13px;line-height:1.55;color:var(--ink2)}
 .fn .fnn{flex:0 0 22px;text-align:right;color:var(--accent2);font:600 11px/1.72 var(--sans);
   font-variant-numeric:tabular-nums}
@@ -320,9 +333,9 @@ table.tbl li::marker{color:var(--ink3)}
   .doc{max-width:none;border:0;padding:0}
   .policy,.node,table.tbl,.fnlist{break-inside:avoid}
   sup.fnref a{color:#000}
-  .fnlist summary{cursor:default}
-  .fnlist summary::before{display:none}
-  .fnlist:not([open])>*:not(summary){display:revert}
+  details summary{cursor:default}
+  details summary::before{display:none}
+  details:not([open])>*:not(summary){display:revert}
 }
 </style>
 </head>
@@ -611,8 +624,10 @@ table.tbl li::marker{color:var(--ink3)}
       <div class="docsub">Plan-making and national decision-making policies &middot; August 2026</div>
     </div>
     <div id="noresults" class="noresults">Nothing matches that search.</div>
-<section class="chapter" id="ch1" data-ch="1" data-kind="intro" data-chmode="both">
+<details class="chapter" id="ch1" data-ch="1" data-kind="intro" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">1.</span> <span class="srch">Introduction</span></h1>
+</summary>
 <div class="node para" id="ch1-1" data-page="5">
 <div class="row">
 <span class="mk">1.</span>
@@ -756,10 +771,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn3" data-mode="both"><span class="fnn">3</span><div class="tx srch">Resolution 42/187 of the United Nations General Assembly. <a class="fnback" href="#fnref3" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn4" data-mode="both"><span class="fnn">4</span><div class="tx srch">Transforming our World: the 2030 Agenda for Sustainable Development, published in: <a class="ext" href="https://sdgs.un.org/2030agenda" target="_blank" rel="noopener">Transforming our world: </a><a class="ext" href="https://sdgs.un.org/2030agenda" target="_blank" rel="noopener">the 2030 Agenda for Sustainable Development | Department of Economic and Social Affairs</a>. <a class="fnback" href="#fnref4" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch2" data-ch="2" data-chmode="pm">
+</details>
+<details class="chapter" id="ch2" data-ch="2" data-chmode="pm" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">2.</span> <span class="srch">Plan-making policies</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to create a system that is genuinely plan-led, through plan-making authorities<sup class="fnref"><a href="#fn5" id="fnref5" data-fn="5">5</a></sup> prioritising the preparation and updating of the plans for which they are responsible. The preparation of development plans allows people to influence development in their area, including directing growth to the most appropriate and sustainable locations, mitigating and adapting to climate change, supporting regeneration and conserving and enhancing the quality of the built and natural environment.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to create a system that is genuinely plan-led, through plan-making authorities<sup class="fnref"><a href="#fn5" id="fnref5" data-fn="5">5</a></sup> prioritising the preparation and updating of the plans for which they are responsible. The preparation of development plans allows people to influence development in their area, including directing growth to the most appropriate and sustainable locations, mitigating and adapting to climate change, supporting regeneration and conserving and enhancing the quality of the built and natural environment.</div></details>
 <div class="node para" id="ch2-1" data-page="8">
 <div class="row">
 <span class="mk">1.</span>
@@ -1653,10 +1670,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn20" data-mode="pm"><span class="fnn">20</span><div class="tx srch">This also applies to the Mayor of London. <a class="fnback" href="#fnref20" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn21" data-mode="pm"><span class="fnn">21</span><div class="tx srch">Conformity with an emerging spatial development strategy should also be taken into consideration. The extent to which conformity with an emerging strategy should be considered will depend on the stage of preparation of the emerging strategy and whether or not there is an existing strategy relating to the area. <a class="fnback" href="#fnref21" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch3" data-ch="3" data-chmode="dm">
+</details>
+<details class="chapter" id="ch3" data-ch="3" data-chmode="dm" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">3.</span> <span class="srch">Decision-making policies</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to ensure that development proposals are informed by appropriate information and decided in a way which is proportionate, timely and effective. This chapter provides a set of general decision-making policies which should be read with the rest of the thematic policies in the other chapters.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to ensure that development proposals are informed by appropriate information and decided in a way which is proportionate, timely and effective. This chapter provides a set of general decision-making policies which should be read with the rest of the thematic policies in the other chapters.</div></details>
 <div class="secgrp" id="ch3-s1" data-mode="dm">
 <h2 class="section-h srch">Preparing planning proposals</h2>
 <div class="policy" id="DM1" data-policy="DM1" data-mode="dm" data-page="20">
@@ -2053,10 +2072,12 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn22" data-mode="dm"><span class="fnn">22</span><div class="tx srch">In the context of economic circumstances, ‘changed significantly’ would be a recession or similar significant economic change. <a class="fnback" href="#fnref22" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch4" data-ch="4" data-chmode="both">
+</details>
+<details class="chapter" id="ch4" data-ch="4" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">4.</span> <span class="srch">Achieving sustainable development</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to meet development needs through sustainable patterns of development, including by maximising the potential for growth on suitable land within settlements, enabling development which will support the rural economy, rural communities and the provision of infrastructure, and limiting development away from settlements to help safeguard the intrinsic character and beauty of the countryside.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to meet development needs through sustainable patterns of development, including by maximising the potential for growth on suitable land within settlements, enabling development which will support the rural economy, rural communities and the provision of infrastructure, and limiting development away from settlements to help safeguard the intrinsic character and beauty of the countryside.</div></details>
 <div class="secgrp" id="ch4-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="S1" data-policy="S1" data-mode="pm" data-page="25">
@@ -2391,10 +2412,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn27" data-mode="dm"><span class="fnn">27</span><div class="tx srch">See Annex D: Housing calculations and supply. <a class="fnback" href="#fnref27" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn28" data-mode="dm"><span class="fnn">28</span><div class="tx srch">Where a development proposal is located outside a settlement, and separated from the existing built-up area by virtue of being beyond the outside edge of an allocated site that has yet to be fully developed, consideration should be given to whether the proposal is in a suitable location should the allocated development not proceed. <a class="fnback" href="#fnref28" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch5" data-ch="5" data-chmode="both">
+</details>
+<details class="chapter" id="ch5" data-ch="5" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">5.</span> <span class="srch">Meeting the challenge of climate change</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to support the transition to net zero by 2050 and to shape places in ways which are more resilient to the effects of climate change. It does this by setting out policies to shape places in ways that contribute to radical reductions in greenhouse gas emissions and adapt to the full range of current and potential impacts of climate change, by minimising vulnerability and improving resilience.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to support the transition to net zero by 2050 and to shape places in ways which are more resilient to the effects of climate change. It does this by setting out policies to shape places in ways that contribute to radical reductions in greenhouse gas emissions and adapt to the full range of current and potential impacts of climate change, by minimising vulnerability and improving resilience.</div></details>
 <div class="secgrp" id="ch5-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="CC1" data-policy="CC1" data-mode="pm" data-page="30">
@@ -2556,10 +2579,12 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-</section>
-<section class="chapter" id="ch6" data-ch="6" data-chmode="both">
+</details>
+<details class="chapter" id="ch6" data-ch="6" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">6.</span> <span class="srch">Delivering a sufficient supply of homes</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to support the delivery of a substantial increase in the supply of homes and traveller sites, by ensuring that a sufficient amount and variety of land can come forward where needed. This includes planning for an appropriate mix of accommodation for the local community and ensuring that land with permission is developed without unnecessary delay.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to support the delivery of a substantial increase in the supply of homes and traveller sites, by ensuring that a sufficient amount and variety of land can come forward where needed. This includes planning for an appropriate mix of accommodation for the local community and ensuring that land with permission is developed without unnecessary delay.</div></details>
 <div class="secgrp" id="ch6-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="HO1" data-policy="HO1" data-mode="pm" data-page="33">
@@ -3270,10 +3295,12 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn29" data-mode="pm"><span class="fnn">29</span><div class="tx srch">This requirement may be set as a single rate or be set at differential rates, and should: i. Be set at a higher level than that which would apply to land which is not within or proposed to be released from the Green Belt; and ii. Require at least 50% of the housing to be affordable, unless this would make the development of these sites unviable (when tested in accordance with national planning practice guidance on viability). <a class="fnback" href="#fnref29" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch7" data-ch="7" data-chmode="both">
+</details>
+<details class="chapter" id="ch7" data-ch="7" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">7.</span> <span class="srch">Building a strong, effective economy</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to enable businesses to invest, expand and adapt in a way that reflects the opportunities, challenges and characteristics of different areas, and supports long-term economic growth both locally and nationally.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to enable businesses to invest, expand and adapt in a way that reflects the opportunities, challenges and characteristics of different areas, and supports long-term economic growth both locally and nationally.</div></details>
 <div class="secgrp" id="ch7-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="E1" data-policy="E1" data-mode="pm" data-page="42">
@@ -3486,10 +3513,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn30" data-mode="pm"><span class="fnn">30</span><div class="tx srch">The UK’s Modern Industrial Strategy published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">Industrial Strategy - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref30" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn31" data-mode="pm"><span class="fnn">31</span><div class="tx srch">Industrial Strategy Zones Action Plan (MHCLG, June 2025) published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">Industrial Strategy Zones Action </a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">Plan - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref31" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch8" data-ch="8" data-chmode="both">
+</details>
+<details class="chapter" id="ch8" data-ch="8" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">8.</span> <span class="srch">Ensuring the vitality of town centres</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to promote the long-term vitality and viability of town centres by prioritising them as locations for main town centre uses and allowing them to adapt to changing community and business needs, in a way which reflects their locally distinctive roles and opportunities. For the purpose of this chapter ‘town centres’ includes city, town, district and local centres as defined in the glossary at Annex B.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to promote the long-term vitality and viability of town centres by prioritising them as locations for main town centre uses and allowing them to adapt to changing community and business needs, in a way which reflects their locally distinctive roles and opportunities. For the purpose of this chapter ‘town centres’ includes city, town, district and local centres as defined in the glossary at Annex B.</div></details>
 <div class="secgrp" id="ch8-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="TC1" data-policy="TC1" data-mode="pm" data-page="45">
@@ -3648,10 +3677,12 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-</section>
-<section class="chapter" id="ch9" data-ch="9" data-chmode="both">
+</details>
+<details class="chapter" id="ch9" data-ch="9" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">9.</span> <span class="srch">Supporting high quality communications</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to support the expansion and upgrading of telecommunications infrastructure, in ways which limit an unnecessary proliferation of equipment and respect important environmental safeguards. Advanced, high quality and reliable communications are essential to meet changing technological, social, business and security requirements (including through delivering coverage of higher quality standalone 5G in all populated areas by 2030, and nationwide gigabit-capable broadband by 2032).</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to support the expansion and upgrading of telecommunications infrastructure, in ways which limit an unnecessary proliferation of equipment and respect important environmental safeguards. Advanced, high quality and reliable communications are essential to meet changing technological, social, business and security requirements (including through delivering coverage of higher quality standalone 5G in all populated areas by 2030, and nationwide gigabit-capable broadband by 2032).</div></details>
 <div class="secgrp" id="ch9-s1" data-mode="dm">
 <h2 class="section-h srch">National decision-making policies</h2>
 <div class="policy" id="CO1" data-policy="CO1" data-mode="dm" data-page="48">
@@ -3728,10 +3759,12 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn32" data-mode="dm"><span class="fnn">32</span><div class="tx srch">International Commission guidelines published in: <a class="ext" href="https://www.icnirp.org/en/frequencies/radiofrequency/index.html" target="_blank" rel="noopener">International Commission on Non-Ionizing Radiation </a><a class="ext" href="https://www.icnirp.org/en/frequencies/radiofrequency/index.html" target="_blank" rel="noopener">Protection guidelines</a>. <a class="fnback" href="#fnref32" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch10" data-ch="10" data-chmode="both">
+</details>
+<details class="chapter" id="ch10" data-ch="10" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">10.</span> <span class="srch">Securing clean energy and water</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to support the development and operation of energy and water infrastructure in ways which align with wider development, clean power and net zero objectives (including the delivery of clean power by 2030).</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to support the development and operation of energy and water infrastructure in ways which align with wider development, clean power and net zero objectives (including the delivery of clean power by 2030).</div></details>
 <div class="secgrp" id="ch10-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="W1" data-policy="W1" data-mode="pm" data-page="50">
@@ -3870,10 +3903,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn33" data-mode="pm"><span class="fnn">33</span><div class="tx srch">This includes Water Resource Management Plans, Drainage and Wastewater Management Plans and, once they are published, the Strategic Spatial Energy Plan (SSEP), Centralised Strategic Network Plan (CSNP) and Regional Energy Strategic Plans (RESPs). <a class="fnback" href="#fnref33" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn34" data-mode="pm"><span class="fnn">34</span><div class="tx srch">Once they are in place, there should be consideration of Heat Network Zones. <a class="fnback" href="#fnref34" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch11" data-ch="11" data-chmode="both">
+</details>
+<details class="chapter" id="ch11" data-ch="11" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">11.</span> <span class="srch">Facilitating the sustainable use of minerals</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to ensure there is a sufficient supply of minerals, which are essential to provide the infrastructure, buildings, green energy and goods that the country needs; while restricting peat, coal and onshore oil and gas extraction for environmental reasons. Since minerals are a finite natural resource, and can only be worked where they are found, best use needs to be made of them to secure their long-term conservation.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to ensure there is a sufficient supply of minerals, which are essential to provide the infrastructure, buildings, green energy and goods that the country needs; while restricting peat, coal and onshore oil and gas extraction for environmental reasons. Since minerals are a finite natural resource, and can only be worked where they are found, best use needs to be made of them to secure their long-term conservation.</div></details>
 <div class="secgrp" id="ch11-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="M1" data-policy="M1" data-mode="pm" data-page="52">
@@ -4229,10 +4264,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn36" data-mode="dm"><span class="fnn">36</span><div class="tx srch">Other than for development involving peat, coal or onshore oil and gas extraction, to which this policy does not apply. <a class="fnback" href="#fnref36" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn37" data-mode="dm"><span class="fnn">37</span><div class="tx srch">The UK’s Modern Industrial Strategy published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">Industrial Strategy - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref37" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch12" data-ch="12" data-chmode="both">
+</details>
+<details class="chapter" id="ch12" data-ch="12" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">12.</span> <span class="srch">Making effective use of land</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to promote the effective use of land in meeting the need for homes and other uses, while safeguarding and improving the environment and ensuring safe and healthy living conditions.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to promote the effective use of land in meeting the need for homes and other uses, while safeguarding and improving the environment and ensuring safe and healthy living conditions.</div></details>
 <div class="secgrp" id="ch12-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="L1" data-policy="L1" data-mode="pm" data-page="57">
@@ -4451,10 +4488,12 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn38" data-mode="dm"><span class="fnn">38</span><div class="tx srch">The existing buildings are to be assessed as the buildings as existing on the date of the publication of this Framework. <a class="fnback" href="#fnref38" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch13" data-ch="13" data-chmode="both">
+</details>
+<details class="chapter" id="ch13" data-ch="13" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">13.</span> <span class="srch">Protecting Green Belt land</span></h1>
-<div class="objective srch">The objective of Green Belt policy, as set out in this chapter, is to prevent urban sprawl by keeping land permanently open. The government attaches great importance to Green Belts, the essential features of which are their openness and permanence.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of Green Belt policy, as set out in this chapter, is to prevent urban sprawl by keeping land permanently open. The government attaches great importance to Green Belts, the essential features of which are their openness and permanence.</div></details>
 <div class="secgrp" id="ch13-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="GB1" data-policy="GB1" data-mode="pm" data-page="61">
@@ -4959,10 +4998,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn43" data-mode="dm"><span class="fnn">43</span><div class="tx srch">The Golden Rules do not apply to: (a) developments brought forward on land released from the Green Belt through plans adopted prior to 12 December 2024; (b) developments that were granted planning permission on Green Belt land prior to 12 December 2024; or (c) Traveller sites. <a class="fnback" href="#fnref43" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn44" data-mode="dm"><span class="fnn">44</span><div class="tx srch">The 50% cap does not apply to rural exception sites or community-led development exception sites, or if the local planning authority has a relevant existing policy which would apply to the development which exceeds 50%. <a class="fnback" href="#fnref44" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch14" data-ch="14" data-chmode="both">
+</details>
+<details class="chapter" id="ch14" data-ch="14" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">14.</span> <span class="srch">Achieving well-designed places</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to promote high quality, healthy, inclusive and sustainable places, through setting clear expectations about design outcomes and the use of relevant tools and processes.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to promote high quality, healthy, inclusive and sustainable places, through setting clear expectations about design outcomes and the use of relevant tools and processes.</div></details>
 <div class="secgrp" id="ch14-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="DP1" data-policy="DP1" data-mode="pm" data-page="67">
@@ -5166,10 +5207,12 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn45" data-mode="dm"><span class="fnn">45</span><div class="tx srch">Principles for creating well-designed places are described more fully in Part 1 of the Design and Placemaking planning practice guidance, points a to g in this policy forming the seven features of well-designed places described in the guidance, all of which are informed by context (paragraph 1). <a class="fnback" href="#fnref45" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch15" data-ch="15" data-chmode="both">
+</details>
+<details class="chapter" id="ch15" data-ch="15" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">15.</span> <span class="srch">Promoting sustainable transport</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to ensure that transport considerations are taken fully into account in the preparation of development plans and the evolution and assessment of development proposals; using a vision-led approach to embed the role that transport infrastructure and choices can play in creating well-designed, sustainable, inclusive and popular places.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to ensure that transport considerations are taken fully into account in the preparation of development plans and the evolution and assessment of development proposals; using a vision-led approach to embed the role that transport infrastructure and choices can play in creating well-designed, sustainable, inclusive and popular places.</div></details>
 <div class="secgrp" id="ch15-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="TR1" data-policy="TR1" data-mode="pm" data-page="70">
@@ -5548,10 +5591,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn46" data-mode="dm"><span class="fnn">46</span><div class="tx srch">Manual for streets published in: <a class="ext" href="https://www.gov.uk/government/publications/manual-for-streets" target="_blank" rel="noopener">Designing and modifying residential streets: Manual for streets - GOV.UK</a> and the Design and Placemaking planning practice guidance. <a class="fnback" href="#fnref46" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn47" data-mode="dm"><span class="fnn">47</span><div class="tx srch">Including new technologies, for example droneports, vertiports and other autonomous vehicle facilities. <a class="fnback" href="#fnref47" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch16" data-ch="16" data-chmode="both">
+</details>
+<details class="chapter" id="ch16" data-ch="16" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">16.</span> <span class="srch">Promoting healthy communities</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to promote the creation of healthy and inclusive places and support the provision of appropriate public services, by enabling development which can support this aim and seeking to retain, improve and deliver new facilities which are important for community wellbeing and minimising inequalities.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to promote the creation of healthy and inclusive places and support the provision of appropriate public services, by enabling development which can support this aim and seeking to retain, improve and deliver new facilities which are important for community wellbeing and minimising inequalities.</div></details>
 <div class="secgrp" id="ch16-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="HC1" data-policy="HC1" data-mode="pm" data-page="76">
@@ -5810,10 +5855,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn48" data-mode="pm"><span class="fnn">48</span><div class="tx srch">These include the suite of Green Infrastructure Standards for England published by Natural England <a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">(</a><a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx</a>), standards for open space, outdoor sport and play recommended by Fields in Trust (<a class="ext" href="https://fieldsintrust.org/insights/standards" target="_blank" rel="noopener">https://fieldsintrust.org/insights/standards</a>) and published Sport England Guidance (including <a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">Assessing Needs and Playing Pitch Strategy guidance | Sport </a><a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">England</a>). <a class="fnback" href="#fnref48" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn49" data-mode="dm"><span class="fnn">49</span><div class="tx srch">These include the suite of Green Infrastructure Standards for England published by Natural England <a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">(</a><a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx</a>), the standards for open space, outdoor sport and play recommended by Fields in Trust (<a class="ext" href="https://fieldsintrust.org/insights/standards" target="_blank" rel="noopener">https://fieldsintrust.org/insights/standards</a>) and published Sport England Guidance (including <a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">Assessing Needs and Playing Pitch Strategy guidance | Sport </a><a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">England</a>). <a class="fnback" href="#fnref49" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch17" data-ch="17" data-chmode="both">
+</details>
+<details class="chapter" id="ch17" data-ch="17" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">17.</span> <span class="srch">Pollution, public protection and security</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to ensure that new development is appropriate for its location, taking into account risks posed by pollution and other hazards; that any impacts which development might have are taken into account; and that sufficient provision is made for development required for public safety and security.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to ensure that new development is appropriate for its location, taking into account risks posed by pollution and other hazards; that any impacts which development might have are taken into account; and that sufficient provision is made for development required for public safety and security.</div></details>
 <div class="secgrp" id="ch17-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="P1" data-policy="P1" data-mode="pm" data-page="80">
@@ -6087,10 +6134,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn53" data-mode="dm"><span class="fnn">53</span><div class="tx srch">In consultation with the operator of the site and where appropriate the Civil Aviation Authority. <a class="fnback" href="#fnref53" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn54" data-mode="dm"><span class="fnn">54</span><div class="tx srch">The Control of Major Accident Hazards (COMAH) competent authority for zones around hazardous installations, the operator of the site and where appropriate the Civil Aviation Authority or Secretary of State for Defence for safeguarding areas around aerodromes, technical sites or military explosive storage areas, and the Office for Nuclear Regulation or Secretary of State for Defence for zones around nuclear sites. <a class="fnback" href="#fnref54" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch18" data-ch="18" data-chmode="both">
+</details>
+<details class="chapter" id="ch18" data-ch="18" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">18.</span> <span class="srch">Managing flood risk and coastal change</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to minimise risks to development arising from all sources of flooding and coastal change, taking into account the impacts of climate change, by steering development away from areas of risk, ensuring that development will be safe for its lifetime without increasing flood risk elsewhere, and incorporating sustainable drainage systems where appropriate.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to minimise risks to development arising from all sources of flooding and coastal change, taking into account the impacts of climate change, by steering development away from areas of risk, ensuring that development will be safe for its lifetime without increasing flood risk elsewhere, and incorporating sustainable drainage systems where appropriate.</div></details>
 <div class="secgrp" id="ch18-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="F1" data-policy="F1" data-mode="pm" data-page="85">
@@ -6509,10 +6558,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn56" data-mode="dm"><span class="fnn">56</span><div class="tx srch">For the purpose of policy F2, when the exception test is being applied at the plan-making stage, it should be informed instead by an up-to-date strategic flood risk assessment. <a class="fnback" href="#fnref56" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn57" data-mode="dm"><span class="fnn">57</span><div class="tx srch">National Standards for Sustainable Drainage Systems published in: <a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">National standards for sustainable </a><a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">drainage systems (SuDS) - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref57" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch19" data-ch="19" data-chmode="both">
+</details>
+<details class="chapter" id="ch19" data-ch="19" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">19.</span> <span class="srch">Conserving and enhancing the natural environment</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to influence the design and location of new development to help drive nature’s recovery and contribute to wider environmental outcomes, safeguarding our most important habitats, species and landscapes and recognising the centrality of natural capital to delivering sustainable growth.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to influence the design and location of new development to help drive nature’s recovery and contribute to wider environmental outcomes, safeguarding our most important habitats, species and landscapes and recognising the centrality of natural capital to delivering sustainable growth.</div></details>
 <div class="secgrp" id="ch19-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="N1" data-policy="N1" data-mode="pm" data-page="90">
@@ -6818,10 +6869,12 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn61" data-mode="dm"><span class="fnn">61</span><div class="tx srch">These being that there are no feasible alternative solutions to the proposal which are less damaging, there are imperative reasons of overriding public interest for it to proceed, and compensatory measures are secured to ensure that the overall coherence of the network of habitats sites is maintained. <a class="fnback" href="#fnref61" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn62" data-mode="dm"><span class="fnn">62</span><div class="tx srch">For example, infrastructure projects (including nationally significant infrastructure projects, orders under the Transport and Works Act and hybrid bills), where the public benefit would clearly outweigh the loss or deterioration of the relevant habitats. <a class="fnback" href="#fnref62" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter" id="ch20" data-ch="20" data-chmode="both">
+</details>
+<details class="chapter" id="ch20" data-ch="20" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">20.</span> <span class="srch">Conserving and enhancing the historic environment</span></h1>
-<div class="objective srch">The objective of the policies in this chapter is to conserve and enhance the historic environment. Heritage assets are an irreplaceable resource, and range from sites and buildings of local historic value to those of the highest significance, such as World Heritage Sites which are internationally recognised to be of Outstanding Universal Value. These assets should be conserved in a manner appropriate to their significance, so that they can be enjoyed for their contribution to the quality of life of existing and future generations<sup class="fnref"><a href="#fn63" id="fnref63" data-fn="63">63</a></sup>.</div>
+</summary>
+<details class="objective"><summary><h4>Objective</h4></summary><div class="objective-tx srch">The objective of the policies in this chapter is to conserve and enhance the historic environment. Heritage assets are an irreplaceable resource, and range from sites and buildings of local historic value to those of the highest significance, such as World Heritage Sites which are internationally recognised to be of Outstanding Universal Value. These assets should be conserved in a manner appropriate to their significance, so that they can be enjoyed for their contribution to the quality of life of existing and future generations<sup class="fnref"><a href="#fn63" id="fnref63" data-fn="63">63</a></sup>.</div></details>
 <div class="secgrp" id="ch20-s1" data-mode="pm">
 <h2 class="section-h srch">Plan-making policies</h2>
 <div class="policy" id="HE1" data-policy="HE1" data-mode="pm" data-page="95">
@@ -7241,9 +7294,11 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn64" data-mode="dm"><span class="fnn">64</span><div class="tx srch">Non-designated heritage assets of archaeological interest that a decision-maker considers to be equivalent significance to scheduled monuments should be considered subject to the policies for designated heritage assets. <a class="fnback" href="#fnref64" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn65" data-mode="dm"><span class="fnn">65</span><div class="tx srch">Any development affecting World Heritage Sites should be assessed against this policy. It should be noted that some World Heritage Sites are inscribed by UNESCO to be of natural significance rather than cultural significance; and in some cases they are inscribed for both their natural and cultural significance. <a class="fnback" href="#fnref65" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter annex" id="annexA" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexA" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex A</span> <span class="srch">Implementation</span></h1>
+</summary>
 <div class="secgrp" data-mode="both" id="annexA-for-the-purposes-of-decision-making" data-bm="annexA-for-the-purposes-of-decision-making">
 <h2 class="section-h bm"><span class="srch">For the purposes of decision-making</span><button type="button" class="bookmark-btn" data-bookmark="annexA-for-the-purposes-of-decision-making" aria-pressed="false" aria-label="Bookmark For the purposes of decision-making">&#9734;</button></h2>
 <div class="node para" id="annexA-for-the-purposes-of-decision-making-1" data-page="101">
@@ -7497,9 +7552,11 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn67" data-mode="both"><span class="fnn">67</span><div class="tx srch">Including policies in made neighbourhood plans. <a class="fnback" href="#fnref67" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn68" data-mode="both"><span class="fnn">68</span><div class="tx srch">Neighbourhood Planning (General) Regulations 2012. <a class="fnback" href="#fnref68" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter annex" id="annexB" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexB" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex B</span> <span class="srch">Glossary</span></h1>
+</summary>
 <div class="azbar"><a href="#g-affordable-housing">A</a><a href="#g-best-and-most-versatile-agricultural-land">B</a><a href="#g-climate-change-adaptation">C</a><a href="#g-deliverable">D</a><a href="#g-early-years">E</a><a href="#g-freight-and-logistics">F</a><a href="#g-geodiversity">G</a><a href="#g-habitats-site">H</a><a href="#g-integrated-coastal-zone-management">I</a><a href="#g-large-scale-shared-living-accommodation">L</a><a href="#g-main-town-centre-uses">M</a><a href="#g-national-landscapes">N</a><a href="#g-older-people">O</a><a href="#g-permission-in-principle">P</a><a href="#g-ramsar-sites">R</a><a href="#g-safeguarding-zone">S</a><a href="#g-technical-sites">T</a><a href="#g-vision-led-approach">V</a><a href="#g-well-connected-station">W</a></div>
 <div class="node gloss" id="g-affordable-housing" data-term="Affordable housing" data-page="104"><div class="row"><div class="tx srch"><span class="term"><strong>Affordable housing</strong></span>: Housing for sale or rent, for those whose needs are not met by the market (including housing that provides a subsidised route to home ownership and/or is for essential local workers or national military housing needs); and which complies with one or more of the following definitions:<strong> </strong></div></div>
 <div class="kids">
@@ -7811,9 +7868,11 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn71" data-mode="both"><span class="fnn">71</span><div class="tx srch">Other than for the specific purposes of policies N4 and N5. <a class="fnback" href="#fnref71" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn72" data-mode="both"><span class="fnn">72</span><div class="tx srch">For the purpose of assessing whether Travel to Work Areas fall within this definition, the 2023 GVA data should continue to be used up to the day after the publication of the 2028 GVA data. For subsequent years, the GVA data used for the purpose of this definition should continue to be regarded as fixed for each five year period. Published in: <a class="ext" href="https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeographies" target="_blank" rel="noopener">https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeograp</a> <a class="ext" href="https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeographies" target="_blank" rel="noopener">hies.</a> <a class="fnback" href="#fnref72" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter annex" id="annexC" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexC" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex C</span> <span class="srch">Information requirements</span></h1>
+</summary>
 <div class="tblwrap"><table class="tbl">
 <thead>
 <tr>
@@ -7914,9 +7973,11 @@ table.tbl li::marker{color:var(--ink3)}
 <td class="srch"><p>Heritage impact assessment. assessment of the significance of the asset(s) affected (including any contribution made by their setting) and of the potential effect(s) of the proposal(s) on their significance.</p></td>
 </tr>
 </tbody></table></div>
-</section>
-<section class="chapter annex" id="annexD" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexD" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex D</span> <span class="srch">Housing calculations and supply</span></h1>
+</summary>
 <div class="node para" id="annexD-1" data-page="120">
 <div class="row">
 <span class="mk">1.</span>
@@ -8066,9 +8127,11 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn75" data-mode="both"><span class="fnn">75</span><div class="tx srch">Or the housing requirement is more than five years old and the relevant development plan policies have been reviewed and found not to require updating. <a class="fnback" href="#fnref75" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn76" data-mode="both"><span class="fnn">76</span><div class="tx srch">Defined as the total housing requirement, divided by the number of years in the plan period. For joint local plans, the percentage should be applied in aggregate across the joint local plan area. <a class="fnback" href="#fnref76" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter annex" id="annexE" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexE" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex E</span> <span class="srch">Green Belt assessments</span></h1>
+</summary>
 <div class="node para" id="annexE-1" data-page="123">
 <div class="row">
 <span class="mk">1.</span>
@@ -8226,9 +8289,11 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn77" data-mode="both"><span class="fnn">77</span><div class="tx srch">For this purpose ‘towns’ includes cities. <a class="fnback" href="#fnref77" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
-<section class="chapter annex" id="annexF" data-kind="annex" data-chmode="both">
+</details>
+<details class="chapter annex" id="annexF" data-kind="annex" data-chmode="both" open>
+<summary>
 <h1 class="chapter-h"><span class="cn">Annex F</span> <span class="srch">Managing Flood Risk and Coastal Change</span></h1>
+</summary>
 <div class="subgrp" id="annexF-table-1-flood-zones-risks-from-river-and-sea-flooding">
 <h3 class="subhead srch"><strong>Table 1: Flood zones (risks from river and sea flooding) </strong></h3>
 </div>
@@ -8636,7 +8701,7 @@ table.tbl li::marker{color:var(--ink3)}
 <details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn78" data-mode="both"><span class="fnn">78</span><div class="tx srch">Landfill in this annex is as defined in Schedule 10 of the Environmental Permitting (England and Wales) Regulations 2010:<a class="ext" href="https://www.legislation.gov.uk/uksi/2010/675/schedule/10/made" target="_blank" rel="noopener"> The Environmental Permitting (England and Wales) Regulations 2010</a><a class="ext" href="https://www.legislation.gov.uk/uksi/2010/675/schedule/10/made" target="_blank" rel="noopener">.</a> <a class="fnback" href="#fnref78" title="back to text">&#8617;</a></div></div>
 </details>
-</section>
+</details>
     <div class="footer">Source: <em>National Planning Policy Framework &mdash; Plan-making and
     national decision-making policies</em>, Ministry of Housing, Communities and Local Government,
     August 2026. &copy; Crown copyright. Text reproduced under the Open Government Licence v3.0.</div>
@@ -8687,7 +8752,7 @@ const modeBtns = Array.from(document.querySelectorAll('.modebar button'));
 const sub = document.getElementById('sub');
 
 function deriveVisibility(){
-  document.querySelectorAll('section.chapter').forEach(c=>{
+  document.querySelectorAll('.chapter').forEach(c=>{
     const vis = (!BOOKMARKS_ONLY && (MODE === 'all' || !!c.dataset.kind))
                 || !!c.querySelector('.policy:not(.mhide):not(.bhide), [data-bm]:not(.bhide)');
     c.classList.toggle('mhide', !vis);
@@ -8835,15 +8900,19 @@ function run(q){
   document.querySelectorAll('.policy').forEach(p=>{
     if(!p.querySelector('mark')) p.classList.add('hide');
   });
-  document.querySelectorAll('.objective,.fnlist,.tblwrap,.subgrp,.azbar').forEach(o=>{
+  document.querySelectorAll('.tblwrap,.subgrp,.azbar').forEach(o=>{
     if(!o.querySelector('mark')) o.classList.add('hide');
+  });
+  document.querySelectorAll('.objective').forEach(o=>{
+    const on = !!o.querySelector('mark');
+    if(!on) o.classList.add('hide'); else o.open = true;
   });
   document.querySelectorAll('.secgrp').forEach(s=>{
     if(!s.querySelector('mark')) s.classList.add('hide');
   });
-  document.querySelectorAll('section.chapter').forEach(c=>{
+  document.querySelectorAll('.chapter').forEach(c=>{
     const on = !!c.querySelector('mark');
-    if(!on) c.classList.add('hide');
+    if(!on) c.classList.add('hide'); else c.open = true;
     if(c.classList.contains('mhide')) return;
     const link = document.querySelector('nav .chlink[data-target="'+c.id+'"]');
     if(link) link.parentElement.classList.toggle('hide', !on);
@@ -8888,7 +8957,7 @@ navEl.addEventListener('click', e=>{
 });
 
 /* ---------- active nav on scroll ---------- */
-const targets = Array.from(document.querySelectorAll('section.chapter, .policy'));
+const targets = Array.from(document.querySelectorAll('.chapter, .policy'));
 const links = new Map();
 document.querySelectorAll('nav .navlink').forEach(a=>links.set(a.dataset.target, a));
 /* Keep the active link visible by scrolling the nav's own box only.

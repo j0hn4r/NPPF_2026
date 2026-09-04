@@ -31,6 +31,9 @@ Generated from the official PDF and checked character-for-character against it.
 - **Footnotes 1–78** with markers exactly where they appear in the source; hover or
   tap for a popover, or expand the collapsed footnote list at the end of each
   chapter or annex to read them all.
+- **Collapsible chapters and objectives** — every chapter and annex can be
+  collapsed to just its title (expanded by default); each chapter's stated
+  objective collapses to a one-line "Objective" toggle (collapsed by default).
 - **A–Z jump bar** for the 129-term glossary in Annex B.
 - Stable anchors for citation — `#PM1`, `#GB8-1-a-ii`, `#fn43`, `#g-grey-belt`.
 - Light and dark themes, and a print stylesheet.
