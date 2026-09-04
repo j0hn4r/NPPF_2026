@@ -224,8 +224,18 @@ sup.fnref a{text-decoration:none;font-weight:600;padding:0 .5px;color:var(--acce
   font-family:var(--sans)}
 sup.fnref a:hover{background:var(--mark);color:var(--marktx);border-radius:2px}
 .fnlist{margin:38px 0 0;padding-top:14px;border-top:1px solid var(--rule2)}
-.fnlist h4{margin:0 0 10px;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
+.fnlist summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
+.fnlist summary::-webkit-details-marker{display:none}
+.fnlist summary::before{content:'';flex:0 0 auto;width:0;height:0;
+  border-style:solid;border-width:4px 0 4px 6px;
+  border-color:transparent transparent transparent var(--ink3);
+  transition:transform .15s}
+.fnlist[open] summary::before{transform:rotate(90deg)}
+.fnlist summary:hover::before{border-left-color:var(--accent)}
+.fnlist h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink3)}
+.fnlist summary:hover h4{color:var(--accent)}
 .fn{display:flex;gap:11px;margin:7px 0;font-size:13px;line-height:1.55;color:var(--ink2)}
 .fn .fnn{flex:0 0 22px;text-align:right;color:var(--accent2);font:600 11px/1.72 var(--sans);
   font-variant-numeric:tabular-nums}
@@ -310,6 +320,9 @@ table.tbl li::marker{color:var(--ink3)}
   .doc{max-width:none;border:0;padding:0}
   .policy,.node,table.tbl,.fnlist{break-inside:avoid}
   sup.fnref a{color:#000}
+  .fnlist summary{cursor:default}
+  .fnlist summary::before{display:none}
+  .fnlist:not([open])>*:not(summary){display:revert}
 }
 </style>
 </head>
@@ -737,12 +750,12 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn1" data-mode="both"><span class="fnn">1</span><div class="tx srch">Section 38(6) of the Planning and Compulsory Purchase Act 2004 (<a class="ext" href="https://www.legislation.gov.uk/ukpga/2004/5/section/38" target="_blank" rel="noopener">Planning and Compulsory Purchase Act </a><a class="ext" href="https://www.legislation.gov.uk/ukpga/2004/5/section/38" target="_blank" rel="noopener">2004</a>) and section 70(2) of the Town and Country Planning Act 1990 (<a class="ext" href="https://www.legislation.gov.uk/ukpga/1990/8/section/70" target="_blank" rel="noopener">Town and Country Planning Act 1990</a>). <a class="fnback" href="#fnref1" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn2" data-mode="both"><span class="fnn">2</span><div class="tx srch">The National Planning Policy Framework does not displace the statutory obligations placed on decision-makers by virtue of, among other things, section 38(6) of the Planning and Compulsory Purchase Act 2004, sections 66 and 72 of the Planning (Listed Buildings and Conservation Areas) Act 1990, section 85(A1) of the Countryside and Rights of Way Act 2000 and section 11(1A) of the National Parks Act 1949. <a class="fnback" href="#fnref2" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn3" data-mode="both"><span class="fnn">3</span><div class="tx srch">Resolution 42/187 of the United Nations General Assembly. <a class="fnback" href="#fnref3" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn4" data-mode="both"><span class="fnn">4</span><div class="tx srch">Transforming our World: the 2030 Agenda for Sustainable Development, published in: <a class="ext" href="https://sdgs.un.org/2030agenda" target="_blank" rel="noopener">Transforming our world: </a><a class="ext" href="https://sdgs.un.org/2030agenda" target="_blank" rel="noopener">the 2030 Agenda for Sustainable Development | Department of Economic and Social Affairs</a>. <a class="fnback" href="#fnref4" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch2" data-ch="2" data-chmode="pm">
 <h1 class="chapter-h"><span class="cn">2.</span> <span class="srch">Plan-making policies</span></h1>
@@ -1621,7 +1634,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn5" data-mode="pm"><span class="fnn">5</span><div class="tx srch">For the purposes of the policies in this chapter, plan-making authorities are defined as: strategic planning authorities; The Mayor of London; minerals and waste planning authorities; and local planning authorities. ‘Plan-makers’ includes all plan-making authorities and any other body with the power to make a plan that will form part of the statutory development plan. <a class="fnback" href="#fnref5" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn6" data-mode="pm"><span class="fnn">6</span><div class="tx srch">Reference to the ‘adoption’ of a plan in this chapter also applies to where a plan has been ‘approved’ by the Secretary of State. <a class="fnback" href="#fnref6" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn7" data-mode="pm"><span class="fnn">7</span><div class="tx srch">The UK’s Modern Industrial Strategy published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">Industrial Strategy - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref7" title="back to text">&#8617;</a></div></div>
@@ -1639,7 +1652,7 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="fn" id="fn19" data-mode="pm"><span class="fnn">19</span><div class="tx srch">Unless otherwise directed by the Secretary of State. <a class="fnback" href="#fnref19" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn20" data-mode="pm"><span class="fnn">20</span><div class="tx srch">This also applies to the Mayor of London. <a class="fnback" href="#fnref20" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn21" data-mode="pm"><span class="fnn">21</span><div class="tx srch">Conformity with an emerging spatial development strategy should also be taken into consideration. The extent to which conformity with an emerging strategy should be considered will depend on the stage of preparation of the emerging strategy and whether or not there is an existing strategy relating to the area. <a class="fnback" href="#fnref21" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch3" data-ch="3" data-chmode="dm">
 <h1 class="chapter-h"><span class="cn">3.</span> <span class="srch">Decision-making policies</span></h1>
@@ -2037,9 +2050,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn22" data-mode="dm"><span class="fnn">22</span><div class="tx srch">In the context of economic circumstances, ‘changed significantly’ would be a recession or similar significant economic change. <a class="fnback" href="#fnref22" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch4" data-ch="4" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">4.</span> <span class="srch">Achieving sustainable development</span></h1>
@@ -2370,14 +2383,14 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn23" data-mode="pm"><span class="fnn">23</span><div class="tx srch">Where a spatial development strategy is in place, the local plan should plan for the level of development provided for in the spatial development strategy covering the area of the local plan. <a class="fnback" href="#fnref23" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn24" data-mode="pm"><span class="fnn">24</span><div class="tx srch">The policies referred to are those in this Framework (rather than those in development plans) relating to: habitats sites and/or designated as Sites of Special Scientific Interest; land designated as Green Belt, Local Green Space, a National Landscape, a National Park (or within the Broads Authority) or defined as Heritage Coast; irreplaceable habitats; designated heritage assets; and areas at risk of flooding or coastal change. <a class="fnback" href="#fnref24" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn25" data-mode="dm"><span class="fnn">25</span><div class="tx srch">The existing building is to be assessed as the property as existing on the date of the publication of this Framework. <a class="fnback" href="#fnref25" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn26" data-mode="dm"><span class="fnn">26</span><div class="tx srch">Including (but not limited to) where the relevant local planning authority cannot demonstrate a five year supply of deliverable sites as set out in policy HO3(1)(a) or (b). <a class="fnback" href="#fnref26" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn27" data-mode="dm"><span class="fnn">27</span><div class="tx srch">See Annex D: Housing calculations and supply. <a class="fnback" href="#fnref27" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn28" data-mode="dm"><span class="fnn">28</span><div class="tx srch">Where a development proposal is located outside a settlement, and separated from the existing built-up area by virtue of being beyond the outside edge of an allocated site that has yet to be fully developed, consideration should be given to whether the proposal is in a suitable location should the allocated development not proceed. <a class="fnback" href="#fnref28" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch5" data-ch="5" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">5.</span> <span class="srch">Meeting the challenge of climate change</span></h1>
@@ -3254,9 +3267,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn29" data-mode="pm"><span class="fnn">29</span><div class="tx srch">This requirement may be set as a single rate or be set at differential rates, and should: i. Be set at a higher level than that which would apply to land which is not within or proposed to be released from the Green Belt; and ii. Require at least 50% of the housing to be affordable, unless this would make the development of these sites unviable (when tested in accordance with national planning practice guidance on viability). <a class="fnback" href="#fnref29" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch7" data-ch="7" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">7.</span> <span class="srch">Building a strong, effective economy</span></h1>
@@ -3469,10 +3482,10 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn30" data-mode="pm"><span class="fnn">30</span><div class="tx srch">The UK’s Modern Industrial Strategy published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">Industrial Strategy - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref30" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn31" data-mode="pm"><span class="fnn">31</span><div class="tx srch">Industrial Strategy Zones Action Plan (MHCLG, June 2025) published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">Industrial Strategy Zones Action </a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">Plan - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy-zones-action-plan" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref31" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch8" data-ch="8" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">8.</span> <span class="srch">Ensuring the vitality of town centres</span></h1>
@@ -3712,9 +3725,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn32" data-mode="dm"><span class="fnn">32</span><div class="tx srch">International Commission guidelines published in: <a class="ext" href="https://www.icnirp.org/en/frequencies/radiofrequency/index.html" target="_blank" rel="noopener">International Commission on Non-Ionizing Radiation </a><a class="ext" href="https://www.icnirp.org/en/frequencies/radiofrequency/index.html" target="_blank" rel="noopener">Protection guidelines</a>. <a class="fnback" href="#fnref32" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch10" data-ch="10" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">10.</span> <span class="srch">Securing clean energy and water</span></h1>
@@ -3853,10 +3866,10 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn33" data-mode="pm"><span class="fnn">33</span><div class="tx srch">This includes Water Resource Management Plans, Drainage and Wastewater Management Plans and, once they are published, the Strategic Spatial Energy Plan (SSEP), Centralised Strategic Network Plan (CSNP) and Regional Energy Strategic Plans (RESPs). <a class="fnback" href="#fnref33" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn34" data-mode="pm"><span class="fnn">34</span><div class="tx srch">Once they are in place, there should be consideration of Heat Network Zones. <a class="fnback" href="#fnref34" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch11" data-ch="11" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">11.</span> <span class="srch">Facilitating the sustainable use of minerals</span></h1>
@@ -4211,11 +4224,11 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn35" data-mode="pm"><span class="fnn">35</span><div class="tx srch">The assessment of the provision needed for aggregate and industrial minerals may, where appropriate, be undertaken and set out through the preparation of spatial development strategies. <a class="fnback" href="#fnref35" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn36" data-mode="dm"><span class="fnn">36</span><div class="tx srch">Other than for development involving peat, coal or onshore oil and gas extraction, to which this policy does not apply. <a class="fnback" href="#fnref36" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn37" data-mode="dm"><span class="fnn">37</span><div class="tx srch">The UK’s Modern Industrial Strategy published in: <a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">Industrial Strategy - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/industrial-strategy" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref37" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch12" data-ch="12" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">12.</span> <span class="srch">Making effective use of land</span></h1>
@@ -4435,9 +4448,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn38" data-mode="dm"><span class="fnn">38</span><div class="tx srch">The existing buildings are to be assessed as the buildings as existing on the date of the publication of this Framework. <a class="fnback" href="#fnref38" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch13" data-ch="13" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">13.</span> <span class="srch">Protecting Green Belt land</span></h1>
@@ -4938,14 +4951,14 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn39" data-mode="pm"><span class="fnn">39</span><div class="tx srch">Or neighbourhood plans where a need for changes to Green Belt boundaries has been established but not made in local plans, in which case detailed amendments to those boundaries may be made through neighbourhood plans. <a class="fnback" href="#fnref39" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn40" data-mode="dm"><span class="fnn">40</span><div class="tx srch">The original building for this purpose is the building that existed on 1 July 1948 or, if constructed after 1 July 1948, as it was built originally. <a class="fnback" href="#fnref40" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn41" data-mode="dm"><span class="fnn">41</span><div class="tx srch">Which, in the case of applications involving the provision of housing, means the lack of a five year supply of deliverable housing sites, including the relevant buffer where applicable, or where the Housing Delivery Test result was below 75% of the housing requirement over the previous three years; and in the case of traveller sites means the relevant local planning authority cannot demonstrate a five year supply of deliverable traveller sites. <a class="fnback" href="#fnref41" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn42" data-mode="dm"><span class="fnn">42</span><div class="tx srch">In the case of development proposals involving the provision of traveller sites, particular reference should instead be made to policy HO12. <a class="fnback" href="#fnref42" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn43" data-mode="dm"><span class="fnn">43</span><div class="tx srch">The Golden Rules do not apply to: (a) developments brought forward on land released from the Green Belt through plans adopted prior to 12 December 2024; (b) developments that were granted planning permission on Green Belt land prior to 12 December 2024; or (c) Traveller sites. <a class="fnback" href="#fnref43" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn44" data-mode="dm"><span class="fnn">44</span><div class="tx srch">The 50% cap does not apply to rural exception sites or community-led development exception sites, or if the local planning authority has a relevant existing policy which would apply to the development which exceeds 50%. <a class="fnback" href="#fnref44" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch14" data-ch="14" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">14.</span> <span class="srch">Achieving well-designed places</span></h1>
@@ -5150,9 +5163,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn45" data-mode="dm"><span class="fnn">45</span><div class="tx srch">Principles for creating well-designed places are described more fully in Part 1 of the Design and Placemaking planning practice guidance, points a to g in this policy forming the seven features of well-designed places described in the guidance, all of which are informed by context (paragraph 1). <a class="fnback" href="#fnref45" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch15" data-ch="15" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">15.</span> <span class="srch">Promoting sustainable transport</span></h1>
@@ -5531,10 +5544,10 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn46" data-mode="dm"><span class="fnn">46</span><div class="tx srch">Manual for streets published in: <a class="ext" href="https://www.gov.uk/government/publications/manual-for-streets" target="_blank" rel="noopener">Designing and modifying residential streets: Manual for streets - GOV.UK</a> and the Design and Placemaking planning practice guidance. <a class="fnback" href="#fnref46" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn47" data-mode="dm"><span class="fnn">47</span><div class="tx srch">Including new technologies, for example droneports, vertiports and other autonomous vehicle facilities. <a class="fnback" href="#fnref47" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch16" data-ch="16" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">16.</span> <span class="srch">Promoting healthy communities</span></h1>
@@ -5793,10 +5806,10 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn48" data-mode="pm"><span class="fnn">48</span><div class="tx srch">These include the suite of Green Infrastructure Standards for England published by Natural England <a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">(</a><a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx</a>), standards for open space, outdoor sport and play recommended by Fields in Trust (<a class="ext" href="https://fieldsintrust.org/insights/standards" target="_blank" rel="noopener">https://fieldsintrust.org/insights/standards</a>) and published Sport England Guidance (including <a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">Assessing Needs and Playing Pitch Strategy guidance | Sport </a><a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">England</a>). <a class="fnback" href="#fnref48" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn49" data-mode="dm"><span class="fnn">49</span><div class="tx srch">These include the suite of Green Infrastructure Standards for England published by Natural England <a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">(</a><a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx</a>), the standards for open space, outdoor sport and play recommended by Fields in Trust (<a class="ext" href="https://fieldsintrust.org/insights/standards" target="_blank" rel="noopener">https://fieldsintrust.org/insights/standards</a>) and published Sport England Guidance (including <a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">Assessing Needs and Playing Pitch Strategy guidance | Sport </a><a class="ext" href="https://gbr01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.sportengland.org%2Fguidance-and-support%2Ffacilities-and-planning%2Fplanning-sport%2Fassessing-needs-and-playing-pitch&amp;data=05%7C02%7CAmy.Brookes%40communities.gov.uk%7C23b17551a6b941ebf90908de38996f9b%7Cbf3468109c7d43dea87224a2ef3995a8%7C0%7C0%7C639010428826167382%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=asyOjBbuB%2BS1rdKhnkOpP46Qsw8dynyfWOvatLBF%2Fww%3D&amp;reserved=0" target="_blank" rel="noopener">England</a>). <a class="fnback" href="#fnref49" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch17" data-ch="17" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">17.</span> <span class="srch">Pollution, public protection and security</span></h1>
@@ -6067,13 +6080,13 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn50" data-mode="pm"><span class="fnn">50</span><div class="tx srch">As identified through The Town and Country Planning (Safeguarded Aerodromes, Technical Sites and Military Explosives Storage Areas) Direction 2002. <a class="fnback" href="#fnref50" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn51" data-mode="pm"><span class="fnn">51</span><div class="tx srch">Including the existing Detailed Emergency Planning Zones and Outline Planning Zones, required under the Radiation (Emergency Preparedness and Public Information) Regulations (REPPIR) 2019. <a class="fnback" href="#fnref51" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn52" data-mode="pm"><span class="fnn">52</span><div class="tx srch">The considerations in policy P5(1)(b) are relevant in this context. <a class="fnback" href="#fnref52" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn53" data-mode="dm"><span class="fnn">53</span><div class="tx srch">In consultation with the operator of the site and where appropriate the Civil Aviation Authority. <a class="fnback" href="#fnref53" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn54" data-mode="dm"><span class="fnn">54</span><div class="tx srch">The Control of Major Accident Hazards (COMAH) competent authority for zones around hazardous installations, the operator of the site and where appropriate the Civil Aviation Authority or Secretary of State for Defence for safeguarding areas around aerodromes, technical sites or military explosive storage areas, and the Office for Nuclear Regulation or Secretary of State for Defence for zones around nuclear sites. <a class="fnback" href="#fnref54" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch18" data-ch="18" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">18.</span> <span class="srch">Managing flood risk and coastal change</span></h1>
@@ -6491,11 +6504,11 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn55" data-mode="dm"><span class="fnn">55</span><div class="tx srch">Flood Map for Planning published in: <a class="ext" href="https://flood-map-for-planning.service.gov.uk/" target="_blank" rel="noopener">https://flood-map-for-planning.service.gov.uk/</a>. <a class="fnback" href="#fnref55" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn56" data-mode="dm"><span class="fnn">56</span><div class="tx srch">For the purpose of policy F2, when the exception test is being applied at the plan-making stage, it should be informed instead by an up-to-date strategic flood risk assessment. <a class="fnback" href="#fnref56" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn57" data-mode="dm"><span class="fnn">57</span><div class="tx srch">National Standards for Sustainable Drainage Systems published in: <a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">National standards for sustainable </a><a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">drainage systems (SuDS) - GOV.UK</a><a class="ext" href="https://www.gov.uk/government/publications/national-standards-for-sustainable-drainage-systems/national-standards-for-sustainable-drainage-systems-suds#introduction" target="_blank" rel="noopener">. </a> <a class="fnback" href="#fnref57" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch19" data-ch="19" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">19.</span> <span class="srch">Conserving and enhancing the natural environment</span></h1>
@@ -6798,13 +6811,13 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn58" data-mode="pm"><span class="fnn">58</span><div class="tx srch">Natural England’s Green Infrastructure Standards for England published in: <a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener">https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx</a><a class="ext" href="https://designatedsites.naturalengland.org.uk/GreenInfrastructure/GIStandards.aspx" target="_blank" rel="noopener"> </a> <a class="fnback" href="#fnref58" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn59" data-mode="dm"><span class="fnn">59</span><div class="tx srch">For the purpose of this policy and policy N5 only, whether a proposal is ‘major development’ is a matter for the decision-maker, taking into account its nature, scale and setting, and whether it could have a significant adverse impact on the statutory purposes for which the area has been designated or defined. <a class="fnback" href="#fnref59" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn60" data-mode="dm"><span class="fnn">60</span><div class="tx srch">Where significant harm cannot be mitigated, it may be appropriate to consider whether suitable compensation would be acceptable. <a class="fnback" href="#fnref60" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn61" data-mode="dm"><span class="fnn">61</span><div class="tx srch">These being that there are no feasible alternative solutions to the proposal which are less damaging, there are imperative reasons of overriding public interest for it to proceed, and compensatory measures are secured to ensure that the overall coherence of the network of habitats sites is maintained. <a class="fnback" href="#fnref61" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn62" data-mode="dm"><span class="fnn">62</span><div class="tx srch">For example, infrastructure projects (including nationally significant infrastructure projects, orders under the Transport and Works Act and hybrid bills), where the public benefit would clearly outweigh the loss or deterioration of the relevant habitats. <a class="fnback" href="#fnref62" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter" id="ch20" data-ch="20" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">20.</span> <span class="srch">Conserving and enhancing the historic environment</span></h1>
@@ -7223,11 +7236,11 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist"><h4>Footnotes</h4>
+<details class="fnlist"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn63" data-mode="both"><span class="fnn">63</span><div class="tx srch">The policies set out in this chapter also relate, as applicable, to the heritage-related consent regimes for which local planning authorities are responsible under the Planning (Listed Buildings and Conservation Areas) Act 1990. <a class="fnback" href="#fnref63" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn64" data-mode="dm"><span class="fnn">64</span><div class="tx srch">Non-designated heritage assets of archaeological interest that a decision-maker considers to be equivalent significance to scheduled monuments should be considered subject to the policies for designated heritage assets. <a class="fnback" href="#fnref64" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn65" data-mode="dm"><span class="fnn">65</span><div class="tx srch">Any development affecting World Heritage Sites should be assessed against this policy. It should be noted that some World Heritage Sites are inscribed by UNESCO to be of natural significance rather than cultural significance; and in some cases they are inscribed for both their natural and cultural significance. <a class="fnback" href="#fnref65" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter annex" id="annexA" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex A</span> <span class="srch">Implementation</span></h1>
@@ -7479,11 +7492,11 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist" data-mode="both"><h4>Footnotes</h4>
+<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn66" data-mode="both"><span class="fnn">66</span><div class="tx srch">Reference to the ‘adoption’ of a plan in annex A also applies to where a plan has been ‘approved’ by the Secretary of State. <a class="fnback" href="#fnref66" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn67" data-mode="both"><span class="fnn">67</span><div class="tx srch">Including policies in made neighbourhood plans. <a class="fnback" href="#fnref67" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn68" data-mode="both"><span class="fnn">68</span><div class="tx srch">Neighbourhood Planning (General) Regulations 2012. <a class="fnback" href="#fnref68" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter annex" id="annexB" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex B</span> <span class="srch">Glossary</span></h1>
@@ -7792,12 +7805,12 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="node gloss" id="g-windfall-sites" data-term="Windfall sites" data-page="117"><div class="row"><div class="tx srch"><span class="term"><strong>Windfall sites</strong></span>: Sites not specifically identified in the development plan.</div></div>
 </div>
-<div class="fnlist" data-mode="both"><h4>Footnotes</h4>
+<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn69" data-mode="both"><span class="fnn">69</span><div class="tx srch">Critical Minerals Strategy published in:<a class="ext" href="https://www.gov.uk/government/publications/uk-critical-minerals-strategy/vision-2035-critical-minerals-strategy" target="_blank" rel="noopener"> Vision 2035: Critical Minerals Strategy - GOV.UK.</a> <a class="fnback" href="#fnref69" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn70" data-mode="both"><span class="fnn">70</span><div class="tx srch">Potential Special Protection Areas, possible Special Areas of Conservation and proposed Ramsar sites are sites on which the Government has initiated public consultation on the scientific case for designation as a Special Protection Area, candidate Special Area of Conservation or Ramsar Site. <a class="fnback" href="#fnref70" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn71" data-mode="both"><span class="fnn">71</span><div class="tx srch">Other than for the specific purposes of policies N4 and N5. <a class="fnback" href="#fnref71" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn72" data-mode="both"><span class="fnn">72</span><div class="tx srch">For the purpose of assessing whether Travel to Work Areas fall within this definition, the 2023 GVA data should continue to be used up to the day after the publication of the 2028 GVA data. For subsequent years, the GVA data used for the purpose of this definition should continue to be regarded as fixed for each five year period. Published in: <a class="ext" href="https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeographies" target="_blank" rel="noopener">https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeograp</a> <a class="ext" href="https://www.ons.gov.uk/economy/grossvalueaddedgva/datasets/ukgvaandproductivityestimatesforothergeographies" target="_blank" rel="noopener">hies.</a> <a class="fnback" href="#fnref72" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter annex" id="annexC" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex C</span> <span class="srch">Information requirements</span></h1>
@@ -8047,12 +8060,12 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist" data-mode="both"><h4>Footnotes</h4>
+<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn73" data-mode="both"><span class="fnn">73</span><div class="tx srch">Table 125: dwelling stock estimates by local authority district:<a class="ext" href="https://www.gov.uk/government/statistical-data-sets/live-tables-on-dwelling-stock-including-vacants" target="_blank" rel="noopener"> Live tables on dwelling stock (including </a><a class="ext" href="https://www.gov.uk/government/statistical-data-sets/live-tables-on-dwelling-stock-including-vacants" target="_blank" rel="noopener">vacants) - GOV.UK.</a> <a class="fnback" href="#fnref73" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn74" data-mode="both"><span class="fnn">74</span><div class="tx srch">This will be measured against the Housing Delivery Test, where this indicates that delivery was below 85% of the housing requirement. <a class="fnback" href="#fnref74" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn75" data-mode="both"><span class="fnn">75</span><div class="tx srch">Or the housing requirement is more than five years old and the relevant development plan policies have been reviewed and found not to require updating. <a class="fnback" href="#fnref75" title="back to text">&#8617;</a></div></div>
 <div class="fn" id="fn76" data-mode="both"><span class="fnn">76</span><div class="tx srch">Defined as the total housing requirement, divided by the number of years in the plan period. For joint local plans, the percentage should be applied in aggregate across the joint local plan area. <a class="fnback" href="#fnref76" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter annex" id="annexE" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex E</span> <span class="srch">Green Belt assessments</span></h1>
@@ -8210,9 +8223,9 @@ table.tbl li::marker{color:var(--ink3)}
 <td class="srch"><p>Assessment areas that make no or only a weak contribution are likely to include those that:</p><ul><li>Do not form part of the setting of a historic town; or</li><li>Have no visual, physical, or experiential connection to the historic aspects of the town.</li></ul></td>
 </tr>
 </tbody></table></div>
-<div class="fnlist" data-mode="both"><h4>Footnotes</h4>
+<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn77" data-mode="both"><span class="fnn">77</span><div class="tx srch">For this purpose ‘towns’ includes cities. <a class="fnback" href="#fnref77" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
 <section class="chapter annex" id="annexF" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex F</span> <span class="srch">Managing Flood Risk and Coastal Change</span></h1>
@@ -8620,9 +8633,9 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="fnlist" data-mode="both"><h4>Footnotes</h4>
+<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>
 <div class="fn" id="fn78" data-mode="both"><span class="fnn">78</span><div class="tx srch">Landfill in this annex is as defined in Schedule 10 of the Environmental Permitting (England and Wales) Regulations 2010:<a class="ext" href="https://www.legislation.gov.uk/uksi/2010/675/schedule/10/made" target="_blank" rel="noopener"> The Environmental Permitting (England and Wales) Regulations 2010</a><a class="ext" href="https://www.legislation.gov.uk/uksi/2010/675/schedule/10/made" target="_blank" rel="noopener">.</a> <a class="fnback" href="#fnref78" title="back to text">&#8617;</a></div></div>
-</div>
+</details>
 </section>
     <div class="footer">Source: <em>National Planning Policy Framework &mdash; Plan-making and
     national decision-making policies</em>, Ministry of Housing, Communities and Local Government,
@@ -8840,7 +8853,9 @@ function run(q){
     a.parentElement.classList.toggle('hide', !p || p.classList.contains('hide'));
   });
   document.querySelectorAll('.fnlist').forEach(f=>{
-    if(!f.querySelector('mark')) f.classList.add('hide');
+    const on = !!f.querySelector('mark');
+    if(!on) f.classList.add('hide');
+    else f.open = true;
   });
   count.style.display='block';
   count.textContent = total ? total + ' match' + (total===1?'':'es') : 'No matches';

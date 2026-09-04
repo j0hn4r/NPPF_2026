@@ -149,6 +149,34 @@ exclusion of their own. Forgetting the content-area exclusion, or renaming the
 class without updating the regex, makes every rendered-HTML fidelity check
 fail with a `★`/`☆` glyph showing up in the diff.
 
+## Footnote lists
+
+Each chapter's and annex's `.fnlist` is a native `<details>` element (collapsed
+by default), with `<summary><h4>Footnotes</h4></summary>` as the toggle — see
+the chapter-footnotes and annex-footnotes blocks in `render.py`. This needed no
+`verify.py` change: the literal substring `<h4>Footnotes</h4>` still appears
+unchanged inside the `<summary>`, so the existing `re.sub(r'<h4>Footnotes</h4>',
+'', txt)` exclusion still strips it, and `<details>`/`<summary>` themselves are
+just more tags for the generic tag-stripping regex to remove.
+
+Two behaviours to keep in mind when touching this:
+- **Search auto-opens a matching list.** `run()` sets `.open = true` on any
+  `.fnlist` that ends up containing a `<mark>`, so a highlighted result inside
+  a collapsed footnote list is actually visible. It never sets `open = false`
+  anywhere — closed-by-default only describes the initial render, not
+  something the JS re-imposes, so toggling the mode/bookmark filters never
+  collapses a list the reader opened themselves.
+- **Linking directly to a footnote still works.** Clicking an in-text `sup.fnref`
+  marker shows the popover instead of navigating (see `showPop`/`FN` data), so
+  it never needs the list open at all. A bare `#fn43` URL, though, relies on
+  the browser's native behaviour of auto-expanding a closed `<details>` when
+  the fragment target is inside it — don't add JS to "fix" this; it already
+  works without it.
+- **Print needs it force-open.** The print stylesheet overrides the
+  closed-`<details>` content with `display:revert` and hides the disclosure
+  triangle, so a printed page shows full footnote text regardless of what was
+  expanded on screen.
+
 ## Traps that have already bitten us
 
 Fixed bugs. Please do not reintroduce them.

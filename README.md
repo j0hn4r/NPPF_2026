@@ -29,7 +29,8 @@ Generated from the official PDF and checked character-for-character against it.
 - **Full-text search** with match highlighting, reaching into table cells and
   glossary definitions.
 - **Footnotes 1–78** with markers exactly where they appear in the source; hover or
-  tap for a popover, or read the list at the end of each chapter or annex.
+  tap for a popover, or expand the collapsed footnote list at the end of each
+  chapter or annex to read them all.
 - **A–Z jump bar** for the 129-term glossary in Annex B.
 - Stable anchors for citation — `#PM1`, `#GB8-1-a-ii`, `#fn43`, `#g-grey-belt`.
 - Light and dark themes, and a print stylesheet.

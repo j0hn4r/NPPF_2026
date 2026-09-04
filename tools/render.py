@@ -231,7 +231,7 @@ for ch in chapters:
     fns = [n for n, o in fn_owner.items() if o == ch['marker']]
     fns.sort(key=int)
     if fns:
-        body.append('<div class="fnlist"><h4>Footnotes</h4>')
+        body.append('<details class="fnlist"><summary><h4>Footnotes</h4></summary>')
         for n in fns:
             body.append(
                 f'<div class="fn" id="fn{n}" data-mode="{fnmode(n)}">'
@@ -239,7 +239,7 @@ for ch in chapters:
                 f'<div class="tx srch">{runs_html(footnotes[n]["runs"], allow_fn=False)}'
                 f' <a class="fnback" href="#fnref{n}" title="back to text">&#8617;</a>'
                 f'</div></div>')
-        body.append('</div>')
+        body.append('</details>')
     body.append('</section>')
 
     # ---- nav entry
@@ -410,7 +410,7 @@ for an in annexes:
     fns = [n for n, o in fn_owner.items() if o == an['marker']]
     fns.sort(key=int)
     if fns:
-        body.append('<div class="fnlist" data-mode="both"><h4>Footnotes</h4>')
+        body.append('<details class="fnlist" data-mode="both"><summary><h4>Footnotes</h4></summary>')
         for n in fns:
             body.append(
                 f'<div class="fn" id="fn{n}" data-mode="both">'
@@ -418,7 +418,7 @@ for an in annexes:
                 f'<div class="tx srch">{runs_html(footnotes[n]["runs"], allow_fn=False)}'
                 f' <a class="fnback" href="#fnref{n}" title="back to text">&#8617;</a>'
                 f'</div></div>')
-        body.append('</div>')
+        body.append('</details>')
     body.append('</section>')
 
     annex_nav.append(f'<li class="nav-ch" data-chmode="both" data-kind="annex">'
@@ -661,8 +661,18 @@ sup.fnref a{text-decoration:none;font-weight:600;padding:0 .5px;color:var(--acce
   font-family:var(--sans)}
 sup.fnref a:hover{background:var(--mark);color:var(--marktx);border-radius:2px}
 .fnlist{margin:38px 0 0;padding-top:14px;border-top:1px solid var(--rule2)}
-.fnlist h4{margin:0 0 10px;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
+.fnlist summary{cursor:pointer;list-style:none;display:flex;align-items:center;
+  gap:7px;margin:0 0 10px;-webkit-tap-highlight-color:transparent}
+.fnlist summary::-webkit-details-marker{display:none}
+.fnlist summary::before{content:'';flex:0 0 auto;width:0;height:0;
+  border-style:solid;border-width:4px 0 4px 6px;
+  border-color:transparent transparent transparent var(--ink3);
+  transition:transform .15s}
+.fnlist[open] summary::before{transform:rotate(90deg)}
+.fnlist summary:hover::before{border-left-color:var(--accent)}
+.fnlist h4{display:inline;margin:0;font:600 9.5px/1.5 var(--sans);letter-spacing:.16em;
   text-transform:uppercase;color:var(--ink3)}
+.fnlist summary:hover h4{color:var(--accent)}
 .fn{display:flex;gap:11px;margin:7px 0;font-size:13px;line-height:1.55;color:var(--ink2)}
 .fn .fnn{flex:0 0 22px;text-align:right;color:var(--accent2);font:600 11px/1.72 var(--sans);
   font-variant-numeric:tabular-nums}
@@ -747,6 +757,9 @@ table.tbl li::marker{color:var(--ink3)}
   .doc{max-width:none;border:0;padding:0}
   .policy,.node,table.tbl,.fnlist{break-inside:avoid}
   sup.fnref a{color:#000}
+  .fnlist summary{cursor:default}
+  .fnlist summary::before{display:none}
+  .fnlist:not([open])>*:not(summary){display:revert}
 }
 """
 
@@ -959,7 +972,9 @@ function run(q){
     a.parentElement.classList.toggle('hide', !p || p.classList.contains('hide'));
   });
   document.querySelectorAll('.fnlist').forEach(f=>{
-    if(!f.querySelector('mark')) f.classList.add('hide');
+    const on = !!f.querySelector('mark');
+    if(!on) f.classList.add('hide');
+    else f.open = true;
   });
   count.style.display='block';
   count.textContent = total ? total + ' match' + (total===1?'':'es') : 'No matches';
