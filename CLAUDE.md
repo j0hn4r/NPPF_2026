@@ -74,7 +74,7 @@ tools/build.py                runs the lot, exits non-zero on any failure
 |---|---|---|
 | Colours, type, spacing, layout, dark mode | `render.py` → the `CSS` string | One long stylesheet; tokens at the top |
 | Page furniture (header, sidebar, buttons) | `render.py` → the `HTML` template | Keep the `__CSS__` / `__NAV__` / `__BODY__` / `__JS__` placeholders |
-| Search, filter, footnote popovers, scroll-spy | `render.py` → the `JS` string | See the traps below |
+| Search, filter, footnote popovers, scroll-spy, bookmarks | `render.py` → the `JS` string | See the traps below |
 | How a block type is marked up | `render.py` → `render_block`, `walk`, `render_annex_node` | Changing text content here will fail verification |
 | Which pages are read | `extract.py` `START/END`, `annex.py` `START/END` | 0-based page indices |
 | How hierarchy is detected | `parse.py` | Indent thresholds and marker regexes |
@@ -99,6 +99,25 @@ procedural "should not be approved without [steps]" clauses that aren't a
 refusal test. **Re-derive this list by hand** against the new text whenever
 the source PDF changes; nothing will fail verification if it drifts, since it
 only adds an HTML attribute and doesn't touch any verified text.
+
+## Bookmarks
+
+Every policy heading has a star button (`.bookmark-btn`, in `render.py`'s
+`walk()`) that saves the policy id to `localStorage` under the key
+`nppf-bookmarks` — per-browser, no backend. A sidebar checkbox (`#bookmarkToggle`,
+toggling the module-level `BOOKMARKS_ONLY` flag) filters the document down to
+just the bookmarked policies, composing with the existing plan-making /
+decision-making filter (`MODE`) via the `.bhide` class, exactly parallel to how
+`.mhide` implements that filter. See `deriveVisibility()`, `applyBookmarkFilter()`
+and `syncBookmarkUI()` in the `JS` string.
+
+**The bookmark button's markup must stay excluded from `verify.py`'s HTML
+extraction.** It's interactive chrome (a star glyph + label), not document
+text, so it's stripped by name (`<button ... class="bookmark-btn">...</button>`)
+in the same place the `fnback` back-arrows are — before the generic
+tag-stripping regex runs. Forgetting this, or renaming the class without
+updating the regex, makes every rendered-HTML fidelity check fail with a
+`★`/`☆` glyph showing up in the diff.
 
 ## Traps that have already bitten us
 

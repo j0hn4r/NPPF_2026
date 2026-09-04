@@ -194,8 +194,11 @@ for ch in chapters:
               body.append(f'<div class="policy" id="{pid}" data-policy="{pid}" '
                           f'data-mode="{current_mode[0]}"{refusal_attr} '
                           f'data-page="{node["page"]}">')
-              body.append(f'<h3 class="policy-h"><span class="pid">{pid}:</span> '
-                          f'<span class="srch">{html.escape(title)}</span></h3>')
+              body.append(f'<h3 class="policy-h"><span class="policy-title">'
+                          f'<span class="pid">{pid}:</span> '
+                          f'<span class="srch">{html.escape(title)}</span></span>'
+                          f'<button type="button" class="bookmark-btn" data-bookmark="{pid}" '
+                          f'aria-pressed="false" aria-label="Bookmark {pid}">&#9734;</button></h3>')
               st['policy'] = True
               for sub in node['children']:
                   render_block(sub, pid, body)
@@ -232,8 +235,8 @@ for ch in chapters:
         nav.append('<ul class="nav-pol">')
         for pid, title, pmode in navpolicies:
             refusal_attr = ' data-refusal="1"' if pid in REFUSAL_POLICIES else ''
-            nav.append(f'<li data-mode="{pmode}"{refusal_attr}><a href="#{pid}" '
-                       f'class="navlink" data-target="{pid}">'
+            nav.append(f'<li data-mode="{pmode}" data-policy="{pid}"{refusal_attr}>'
+                       f'<a href="#{pid}" class="navlink" data-target="{pid}">'
                        f'<span class="pid">{pid}</span>'
                        f'{html.escape(title)}</a></li>')
         nav.append('</ul>')
@@ -429,6 +432,7 @@ CSS = r"""
   --mark:#f6e7a6;   --marktx:#3b3005;
   --sel:#bfd9cb;    --seltx:#0f221a;  --flash:#e6ede9;
   --refusal:#a5502e; --refusaltint:#f4e8e0;
+  --star:#b8860b;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,ui-serif,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --fs:16.5px; --lh:1.66; --line:calc(var(--fs) * var(--lh));
@@ -442,6 +446,7 @@ CSS = r"""
     --mark:#4b3f13;  --marktx:#f4ecd3;
     --sel:#3a5b4d;   --seltx:#f0f6f2;  --flash:#232d29;
     --refusal:#d98a6e; --refusaltint:#2b211d;
+    --star:#e3b54c;
   }
 }
 *{box-sizing:border-box}
@@ -485,6 +490,14 @@ aside{width:306px;flex:0 0 306px;position:sticky;top:0;height:100vh;
   cursor:pointer}
 .refusalbar:hover{color:var(--ink)}
 
+.bookmarkbar{display:flex;align-items:center;gap:8px;margin:8px 24px 0;
+  font:500 11px/1.35 var(--sans);color:var(--ink2);cursor:pointer}
+.bookmarkbar input{accent-color:var(--star);width:13px;height:13px;flex:0 0 auto;
+  cursor:pointer}
+.bookmarkbar:hover{color:var(--ink)}
+.bookmarkbar .bmcount{margin-left:auto;font:600 10px/1 var(--sans);color:var(--ink3);
+  background:var(--tint);border-radius:8px;padding:2px 7px}
+
 .searchbox{position:relative;margin:16px 24px 0;border-bottom:1px solid var(--rule2)}
 .searchbox input{width:100%;padding:7px 22px 7px 19px;font:400 13.5px/1.4 var(--sans);
   color:var(--ink);background:none;border:0;outline:none}
@@ -521,6 +534,7 @@ nav .navgroup{margin:22px 12px 6px;font:600 9.5px/1.5 var(--sans);letter-spacing
 nav li.hide,section.hide,.policy.hide,.node.hide,.secgrp.hide,.fnlist.hide,
 .tblwrap.hide,.subgrp.hide,.azbar.hide{display:none}
 .mhide{display:none !important}
+.bhide{display:none !important}
 
 /* ---------- the page ---------- */
 main{flex:1;min-width:0;background:var(--paper);padding:0 0 90px}
@@ -558,9 +572,17 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 .policy{margin:30px 0 0;padding-top:22px;border-top:1px solid var(--rule)}
 .secgrp>.policy:first-of-type{border-top:0;padding-top:6px}
 .policy-h{margin:0 0 14px;font:600 18px/1.34 var(--serif);letter-spacing:-.006em;
-  text-wrap:pretty}
+  display:flex;align-items:flex-start;gap:12px}
+.policy-h .policy-title{flex:1 1 auto;min-width:0;text-wrap:pretty}
 .policy-h .pid{display:inline-block;margin-right:.45em;font:700 11.5px/1 var(--sans);
   letter-spacing:.1em;color:var(--accent);vertical-align:2.5px}
+.bookmark-btn{flex:0 0 auto;margin-top:.15em;padding:2px 4px;border:0;border-radius:3px;
+  background:none;color:var(--rule2);font-size:16px;line-height:1;cursor:pointer;
+  transition:color .13s,background .13s}
+.bookmark-btn:hover{color:var(--accent2);background:var(--tint)}
+.bookmark-btn.on{color:var(--star)}
+.bookmark-btn.on:hover{color:var(--star)}
+nav li.bookmarked .pid{color:var(--star)}
 [id]{scroll-margin-top:26px}
 
 /* landing marker: a persistent accent bar in the margin plus a background that
@@ -738,8 +760,8 @@ const sub = document.getElementById('sub');
 
 function deriveVisibility(){
   document.querySelectorAll('section.chapter').forEach(c=>{
-    const vis = MODE === 'all' || !!c.dataset.kind
-                || !!c.querySelector('.policy:not(.mhide)');
+    const vis = (MODE === 'all' && !BOOKMARKS_ONLY) || !!c.dataset.kind
+                || !!c.querySelector('.policy:not(.mhide):not(.bhide)');
     c.classList.toggle('mhide', !vis);
     const li = document.querySelector('nav li.nav-ch[data-chmode] a[data-target="'+c.id+'"]');
     if(li) li.parentElement.classList.toggle('mhide', !vis);
@@ -768,6 +790,58 @@ modeBtns.forEach(b=>b.addEventListener('click', ()=>applyMode(b.dataset.setmode)
 const refusalToggle = document.getElementById('refusalToggle');
 refusalToggle.addEventListener('change', ()=>{
   document.body.classList.toggle('show-refusal', refusalToggle.checked);
+});
+
+/* ---------- bookmarks (saved to this browser only, via localStorage) ---------- */
+let BOOKMARKS;
+try { BOOKMARKS = new Set(JSON.parse(localStorage.getItem('nppf-bookmarks')) || []); }
+catch(e){ BOOKMARKS = new Set(); }
+let BOOKMARKS_ONLY = false;
+const bookmarkToggle = document.getElementById('bookmarkToggle');
+const bmCount = document.getElementById('bmCount');
+
+function saveBookmarks(){
+  try { localStorage.setItem('nppf-bookmarks', JSON.stringify(Array.from(BOOKMARKS))); }
+  catch(e){ /* storage unavailable (private mode, quota) - bookmarks just won't persist */ }
+}
+
+function syncBookmarkUI(pid){
+  const on = BOOKMARKS.has(pid);
+  const btn = document.querySelector('.bookmark-btn[data-bookmark="'+pid+'"]');
+  if(btn){ btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+           btn.textContent = on ? '★' : '☆'; }
+  const navLi = document.querySelector('nav li[data-policy="'+pid+'"]');
+  if(navLi) navLi.classList.toggle('bookmarked', on);
+}
+
+function applyBookmarkFilter(){
+  document.querySelectorAll('.policy[data-policy]').forEach(p=>{
+    p.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(p.dataset.policy));
+  });
+  document.querySelectorAll('nav li[data-policy]').forEach(li=>{
+    li.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(li.dataset.policy));
+  });
+  deriveVisibility();
+  hidePop();
+  const q = input.value.trim();
+  if(q.length >= 2) run(input.value); else clearAll();
+}
+
+document.querySelectorAll('.bookmark-btn').forEach(btn=>{
+  const pid = btn.dataset.bookmark;
+  syncBookmarkUI(pid);
+  btn.addEventListener('click', ()=>{
+    if(BOOKMARKS.has(pid)) BOOKMARKS.delete(pid); else BOOKMARKS.add(pid);
+    saveBookmarks();
+    syncBookmarkUI(pid);
+    bmCount.textContent = BOOKMARKS.size;
+    if(BOOKMARKS_ONLY) applyBookmarkFilter();
+  });
+});
+bmCount.textContent = BOOKMARKS.size;
+bookmarkToggle.addEventListener('change', ()=>{
+  BOOKMARKS_ONLY = bookmarkToggle.checked;
+  applyBookmarkFilter();
 });
 
 /* ---------- search ---------- */
@@ -818,7 +892,7 @@ function run(q){
   const re = new RegExp(esc(q), 'gi');
   let total = 0;
   searchable.forEach(el=>{
-    if(el.closest('.mhide')) return;
+    if(el.closest('.mhide') || el.closest('.bhide')) return;
     if(new RegExp(esc(q),'i').test(el.textContent)){
       el.dataset.hit = '1';
       total += highlight(el, new RegExp(esc(q),'gi'));
@@ -948,6 +1022,12 @@ HTML = """<!DOCTYPE html>
          title="Policies S4 and S5: national decision-making policies which state that development proposals should be refused in specific circumstances">
     <input type="checkbox" id="refusalToggle">
     <span>Highlight S4/S5 refusal policies</span>
+  </label>
+  <label class="bookmarkbar" for="bookmarkToggle"
+         title="Show only the policies you've bookmarked (saved in this browser)">
+    <input type="checkbox" id="bookmarkToggle">
+    <span>Bookmarks only</span>
+    <span class="bmcount" id="bmCount">0</span>
   </label>
   <div class="searchbox">
     <span class="ico">&#9906;</span>
