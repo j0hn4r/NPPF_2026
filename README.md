@@ -20,9 +20,12 @@ Generated from the official PDF and checked character-for-character against it.
   refused in specific circumstances, the class of policy that policies S4 and
   S5 refer to when describing when the presumption in favour of development is
   displaced.
-- **Bookmarks** — star any policy to save it in this browser (via `localStorage`,
-  no account or server involved), then tick "Bookmarks only" to filter the whole
-  page down to just your saved policies.
+- **Bookmarks** — star any policy, or any section of the introduction or of
+  Annexes A and D, to save it in this browser (via `localStorage`, no account
+  or server involved). Star buttons appear both on the item itself and next to
+  it in the sidebar. Tick "Bookmarks only" to filter the whole page — including
+  the introduction and annexes, which otherwise always stay visible — down to
+  just what you've saved.
 - **Full-text search** with match highlighting, reaching into table cells and
   glossary definitions.
 - **Footnotes 1–78** with markers exactly where they appear in the source; hover or

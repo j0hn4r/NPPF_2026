@@ -102,9 +102,16 @@ nav{overflow-y:auto;overscroll-behavior:contain;padding:16px 14px 48px;flex:1;
   scrollbar-width:thin}
 .navtoggle{display:none}
 nav ul{list-style:none;margin:0;padding:0}
+nav li{position:relative}
 nav .navlink{position:relative;display:block;text-decoration:none;color:var(--ink2);
   padding:4px 10px 4px 12px;font-size:12.5px;line-height:1.38;
   border-left:2px solid transparent;transition:color .12s,border-color .12s}
+nav li:not(.nav-ch) > .navlink{padding-right:26px}
+nav .nav-bookmark-btn{position:absolute;right:2px;top:50%;transform:translateY(-50%);
+  font-size:12px;padding:3px 5px;opacity:0;transition:opacity .13s,color .13s,background .13s}
+nav li:hover .nav-bookmark-btn,nav .nav-bookmark-btn.on,
+nav .nav-bookmark-btn:focus-visible{opacity:1}
+@media (hover:none){ nav .nav-bookmark-btn{opacity:1} }
 nav .chlink{color:var(--ink);font-weight:600;font-size:12.5px;margin-top:12px;
   letter-spacing:.005em}
 nav .navlink:hover{color:var(--accent)}
@@ -152,6 +159,7 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 .section-h{margin:44px 0 2px;font:600 10.5px/1.5 var(--sans);letter-spacing:.15em;
   text-transform:uppercase;color:var(--accent);padding-bottom:8px;
   border-bottom:1px solid var(--rule)}
+.section-h.bm{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .secgrp{margin:0}
 
 /* ---------- policies ---------- */
@@ -162,13 +170,16 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 .policy-h .policy-title{flex:1 1 auto;min-width:0;text-wrap:pretty}
 .policy-h .pid{display:inline-block;margin-right:.45em;font:700 11.5px/1 var(--sans);
   letter-spacing:.1em;color:var(--accent);vertical-align:2.5px}
-.bookmark-btn{flex:0 0 auto;margin-top:.15em;padding:2px 4px;border:0;border-radius:3px;
-  background:none;color:var(--rule2);font-size:16px;line-height:1;cursor:pointer;
-  transition:color .13s,background .13s}
+.bookmark-btn{border:0;border-radius:3px;background:none;color:var(--rule2);
+  line-height:1;cursor:pointer;transition:color .13s,background .13s}
 .bookmark-btn:hover{color:var(--accent2);background:var(--tint)}
 .bookmark-btn.on{color:var(--star)}
 .bookmark-btn.on:hover{color:var(--star)}
+.policy-h .bookmark-btn{flex:0 0 auto;margin-top:.15em;padding:2px 4px;font-size:16px}
+.section-h .bookmark-btn{flex:0 0 auto;padding:2px 4px;font-size:13px;
+  text-transform:none;letter-spacing:0}
 nav li.bookmarked .pid{color:var(--star)}
+nav li.bookmarked:not([data-policy]) > .navlink{color:var(--star)}
 [id]{scroll-margin-top:26px}
 
 /* landing marker: a persistent accent bar in the margin plus a background that
@@ -336,225 +347,225 @@ table.tbl li::marker{color:var(--ink3)}
           aria-controls="nav">Contents</button>
   <nav id="nav"><ul class="nav-root"><li class="nav-ch" data-chmode="both" data-kind="intro"><a href="#ch1" class="navlink chlink" data-target="ch1"><span class="cn">1</span>Introduction</a>
 <ul class="nav-pol">
-<li data-mode="both"><a href="#ch1-s1" class="navlink" data-target="ch1-s1">Using the Framework</a></li>
-<li data-mode="both"><a href="#ch1-s2" class="navlink" data-target="ch1-s2">Other policy and guidance</a></li>
-<li data-mode="both"><a href="#ch1-s3" class="navlink" data-target="ch1-s3">Purpose of the planning system</a></li>
+<li data-mode="both" data-bm="ch1-s1"><a href="#ch1-s1" class="navlink" data-target="ch1-s1">Using the Framework</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="ch1-s1" aria-pressed="false" aria-label="Bookmark Using the Framework">&#9734;</button></li>
+<li data-mode="both" data-bm="ch1-s2"><a href="#ch1-s2" class="navlink" data-target="ch1-s2">Other policy and guidance</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="ch1-s2" aria-pressed="false" aria-label="Bookmark Other policy and guidance">&#9734;</button></li>
+<li data-mode="both" data-bm="ch1-s3"><a href="#ch1-s3" class="navlink" data-target="ch1-s3">Purpose of the planning system</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="ch1-s3" aria-pressed="false" aria-label="Bookmark Purpose of the planning system">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="pm"><a href="#ch2" class="navlink chlink" data-target="ch2"><span class="cn">2</span>Plan-making policies</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="PM1"><a href="#PM1" class="navlink" data-target="PM1"><span class="pid">PM1</span>Spatial development strategies</a></li>
-<li data-mode="pm" data-policy="PM2"><a href="#PM2" class="navlink" data-target="PM2"><span class="pid">PM2</span>Local plans</a></li>
-<li data-mode="pm" data-policy="PM3"><a href="#PM3" class="navlink" data-target="PM3"><span class="pid">PM3</span>Minerals and waste plans</a></li>
-<li data-mode="pm" data-policy="PM4"><a href="#PM4" class="navlink" data-target="PM4"><span class="pid">PM4</span>Supplementary plans</a></li>
-<li data-mode="pm" data-policy="PM5"><a href="#PM5" class="navlink" data-target="PM5"><span class="pid">PM5</span>Neighbourhood plans</a></li>
-<li data-mode="pm" data-policy="PM6"><a href="#PM6" class="navlink" data-target="PM6"><span class="pid">PM6</span>General principles for plan-making</a></li>
-<li data-mode="pm" data-policy="PM7"><a href="#PM7" class="navlink" data-target="PM7"><span class="pid">PM7</span>Initiating plan-making for local plans and minerals and waste plans</a></li>
-<li data-mode="pm" data-policy="PM8"><a href="#PM8" class="navlink" data-target="PM8"><span class="pid">PM8</span>Evidence for plan-making</a></li>
-<li data-mode="pm" data-policy="PM9"><a href="#PM9" class="navlink" data-target="PM9"><span class="pid">PM9</span>Identifying and assessing land for development</a></li>
-<li data-mode="pm" data-policy="PM10"><a href="#PM10" class="navlink" data-target="PM10"><span class="pid">PM10</span>Maintaining cooperation between plan-making authorities</a></li>
-<li data-mode="pm" data-policy="PM11"><a href="#PM11" class="navlink" data-target="PM11"><span class="pid">PM11</span>Demonstrating cooperation between plan-making authorities</a></li>
-<li data-mode="pm" data-policy="PM12"><a href="#PM12" class="navlink" data-target="PM12"><span class="pid">PM12</span>Developer contributions</a></li>
-<li data-mode="pm" data-policy="PM13"><a href="#PM13" class="navlink" data-target="PM13"><span class="pid">PM13</span>Setting standards</a></li>
-<li data-mode="pm" data-policy="PM14"><a href="#PM14" class="navlink" data-target="PM14"><span class="pid">PM14</span>Examining spatial development strategies</a></li>
-<li data-mode="pm" data-policy="PM15"><a href="#PM15" class="navlink" data-target="PM15"><span class="pid">PM15</span>Examining local plans and minerals and waste plans</a></li>
-<li data-mode="pm" data-policy="PM16"><a href="#PM16" class="navlink" data-target="PM16"><span class="pid">PM16</span>Examining supplementary plans</a></li>
-<li data-mode="pm" data-policy="PM17"><a href="#PM17" class="navlink" data-target="PM17"><span class="pid">PM17</span>Examining neighbourhood plans</a></li>
+<li data-mode="pm" data-policy="PM1"><a href="#PM1" class="navlink" data-target="PM1"><span class="pid">PM1</span>Spatial development strategies</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM1" aria-pressed="false" aria-label="Bookmark PM1">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM2"><a href="#PM2" class="navlink" data-target="PM2"><span class="pid">PM2</span>Local plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM2" aria-pressed="false" aria-label="Bookmark PM2">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM3"><a href="#PM3" class="navlink" data-target="PM3"><span class="pid">PM3</span>Minerals and waste plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM3" aria-pressed="false" aria-label="Bookmark PM3">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM4"><a href="#PM4" class="navlink" data-target="PM4"><span class="pid">PM4</span>Supplementary plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM4" aria-pressed="false" aria-label="Bookmark PM4">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM5"><a href="#PM5" class="navlink" data-target="PM5"><span class="pid">PM5</span>Neighbourhood plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM5" aria-pressed="false" aria-label="Bookmark PM5">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM6"><a href="#PM6" class="navlink" data-target="PM6"><span class="pid">PM6</span>General principles for plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM6" aria-pressed="false" aria-label="Bookmark PM6">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM7"><a href="#PM7" class="navlink" data-target="PM7"><span class="pid">PM7</span>Initiating plan-making for local plans and minerals and waste plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM7" aria-pressed="false" aria-label="Bookmark PM7">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM8"><a href="#PM8" class="navlink" data-target="PM8"><span class="pid">PM8</span>Evidence for plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM8" aria-pressed="false" aria-label="Bookmark PM8">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM9"><a href="#PM9" class="navlink" data-target="PM9"><span class="pid">PM9</span>Identifying and assessing land for development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM9" aria-pressed="false" aria-label="Bookmark PM9">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM10"><a href="#PM10" class="navlink" data-target="PM10"><span class="pid">PM10</span>Maintaining cooperation between plan-making authorities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM10" aria-pressed="false" aria-label="Bookmark PM10">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM11"><a href="#PM11" class="navlink" data-target="PM11"><span class="pid">PM11</span>Demonstrating cooperation between plan-making authorities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM11" aria-pressed="false" aria-label="Bookmark PM11">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM12"><a href="#PM12" class="navlink" data-target="PM12"><span class="pid">PM12</span>Developer contributions</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM12" aria-pressed="false" aria-label="Bookmark PM12">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM13"><a href="#PM13" class="navlink" data-target="PM13"><span class="pid">PM13</span>Setting standards</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM13" aria-pressed="false" aria-label="Bookmark PM13">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM14"><a href="#PM14" class="navlink" data-target="PM14"><span class="pid">PM14</span>Examining spatial development strategies</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM14" aria-pressed="false" aria-label="Bookmark PM14">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM15"><a href="#PM15" class="navlink" data-target="PM15"><span class="pid">PM15</span>Examining local plans and minerals and waste plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM15" aria-pressed="false" aria-label="Bookmark PM15">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM16"><a href="#PM16" class="navlink" data-target="PM16"><span class="pid">PM16</span>Examining supplementary plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM16" aria-pressed="false" aria-label="Bookmark PM16">&#9734;</button></li>
+<li data-mode="pm" data-policy="PM17"><a href="#PM17" class="navlink" data-target="PM17"><span class="pid">PM17</span>Examining neighbourhood plans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="PM17" aria-pressed="false" aria-label="Bookmark PM17">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="dm"><a href="#ch3" class="navlink chlink" data-target="ch3"><span class="cn">3</span>Decision-making policies</a>
 <ul class="nav-pol">
-<li data-mode="dm" data-policy="DM1"><a href="#DM1" class="navlink" data-target="DM1"><span class="pid">DM1</span>Preparing development proposals</a></li>
-<li data-mode="dm" data-policy="DM2"><a href="#DM2" class="navlink" data-target="DM2"><span class="pid">DM2</span>Information requirements</a></li>
-<li data-mode="dm" data-policy="DM3"><a href="#DM3" class="navlink" data-target="DM3"><span class="pid">DM3</span>Determining development proposals</a></li>
-<li data-mode="dm" data-policy="DM4"><a href="#DM4" class="navlink" data-target="DM4"><span class="pid">DM4</span>Emerging development plan proposals</a></li>
-<li data-mode="dm" data-policy="DM5"><a href="#DM5" class="navlink" data-target="DM5"><span class="pid">DM5</span>Development viability</a></li>
-<li data-mode="dm" data-policy="DM6"><a href="#DM6" class="navlink" data-target="DM6"><span class="pid">DM6</span>Use of planning conditions and obligations</a></li>
-<li data-mode="dm" data-policy="DM7"><a href="#DM7" class="navlink" data-target="DM7"><span class="pid">DM7</span>Relationship with other regulatory regimes</a></li>
-<li data-mode="dm" data-policy="DM8"><a href="#DM8" class="navlink" data-target="DM8"><span class="pid">DM8</span>Unauthorised development and enforcement</a></li>
-<li data-mode="dm" data-policy="DM9"><a href="#DM9" class="navlink" data-target="DM9"><span class="pid">DM9</span>Use of development orders</a></li>
-<li data-mode="dm" data-policy="DM10"><a href="#DM10" class="navlink" data-target="DM10"><span class="pid">DM10</span>Removal of national permitted development rights</a></li>
+<li data-mode="dm" data-policy="DM1"><a href="#DM1" class="navlink" data-target="DM1"><span class="pid">DM1</span>Preparing development proposals</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM1" aria-pressed="false" aria-label="Bookmark DM1">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM2"><a href="#DM2" class="navlink" data-target="DM2"><span class="pid">DM2</span>Information requirements</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM2" aria-pressed="false" aria-label="Bookmark DM2">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM3"><a href="#DM3" class="navlink" data-target="DM3"><span class="pid">DM3</span>Determining development proposals</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM3" aria-pressed="false" aria-label="Bookmark DM3">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM4"><a href="#DM4" class="navlink" data-target="DM4"><span class="pid">DM4</span>Emerging development plan proposals</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM4" aria-pressed="false" aria-label="Bookmark DM4">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM5"><a href="#DM5" class="navlink" data-target="DM5"><span class="pid">DM5</span>Development viability</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM5" aria-pressed="false" aria-label="Bookmark DM5">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM6"><a href="#DM6" class="navlink" data-target="DM6"><span class="pid">DM6</span>Use of planning conditions and obligations</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM6" aria-pressed="false" aria-label="Bookmark DM6">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM7"><a href="#DM7" class="navlink" data-target="DM7"><span class="pid">DM7</span>Relationship with other regulatory regimes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM7" aria-pressed="false" aria-label="Bookmark DM7">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM8"><a href="#DM8" class="navlink" data-target="DM8"><span class="pid">DM8</span>Unauthorised development and enforcement</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM8" aria-pressed="false" aria-label="Bookmark DM8">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM9"><a href="#DM9" class="navlink" data-target="DM9"><span class="pid">DM9</span>Use of development orders</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM9" aria-pressed="false" aria-label="Bookmark DM9">&#9734;</button></li>
+<li data-mode="dm" data-policy="DM10"><a href="#DM10" class="navlink" data-target="DM10"><span class="pid">DM10</span>Removal of national permitted development rights</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DM10" aria-pressed="false" aria-label="Bookmark DM10">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch4" class="navlink chlink" data-target="ch4"><span class="cn">4</span>Achieving sustainable development</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="S1"><a href="#S1" class="navlink" data-target="S1"><span class="pid">S1</span>Positive plan-making</a></li>
-<li data-mode="pm" data-policy="S2"><a href="#S2" class="navlink" data-target="S2"><span class="pid">S2</span>Producing a spatial strategy</a></li>
-<li data-mode="dm" data-policy="S3"><a href="#S3" class="navlink" data-target="S3"><span class="pid">S3</span>Presumption in favour of sustainable development</a></li>
-<li data-mode="dm" data-policy="S4"><a href="#S4" class="navlink" data-target="S4"><span class="pid">S4</span>Principle of development within settlements</a></li>
-<li data-mode="dm" data-policy="S5"><a href="#S5" class="navlink" data-target="S5"><span class="pid">S5</span>Principle of development outside settlements</a></li>
-<li data-mode="dm" data-policy="S6"><a href="#S6" class="navlink" data-target="S6"><span class="pid">S6</span>Neighbourhood plans and the presumption</a></li>
+<li data-mode="pm" data-policy="S1"><a href="#S1" class="navlink" data-target="S1"><span class="pid">S1</span>Positive plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S1" aria-pressed="false" aria-label="Bookmark S1">&#9734;</button></li>
+<li data-mode="pm" data-policy="S2"><a href="#S2" class="navlink" data-target="S2"><span class="pid">S2</span>Producing a spatial strategy</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S2" aria-pressed="false" aria-label="Bookmark S2">&#9734;</button></li>
+<li data-mode="dm" data-policy="S3"><a href="#S3" class="navlink" data-target="S3"><span class="pid">S3</span>Presumption in favour of sustainable development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S3" aria-pressed="false" aria-label="Bookmark S3">&#9734;</button></li>
+<li data-mode="dm" data-policy="S4"><a href="#S4" class="navlink" data-target="S4"><span class="pid">S4</span>Principle of development within settlements</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S4" aria-pressed="false" aria-label="Bookmark S4">&#9734;</button></li>
+<li data-mode="dm" data-policy="S5"><a href="#S5" class="navlink" data-target="S5"><span class="pid">S5</span>Principle of development outside settlements</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S5" aria-pressed="false" aria-label="Bookmark S5">&#9734;</button></li>
+<li data-mode="dm" data-policy="S6"><a href="#S6" class="navlink" data-target="S6"><span class="pid">S6</span>Neighbourhood plans and the presumption</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="S6" aria-pressed="false" aria-label="Bookmark S6">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch5" class="navlink chlink" data-target="ch5"><span class="cn">5</span>Meeting the challenge of climate change</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="CC1"><a href="#CC1" class="navlink" data-target="CC1"><span class="pid">CC1</span>Planning for climate change</a></li>
-<li data-mode="dm" data-policy="CC2"><a href="#CC2" class="navlink" data-target="CC2"><span class="pid">CC2</span>Mitigation of climate change</a></li>
-<li data-mode="dm" data-policy="CC3"><a href="#CC3" class="navlink" data-target="CC3"><span class="pid">CC3</span>Adaptation to climate change</a></li>
+<li data-mode="pm" data-policy="CC1"><a href="#CC1" class="navlink" data-target="CC1"><span class="pid">CC1</span>Planning for climate change</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="CC1" aria-pressed="false" aria-label="Bookmark CC1">&#9734;</button></li>
+<li data-mode="dm" data-policy="CC2"><a href="#CC2" class="navlink" data-target="CC2"><span class="pid">CC2</span>Mitigation of climate change</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="CC2" aria-pressed="false" aria-label="Bookmark CC2">&#9734;</button></li>
+<li data-mode="dm" data-policy="CC3"><a href="#CC3" class="navlink" data-target="CC3"><span class="pid">CC3</span>Adaptation to climate change</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="CC3" aria-pressed="false" aria-label="Bookmark CC3">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch6" class="navlink chlink" data-target="ch6"><span class="cn">6</span>Delivering a sufficient supply of homes</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="HO1"><a href="#HO1" class="navlink" data-target="HO1"><span class="pid">HO1</span>Assessing the need for homes</a></li>
-<li data-mode="pm" data-policy="HO2"><a href="#HO2" class="navlink" data-target="HO2"><span class="pid">HO2</span>Setting requirement figures for homes</a></li>
-<li data-mode="pm" data-policy="HO3"><a href="#HO3" class="navlink" data-target="HO3"><span class="pid">HO3</span>Providing land for homes</a></li>
-<li data-mode="pm" data-policy="HO4"><a href="#HO4" class="navlink" data-target="HO4"><span class="pid">HO4</span>Land for strategic site development</a></li>
-<li data-mode="pm" data-policy="HO5"><a href="#HO5" class="navlink" data-target="HO5"><span class="pid">HO5</span>Meeting the needs of different groups</a></li>
-<li data-mode="pm" data-policy="HO6"><a href="#HO6" class="navlink" data-target="HO6"><span class="pid">HO6</span>Planning for a diverse mix of sites</a></li>
-<li data-mode="dm" data-policy="HO7"><a href="#HO7" class="navlink" data-target="HO7"><span class="pid">HO7</span>Meeting the need for homes</a></li>
-<li data-mode="dm" data-policy="HO8"><a href="#HO8" class="navlink" data-target="HO8"><span class="pid">HO8</span>Providing affordable homes</a></li>
-<li data-mode="dm" data-policy="HO9"><a href="#HO9" class="navlink" data-target="HO9"><span class="pid">HO9</span>Specialist forms of accommodation</a></li>
-<li data-mode="dm" data-policy="HO10"><a href="#HO10" class="navlink" data-target="HO10"><span class="pid">HO10</span>Exception sites</a></li>
-<li data-mode="dm" data-policy="HO11"><a href="#HO11" class="navlink" data-target="HO11"><span class="pid">HO11</span>Isolated homes in the countryside</a></li>
-<li data-mode="dm" data-policy="HO12"><a href="#HO12" class="navlink" data-target="HO12"><span class="pid">HO12</span>Traveller sites</a></li>
-<li data-mode="dm" data-policy="HO13"><a href="#HO13" class="navlink" data-target="HO13"><span class="pid">HO13</span>Build out of residential and strategic sites</a></li>
+<li data-mode="pm" data-policy="HO1"><a href="#HO1" class="navlink" data-target="HO1"><span class="pid">HO1</span>Assessing the need for homes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO1" aria-pressed="false" aria-label="Bookmark HO1">&#9734;</button></li>
+<li data-mode="pm" data-policy="HO2"><a href="#HO2" class="navlink" data-target="HO2"><span class="pid">HO2</span>Setting requirement figures for homes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO2" aria-pressed="false" aria-label="Bookmark HO2">&#9734;</button></li>
+<li data-mode="pm" data-policy="HO3"><a href="#HO3" class="navlink" data-target="HO3"><span class="pid">HO3</span>Providing land for homes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO3" aria-pressed="false" aria-label="Bookmark HO3">&#9734;</button></li>
+<li data-mode="pm" data-policy="HO4"><a href="#HO4" class="navlink" data-target="HO4"><span class="pid">HO4</span>Land for strategic site development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO4" aria-pressed="false" aria-label="Bookmark HO4">&#9734;</button></li>
+<li data-mode="pm" data-policy="HO5"><a href="#HO5" class="navlink" data-target="HO5"><span class="pid">HO5</span>Meeting the needs of different groups</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO5" aria-pressed="false" aria-label="Bookmark HO5">&#9734;</button></li>
+<li data-mode="pm" data-policy="HO6"><a href="#HO6" class="navlink" data-target="HO6"><span class="pid">HO6</span>Planning for a diverse mix of sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO6" aria-pressed="false" aria-label="Bookmark HO6">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO7"><a href="#HO7" class="navlink" data-target="HO7"><span class="pid">HO7</span>Meeting the need for homes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO7" aria-pressed="false" aria-label="Bookmark HO7">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO8"><a href="#HO8" class="navlink" data-target="HO8"><span class="pid">HO8</span>Providing affordable homes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO8" aria-pressed="false" aria-label="Bookmark HO8">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO9"><a href="#HO9" class="navlink" data-target="HO9"><span class="pid">HO9</span>Specialist forms of accommodation</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO9" aria-pressed="false" aria-label="Bookmark HO9">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO10"><a href="#HO10" class="navlink" data-target="HO10"><span class="pid">HO10</span>Exception sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO10" aria-pressed="false" aria-label="Bookmark HO10">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO11"><a href="#HO11" class="navlink" data-target="HO11"><span class="pid">HO11</span>Isolated homes in the countryside</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO11" aria-pressed="false" aria-label="Bookmark HO11">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO12"><a href="#HO12" class="navlink" data-target="HO12"><span class="pid">HO12</span>Traveller sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO12" aria-pressed="false" aria-label="Bookmark HO12">&#9734;</button></li>
+<li data-mode="dm" data-policy="HO13"><a href="#HO13" class="navlink" data-target="HO13"><span class="pid">HO13</span>Build out of residential and strategic sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HO13" aria-pressed="false" aria-label="Bookmark HO13">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch7" class="navlink chlink" data-target="ch7"><span class="cn">7</span>Building a strong, effective economy</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="E1"><a href="#E1" class="navlink" data-target="E1"><span class="pid">E1</span>Providing the conditions for long-term economic growth</a></li>
-<li data-mode="dm" data-policy="E2"><a href="#E2" class="navlink" data-target="E2"><span class="pid">E2</span>Meeting the need for business land and premises</a></li>
-<li data-mode="dm" data-policy="E3"><a href="#E3" class="navlink" data-target="E3"><span class="pid">E3</span>Freight and logistics</a></li>
-<li data-mode="dm" data-policy="E4"><a href="#E4" class="navlink" data-target="E4"><span class="pid">E4</span>Rural business development</a></li>
+<li data-mode="pm" data-policy="E1"><a href="#E1" class="navlink" data-target="E1"><span class="pid">E1</span>Providing the conditions for long-term economic growth</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="E1" aria-pressed="false" aria-label="Bookmark E1">&#9734;</button></li>
+<li data-mode="dm" data-policy="E2"><a href="#E2" class="navlink" data-target="E2"><span class="pid">E2</span>Meeting the need for business land and premises</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="E2" aria-pressed="false" aria-label="Bookmark E2">&#9734;</button></li>
+<li data-mode="dm" data-policy="E3"><a href="#E3" class="navlink" data-target="E3"><span class="pid">E3</span>Freight and logistics</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="E3" aria-pressed="false" aria-label="Bookmark E3">&#9734;</button></li>
+<li data-mode="dm" data-policy="E4"><a href="#E4" class="navlink" data-target="E4"><span class="pid">E4</span>Rural business development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="E4" aria-pressed="false" aria-label="Bookmark E4">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch8" class="navlink chlink" data-target="ch8"><span class="cn">8</span>Ensuring the vitality of town centres</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="TC1"><a href="#TC1" class="navlink" data-target="TC1"><span class="pid">TC1</span>Planning for town centres</a></li>
-<li data-mode="dm" data-policy="TC2"><a href="#TC2" class="navlink" data-target="TC2"><span class="pid">TC2</span>Development in town centres</a></li>
-<li data-mode="dm" data-policy="TC3" data-refusal="1"><a href="#TC3" class="navlink" data-target="TC3"><span class="pid">TC3</span>Main town centre uses outside town centres</a></li>
-<li data-mode="dm" data-policy="TC4"><a href="#TC4" class="navlink" data-target="TC4"><span class="pid">TC4</span>Assessing the impact of development on town centres</a></li>
+<li data-mode="pm" data-policy="TC1"><a href="#TC1" class="navlink" data-target="TC1"><span class="pid">TC1</span>Planning for town centres</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TC1" aria-pressed="false" aria-label="Bookmark TC1">&#9734;</button></li>
+<li data-mode="dm" data-policy="TC2"><a href="#TC2" class="navlink" data-target="TC2"><span class="pid">TC2</span>Development in town centres</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TC2" aria-pressed="false" aria-label="Bookmark TC2">&#9734;</button></li>
+<li data-mode="dm" data-policy="TC3" data-refusal="1"><a href="#TC3" class="navlink" data-target="TC3"><span class="pid">TC3</span>Main town centre uses outside town centres</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TC3" aria-pressed="false" aria-label="Bookmark TC3">&#9734;</button></li>
+<li data-mode="dm" data-policy="TC4"><a href="#TC4" class="navlink" data-target="TC4"><span class="pid">TC4</span>Assessing the impact of development on town centres</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TC4" aria-pressed="false" aria-label="Bookmark TC4">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch9" class="navlink chlink" data-target="ch9"><span class="cn">9</span>Supporting high quality communications</a>
 <ul class="nav-pol">
-<li data-mode="dm" data-policy="CO1"><a href="#CO1" class="navlink" data-target="CO1"><span class="pid">CO1</span>Proposals for telecommunications infrastructure</a></li>
-<li data-mode="dm" data-policy="CO2"><a href="#CO2" class="navlink" data-target="CO2"><span class="pid">CO2</span>Supporting information for telecommunications infrastructure proposals</a></li>
+<li data-mode="dm" data-policy="CO1"><a href="#CO1" class="navlink" data-target="CO1"><span class="pid">CO1</span>Proposals for telecommunications infrastructure</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="CO1" aria-pressed="false" aria-label="Bookmark CO1">&#9734;</button></li>
+<li data-mode="dm" data-policy="CO2"><a href="#CO2" class="navlink" data-target="CO2"><span class="pid">CO2</span>Supporting information for telecommunications infrastructure proposals</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="CO2" aria-pressed="false" aria-label="Bookmark CO2">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch10" class="navlink chlink" data-target="ch10"><span class="cn">10</span>Securing clean energy and water</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="W1"><a href="#W1" class="navlink" data-target="W1"><span class="pid">W1</span>Planning for energy and water</a></li>
-<li data-mode="pm" data-policy="W2"><a href="#W2" class="navlink" data-target="W2"><span class="pid">W2</span>Securing renewable and low carbon energy and electricity network infrastructure</a></li>
-<li data-mode="dm" data-policy="W3"><a href="#W3" class="navlink" data-target="W3"><span class="pid">W3</span>Renewable and low carbon energy development and electricity network infrastructure</a></li>
-<li data-mode="dm" data-policy="W4"><a href="#W4" class="navlink" data-target="W4"><span class="pid">W4</span>Water infrastructure</a></li>
+<li data-mode="pm" data-policy="W1"><a href="#W1" class="navlink" data-target="W1"><span class="pid">W1</span>Planning for energy and water</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="W1" aria-pressed="false" aria-label="Bookmark W1">&#9734;</button></li>
+<li data-mode="pm" data-policy="W2"><a href="#W2" class="navlink" data-target="W2"><span class="pid">W2</span>Securing renewable and low carbon energy and electricity network infrastructure</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="W2" aria-pressed="false" aria-label="Bookmark W2">&#9734;</button></li>
+<li data-mode="dm" data-policy="W3"><a href="#W3" class="navlink" data-target="W3"><span class="pid">W3</span>Renewable and low carbon energy development and electricity network infrastructure</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="W3" aria-pressed="false" aria-label="Bookmark W3">&#9734;</button></li>
+<li data-mode="dm" data-policy="W4"><a href="#W4" class="navlink" data-target="W4"><span class="pid">W4</span>Water infrastructure</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="W4" aria-pressed="false" aria-label="Bookmark W4">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch11" class="navlink chlink" data-target="ch11"><span class="cn">11</span>Facilitating the sustainable use of minerals</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="M1"><a href="#M1" class="navlink" data-target="M1"><span class="pid">M1</span>Planning for a sufficient supply of minerals</a></li>
-<li data-mode="pm" data-policy="M2"><a href="#M2" class="navlink" data-target="M2"><span class="pid">M2</span>Safeguarding mineral resources and infrastructure through plan-making</a></li>
-<li data-mode="dm" data-policy="M3"><a href="#M3" class="navlink" data-target="M3"><span class="pid">M3</span>Assessing the benefits of mineral development</a></li>
-<li data-mode="dm" data-policy="M4"><a href="#M4" class="navlink" data-target="M4"><span class="pid">M4</span>Considering the impacts of mineral development</a></li>
-<li data-mode="dm" data-policy="M5" data-refusal="1"><a href="#M5" class="navlink" data-target="M5"><span class="pid">M5</span>Development involving peat, coal or onshore oil and gas</a></li>
-<li data-mode="dm" data-policy="M6"><a href="#M6" class="navlink" data-target="M6"><span class="pid">M6</span>Safeguarding mineral resources and infrastructure through decision-making</a></li>
+<li data-mode="pm" data-policy="M1"><a href="#M1" class="navlink" data-target="M1"><span class="pid">M1</span>Planning for a sufficient supply of minerals</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M1" aria-pressed="false" aria-label="Bookmark M1">&#9734;</button></li>
+<li data-mode="pm" data-policy="M2"><a href="#M2" class="navlink" data-target="M2"><span class="pid">M2</span>Safeguarding mineral resources and infrastructure through plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M2" aria-pressed="false" aria-label="Bookmark M2">&#9734;</button></li>
+<li data-mode="dm" data-policy="M3"><a href="#M3" class="navlink" data-target="M3"><span class="pid">M3</span>Assessing the benefits of mineral development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M3" aria-pressed="false" aria-label="Bookmark M3">&#9734;</button></li>
+<li data-mode="dm" data-policy="M4"><a href="#M4" class="navlink" data-target="M4"><span class="pid">M4</span>Considering the impacts of mineral development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M4" aria-pressed="false" aria-label="Bookmark M4">&#9734;</button></li>
+<li data-mode="dm" data-policy="M5" data-refusal="1"><a href="#M5" class="navlink" data-target="M5"><span class="pid">M5</span>Development involving peat, coal or onshore oil and gas</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M5" aria-pressed="false" aria-label="Bookmark M5">&#9734;</button></li>
+<li data-mode="dm" data-policy="M6"><a href="#M6" class="navlink" data-target="M6"><span class="pid">M6</span>Safeguarding mineral resources and infrastructure through decision-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="M6" aria-pressed="false" aria-label="Bookmark M6">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch12" class="navlink chlink" data-target="ch12"><span class="cn">12</span>Making effective use of land</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="L1"><a href="#L1" class="navlink" data-target="L1"><span class="pid">L1</span>Planning for an effective use of land</a></li>
-<li data-mode="dm" data-policy="L2"><a href="#L2" class="navlink" data-target="L2"><span class="pid">L2</span>Making effective use of land</a></li>
-<li data-mode="dm" data-policy="L3" data-refusal="1"><a href="#L3" class="navlink" data-target="L3"><span class="pid">L3</span>Achieving appropriate densities</a></li>
+<li data-mode="pm" data-policy="L1"><a href="#L1" class="navlink" data-target="L1"><span class="pid">L1</span>Planning for an effective use of land</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="L1" aria-pressed="false" aria-label="Bookmark L1">&#9734;</button></li>
+<li data-mode="dm" data-policy="L2"><a href="#L2" class="navlink" data-target="L2"><span class="pid">L2</span>Making effective use of land</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="L2" aria-pressed="false" aria-label="Bookmark L2">&#9734;</button></li>
+<li data-mode="dm" data-policy="L3" data-refusal="1"><a href="#L3" class="navlink" data-target="L3"><span class="pid">L3</span>Achieving appropriate densities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="L3" aria-pressed="false" aria-label="Bookmark L3">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch13" class="navlink chlink" data-target="ch13"><span class="cn">13</span>Protecting Green Belt land</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="GB1"><a href="#GB1" class="navlink" data-target="GB1"><span class="pid">GB1</span>Establishing new Green Belts</a></li>
-<li data-mode="pm" data-policy="GB2"><a href="#GB2" class="navlink" data-target="GB2"><span class="pid">GB2</span>Assessing existing Green Belt land</a></li>
-<li data-mode="pm" data-policy="GB3"><a href="#GB3" class="navlink" data-target="GB3"><span class="pid">GB3</span>Altering existing Green Belt boundaries</a></li>
-<li data-mode="pm" data-policy="GB4"><a href="#GB4" class="navlink" data-target="GB4"><span class="pid">GB4</span>Defining Green Belt boundaries</a></li>
-<li data-mode="pm" data-policy="GB5"><a href="#GB5" class="navlink" data-target="GB5"><span class="pid">GB5</span>Beneficial uses of Green Belt land</a></li>
-<li data-mode="dm" data-policy="GB6" data-refusal="1"><a href="#GB6" class="navlink" data-target="GB6"><span class="pid">GB6</span>Control of development in the Green Belt</a></li>
-<li data-mode="dm" data-policy="GB7"><a href="#GB7" class="navlink" data-target="GB7"><span class="pid">GB7</span>Development which is not inappropriate in the Green Belt</a></li>
-<li data-mode="dm" data-policy="GB8"><a href="#GB8" class="navlink" data-target="GB8"><span class="pid">GB8</span>The Golden Rules</a></li>
+<li data-mode="pm" data-policy="GB1"><a href="#GB1" class="navlink" data-target="GB1"><span class="pid">GB1</span>Establishing new Green Belts</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB1" aria-pressed="false" aria-label="Bookmark GB1">&#9734;</button></li>
+<li data-mode="pm" data-policy="GB2"><a href="#GB2" class="navlink" data-target="GB2"><span class="pid">GB2</span>Assessing existing Green Belt land</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB2" aria-pressed="false" aria-label="Bookmark GB2">&#9734;</button></li>
+<li data-mode="pm" data-policy="GB3"><a href="#GB3" class="navlink" data-target="GB3"><span class="pid">GB3</span>Altering existing Green Belt boundaries</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB3" aria-pressed="false" aria-label="Bookmark GB3">&#9734;</button></li>
+<li data-mode="pm" data-policy="GB4"><a href="#GB4" class="navlink" data-target="GB4"><span class="pid">GB4</span>Defining Green Belt boundaries</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB4" aria-pressed="false" aria-label="Bookmark GB4">&#9734;</button></li>
+<li data-mode="pm" data-policy="GB5"><a href="#GB5" class="navlink" data-target="GB5"><span class="pid">GB5</span>Beneficial uses of Green Belt land</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB5" aria-pressed="false" aria-label="Bookmark GB5">&#9734;</button></li>
+<li data-mode="dm" data-policy="GB6" data-refusal="1"><a href="#GB6" class="navlink" data-target="GB6"><span class="pid">GB6</span>Control of development in the Green Belt</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB6" aria-pressed="false" aria-label="Bookmark GB6">&#9734;</button></li>
+<li data-mode="dm" data-policy="GB7"><a href="#GB7" class="navlink" data-target="GB7"><span class="pid">GB7</span>Development which is not inappropriate in the Green Belt</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB7" aria-pressed="false" aria-label="Bookmark GB7">&#9734;</button></li>
+<li data-mode="dm" data-policy="GB8"><a href="#GB8" class="navlink" data-target="GB8"><span class="pid">GB8</span>The Golden Rules</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="GB8" aria-pressed="false" aria-label="Bookmark GB8">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch14" class="navlink chlink" data-target="ch14"><span class="cn">14</span>Achieving well-designed places</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="DP1"><a href="#DP1" class="navlink" data-target="DP1"><span class="pid">DP1</span>A strategy for design</a></li>
-<li data-mode="pm" data-policy="DP2"><a href="#DP2" class="navlink" data-target="DP2"><span class="pid">DP2</span>Local design guides, design codes and masterplans</a></li>
-<li data-mode="dm" data-policy="DP3" data-refusal="1"><a href="#DP3" class="navlink" data-target="DP3"><span class="pid">DP3</span>Key principles for well-designed places</a></li>
-<li data-mode="dm" data-policy="DP4"><a href="#DP4" class="navlink" data-target="DP4"><span class="pid">DP4</span>The design process</a></li>
+<li data-mode="pm" data-policy="DP1"><a href="#DP1" class="navlink" data-target="DP1"><span class="pid">DP1</span>A strategy for design</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DP1" aria-pressed="false" aria-label="Bookmark DP1">&#9734;</button></li>
+<li data-mode="pm" data-policy="DP2"><a href="#DP2" class="navlink" data-target="DP2"><span class="pid">DP2</span>Local design guides, design codes and masterplans</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DP2" aria-pressed="false" aria-label="Bookmark DP2">&#9734;</button></li>
+<li data-mode="dm" data-policy="DP3" data-refusal="1"><a href="#DP3" class="navlink" data-target="DP3"><span class="pid">DP3</span>Key principles for well-designed places</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DP3" aria-pressed="false" aria-label="Bookmark DP3">&#9734;</button></li>
+<li data-mode="dm" data-policy="DP4"><a href="#DP4" class="navlink" data-target="DP4"><span class="pid">DP4</span>The design process</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="DP4" aria-pressed="false" aria-label="Bookmark DP4">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch15" class="navlink chlink" data-target="ch15"><span class="cn">15</span>Promoting sustainable transport</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="TR1"><a href="#TR1" class="navlink" data-target="TR1"><span class="pid">TR1</span>Vision-led approach to planning for transport</a></li>
-<li data-mode="pm" data-policy="TR2"><a href="#TR2" class="navlink" data-target="TR2"><span class="pid">TR2</span>Local parking standards</a></li>
-<li data-mode="dm" data-policy="TR3"><a href="#TR3" class="navlink" data-target="TR3"><span class="pid">TR3</span>Locating development in sustainable locations</a></li>
-<li data-mode="dm" data-policy="TR4"><a href="#TR4" class="navlink" data-target="TR4"><span class="pid">TR4</span>Street design, access and parking</a></li>
-<li data-mode="dm" data-policy="TR5"><a href="#TR5" class="navlink" data-target="TR5"><span class="pid">TR5</span>Roadside facilities</a></li>
-<li data-mode="dm" data-policy="TR6" data-refusal="1"><a href="#TR6" class="navlink" data-target="TR6"><span class="pid">TR6</span>Assessing transport impacts</a></li>
-<li data-mode="dm" data-policy="TR7"><a href="#TR7" class="navlink" data-target="TR7"><span class="pid">TR7</span>Marine ports, airports and other aviation facilities</a></li>
-<li data-mode="dm" data-policy="TR8"><a href="#TR8" class="navlink" data-target="TR8"><span class="pid">TR8</span>Public rights of way</a></li>
+<li data-mode="pm" data-policy="TR1"><a href="#TR1" class="navlink" data-target="TR1"><span class="pid">TR1</span>Vision-led approach to planning for transport</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR1" aria-pressed="false" aria-label="Bookmark TR1">&#9734;</button></li>
+<li data-mode="pm" data-policy="TR2"><a href="#TR2" class="navlink" data-target="TR2"><span class="pid">TR2</span>Local parking standards</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR2" aria-pressed="false" aria-label="Bookmark TR2">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR3"><a href="#TR3" class="navlink" data-target="TR3"><span class="pid">TR3</span>Locating development in sustainable locations</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR3" aria-pressed="false" aria-label="Bookmark TR3">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR4"><a href="#TR4" class="navlink" data-target="TR4"><span class="pid">TR4</span>Street design, access and parking</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR4" aria-pressed="false" aria-label="Bookmark TR4">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR5"><a href="#TR5" class="navlink" data-target="TR5"><span class="pid">TR5</span>Roadside facilities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR5" aria-pressed="false" aria-label="Bookmark TR5">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR6" data-refusal="1"><a href="#TR6" class="navlink" data-target="TR6"><span class="pid">TR6</span>Assessing transport impacts</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR6" aria-pressed="false" aria-label="Bookmark TR6">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR7"><a href="#TR7" class="navlink" data-target="TR7"><span class="pid">TR7</span>Marine ports, airports and other aviation facilities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR7" aria-pressed="false" aria-label="Bookmark TR7">&#9734;</button></li>
+<li data-mode="dm" data-policy="TR8"><a href="#TR8" class="navlink" data-target="TR8"><span class="pid">TR8</span>Public rights of way</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="TR8" aria-pressed="false" aria-label="Bookmark TR8">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch16" class="navlink chlink" data-target="ch16"><span class="cn">16</span>Promoting healthy communities</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="HC1"><a href="#HC1" class="navlink" data-target="HC1"><span class="pid">HC1</span>Planning for healthy communities</a></li>
-<li data-mode="pm" data-policy="HC2"><a href="#HC2" class="navlink" data-target="HC2"><span class="pid">HC2</span>Local Green Space</a></li>
-<li data-mode="dm" data-policy="HC3"><a href="#HC3" class="navlink" data-target="HC3"><span class="pid">HC3</span>Community facilities and public service infrastructure serving new development</a></li>
-<li data-mode="dm" data-policy="HC4"><a href="#HC4" class="navlink" data-target="HC4"><span class="pid">HC4</span>Proposals for new and improved community facilities, public service infrastructure and development providing public health benefits</a></li>
-<li data-mode="dm" data-policy="HC5" data-refusal="1"><a href="#HC5" class="navlink" data-target="HC5"><span class="pid">HC5</span>Hot food takeaways</a></li>
-<li data-mode="dm" data-policy="HC6"><a href="#HC6" class="navlink" data-target="HC6"><span class="pid">HC6</span>Retention of key community facilities and public service infrastructure</a></li>
-<li data-mode="dm" data-policy="HC7"><a href="#HC7" class="navlink" data-target="HC7"><span class="pid">HC7</span>Development affecting existing recreational land and facilities</a></li>
-<li data-mode="dm" data-policy="HC8"><a href="#HC8" class="navlink" data-target="HC8"><span class="pid">HC8</span>Development affecting Local Green Space</a></li>
+<li data-mode="pm" data-policy="HC1"><a href="#HC1" class="navlink" data-target="HC1"><span class="pid">HC1</span>Planning for healthy communities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC1" aria-pressed="false" aria-label="Bookmark HC1">&#9734;</button></li>
+<li data-mode="pm" data-policy="HC2"><a href="#HC2" class="navlink" data-target="HC2"><span class="pid">HC2</span>Local Green Space</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC2" aria-pressed="false" aria-label="Bookmark HC2">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC3"><a href="#HC3" class="navlink" data-target="HC3"><span class="pid">HC3</span>Community facilities and public service infrastructure serving new development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC3" aria-pressed="false" aria-label="Bookmark HC3">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC4"><a href="#HC4" class="navlink" data-target="HC4"><span class="pid">HC4</span>Proposals for new and improved community facilities, public service infrastructure and development providing public health benefits</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC4" aria-pressed="false" aria-label="Bookmark HC4">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC5" data-refusal="1"><a href="#HC5" class="navlink" data-target="HC5"><span class="pid">HC5</span>Hot food takeaways</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC5" aria-pressed="false" aria-label="Bookmark HC5">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC6"><a href="#HC6" class="navlink" data-target="HC6"><span class="pid">HC6</span>Retention of key community facilities and public service infrastructure</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC6" aria-pressed="false" aria-label="Bookmark HC6">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC7"><a href="#HC7" class="navlink" data-target="HC7"><span class="pid">HC7</span>Development affecting existing recreational land and facilities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC7" aria-pressed="false" aria-label="Bookmark HC7">&#9734;</button></li>
+<li data-mode="dm" data-policy="HC8"><a href="#HC8" class="navlink" data-target="HC8"><span class="pid">HC8</span>Development affecting Local Green Space</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HC8" aria-pressed="false" aria-label="Bookmark HC8">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch17" class="navlink chlink" data-target="ch17"><span class="cn">17</span>Pollution, public protection and security</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="P1"><a href="#P1" class="navlink" data-target="P1"><span class="pid">P1</span>Planning for clean and safe places</a></li>
-<li data-mode="dm" data-policy="P2"><a href="#P2" class="navlink" data-target="P2"><span class="pid">P2</span>Ground conditions</a></li>
-<li data-mode="dm" data-policy="P3"><a href="#P3" class="navlink" data-target="P3"><span class="pid">P3</span>Living conditions and pollution</a></li>
-<li data-mode="dm" data-policy="P4"><a href="#P4" class="navlink" data-target="P4"><span class="pid">P4</span>Impact of development on existing activities</a></li>
-<li data-mode="dm" data-policy="P5"><a href="#P5" class="navlink" data-target="P5"><span class="pid">P5</span>Maintaining public safety and security</a></li>
-<li data-mode="dm" data-policy="P6"><a href="#P6" class="navlink" data-target="P6"><span class="pid">P6</span>Land and operations for defence and public safety</a></li>
+<li data-mode="pm" data-policy="P1"><a href="#P1" class="navlink" data-target="P1"><span class="pid">P1</span>Planning for clean and safe places</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P1" aria-pressed="false" aria-label="Bookmark P1">&#9734;</button></li>
+<li data-mode="dm" data-policy="P2"><a href="#P2" class="navlink" data-target="P2"><span class="pid">P2</span>Ground conditions</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P2" aria-pressed="false" aria-label="Bookmark P2">&#9734;</button></li>
+<li data-mode="dm" data-policy="P3"><a href="#P3" class="navlink" data-target="P3"><span class="pid">P3</span>Living conditions and pollution</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P3" aria-pressed="false" aria-label="Bookmark P3">&#9734;</button></li>
+<li data-mode="dm" data-policy="P4"><a href="#P4" class="navlink" data-target="P4"><span class="pid">P4</span>Impact of development on existing activities</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P4" aria-pressed="false" aria-label="Bookmark P4">&#9734;</button></li>
+<li data-mode="dm" data-policy="P5"><a href="#P5" class="navlink" data-target="P5"><span class="pid">P5</span>Maintaining public safety and security</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P5" aria-pressed="false" aria-label="Bookmark P5">&#9734;</button></li>
+<li data-mode="dm" data-policy="P6"><a href="#P6" class="navlink" data-target="P6"><span class="pid">P6</span>Land and operations for defence and public safety</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="P6" aria-pressed="false" aria-label="Bookmark P6">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch18" class="navlink chlink" data-target="ch18"><span class="cn">18</span>Managing flood risk and coastal change</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="F1"><a href="#F1" class="navlink" data-target="F1"><span class="pid">F1</span>Assessing flood risk for plan-making</a></li>
-<li data-mode="pm" data-policy="F2"><a href="#F2" class="navlink" data-target="F2"><span class="pid">F2</span>Planning for effective flood risk management</a></li>
-<li data-mode="pm" data-policy="F3"><a href="#F3" class="navlink" data-target="F3"><span class="pid">F3</span>Managing coastal change</a></li>
-<li data-mode="dm" data-policy="F4"><a href="#F4" class="navlink" data-target="F4"><span class="pid">F4</span>Assessing flood risk for decision-making</a></li>
-<li data-mode="dm" data-policy="F5"><a href="#F5" class="navlink" data-target="F5"><span class="pid">F5</span>The sequential test</a></li>
-<li data-mode="dm" data-policy="F6" data-refusal="1"><a href="#F6" class="navlink" data-target="F6"><span class="pid">F6</span>Development in areas at risk of flooding from rivers or the sea</a></li>
-<li data-mode="dm" data-policy="F7" data-refusal="1"><a href="#F7" class="navlink" data-target="F7"><span class="pid">F7</span>Ensuring development is safe from flooding</a></li>
-<li data-mode="dm" data-policy="F8"><a href="#F8" class="navlink" data-target="F8"><span class="pid">F8</span>Sustainable drainage systems and watercourses</a></li>
-<li data-mode="dm" data-policy="F9"><a href="#F9" class="navlink" data-target="F9"><span class="pid">F9</span>Development in Coastal Change Management Areas</a></li>
+<li data-mode="pm" data-policy="F1"><a href="#F1" class="navlink" data-target="F1"><span class="pid">F1</span>Assessing flood risk for plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F1" aria-pressed="false" aria-label="Bookmark F1">&#9734;</button></li>
+<li data-mode="pm" data-policy="F2"><a href="#F2" class="navlink" data-target="F2"><span class="pid">F2</span>Planning for effective flood risk management</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F2" aria-pressed="false" aria-label="Bookmark F2">&#9734;</button></li>
+<li data-mode="pm" data-policy="F3"><a href="#F3" class="navlink" data-target="F3"><span class="pid">F3</span>Managing coastal change</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F3" aria-pressed="false" aria-label="Bookmark F3">&#9734;</button></li>
+<li data-mode="dm" data-policy="F4"><a href="#F4" class="navlink" data-target="F4"><span class="pid">F4</span>Assessing flood risk for decision-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F4" aria-pressed="false" aria-label="Bookmark F4">&#9734;</button></li>
+<li data-mode="dm" data-policy="F5"><a href="#F5" class="navlink" data-target="F5"><span class="pid">F5</span>The sequential test</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F5" aria-pressed="false" aria-label="Bookmark F5">&#9734;</button></li>
+<li data-mode="dm" data-policy="F6" data-refusal="1"><a href="#F6" class="navlink" data-target="F6"><span class="pid">F6</span>Development in areas at risk of flooding from rivers or the sea</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F6" aria-pressed="false" aria-label="Bookmark F6">&#9734;</button></li>
+<li data-mode="dm" data-policy="F7" data-refusal="1"><a href="#F7" class="navlink" data-target="F7"><span class="pid">F7</span>Ensuring development is safe from flooding</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F7" aria-pressed="false" aria-label="Bookmark F7">&#9734;</button></li>
+<li data-mode="dm" data-policy="F8"><a href="#F8" class="navlink" data-target="F8"><span class="pid">F8</span>Sustainable drainage systems and watercourses</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F8" aria-pressed="false" aria-label="Bookmark F8">&#9734;</button></li>
+<li data-mode="dm" data-policy="F9"><a href="#F9" class="navlink" data-target="F9"><span class="pid">F9</span>Development in Coastal Change Management Areas</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="F9" aria-pressed="false" aria-label="Bookmark F9">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch19" class="navlink chlink" data-target="ch19"><span class="cn">19</span>Conserving and enhancing the natural environment</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="N1"><a href="#N1" class="navlink" data-target="N1"><span class="pid">N1</span>Identifying environmental opportunities and safeguards</a></li>
-<li data-mode="dm" data-policy="N2" data-refusal="1"><a href="#N2" class="navlink" data-target="N2"><span class="pid">N2</span>Improving the natural environment</a></li>
-<li data-mode="dm" data-policy="N3"><a href="#N3" class="navlink" data-target="N3"><span class="pid">N3</span>Trees in new development</a></li>
-<li data-mode="dm" data-policy="N4" data-refusal="1"><a href="#N4" class="navlink" data-target="N4"><span class="pid">N4</span>Protected Landscapes</a></li>
-<li data-mode="dm" data-policy="N5"><a href="#N5" class="navlink" data-target="N5"><span class="pid">N5</span>Maintaining the character of the coast</a></li>
-<li data-mode="dm" data-policy="N6" data-refusal="1"><a href="#N6" class="navlink" data-target="N6"><span class="pid">N6</span>Areas of particular importance for biodiversity and geodiversity</a></li>
+<li data-mode="pm" data-policy="N1"><a href="#N1" class="navlink" data-target="N1"><span class="pid">N1</span>Identifying environmental opportunities and safeguards</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N1" aria-pressed="false" aria-label="Bookmark N1">&#9734;</button></li>
+<li data-mode="dm" data-policy="N2" data-refusal="1"><a href="#N2" class="navlink" data-target="N2"><span class="pid">N2</span>Improving the natural environment</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N2" aria-pressed="false" aria-label="Bookmark N2">&#9734;</button></li>
+<li data-mode="dm" data-policy="N3"><a href="#N3" class="navlink" data-target="N3"><span class="pid">N3</span>Trees in new development</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N3" aria-pressed="false" aria-label="Bookmark N3">&#9734;</button></li>
+<li data-mode="dm" data-policy="N4" data-refusal="1"><a href="#N4" class="navlink" data-target="N4"><span class="pid">N4</span>Protected Landscapes</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N4" aria-pressed="false" aria-label="Bookmark N4">&#9734;</button></li>
+<li data-mode="dm" data-policy="N5"><a href="#N5" class="navlink" data-target="N5"><span class="pid">N5</span>Maintaining the character of the coast</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N5" aria-pressed="false" aria-label="Bookmark N5">&#9734;</button></li>
+<li data-mode="dm" data-policy="N6" data-refusal="1"><a href="#N6" class="navlink" data-target="N6"><span class="pid">N6</span>Areas of particular importance for biodiversity and geodiversity</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="N6" aria-pressed="false" aria-label="Bookmark N6">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch20" class="navlink chlink" data-target="ch20"><span class="cn">20</span>Conserving and enhancing the historic environment</a>
 <ul class="nav-pol">
-<li data-mode="pm" data-policy="HE1"><a href="#HE1" class="navlink" data-target="HE1"><span class="pid">HE1</span>Planning for the historic environment</a></li>
-<li data-mode="pm" data-policy="HE2"><a href="#HE2" class="navlink" data-target="HE2"><span class="pid">HE2</span>Conservation Areas and World Heritage Sites</a></li>
-<li data-mode="pm" data-policy="HE3"><a href="#HE3" class="navlink" data-target="HE3"><span class="pid">HE3</span>Historic Environment Records</a></li>
-<li data-mode="dm" data-policy="HE4"><a href="#HE4" class="navlink" data-target="HE4"><span class="pid">HE4</span>Securing the conservation of heritage assets</a></li>
-<li data-mode="dm" data-policy="HE5"><a href="#HE5" class="navlink" data-target="HE5"><span class="pid">HE5</span>Assessing effects on heritage assets</a></li>
-<li data-mode="dm" data-policy="HE6" data-refusal="1"><a href="#HE6" class="navlink" data-target="HE6"><span class="pid">HE6</span>Proposals affecting designated heritage assets</a></li>
-<li data-mode="dm" data-policy="HE7"><a href="#HE7" class="navlink" data-target="HE7"><span class="pid">HE7</span>Decisions on non-designated heritage assets</a></li>
-<li data-mode="dm" data-policy="HE8"><a href="#HE8" class="navlink" data-target="HE8"><span class="pid">HE8</span>World Heritage Sites</a></li>
-<li data-mode="dm" data-policy="HE9"><a href="#HE9" class="navlink" data-target="HE9"><span class="pid">HE9</span>Conservation areas</a></li>
-<li data-mode="dm" data-policy="HE10"><a href="#HE10" class="navlink" data-target="HE10"><span class="pid">HE10</span>Loss or removal of heritage assets</a></li>
+<li data-mode="pm" data-policy="HE1"><a href="#HE1" class="navlink" data-target="HE1"><span class="pid">HE1</span>Planning for the historic environment</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE1" aria-pressed="false" aria-label="Bookmark HE1">&#9734;</button></li>
+<li data-mode="pm" data-policy="HE2"><a href="#HE2" class="navlink" data-target="HE2"><span class="pid">HE2</span>Conservation Areas and World Heritage Sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE2" aria-pressed="false" aria-label="Bookmark HE2">&#9734;</button></li>
+<li data-mode="pm" data-policy="HE3"><a href="#HE3" class="navlink" data-target="HE3"><span class="pid">HE3</span>Historic Environment Records</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE3" aria-pressed="false" aria-label="Bookmark HE3">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE4"><a href="#HE4" class="navlink" data-target="HE4"><span class="pid">HE4</span>Securing the conservation of heritage assets</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE4" aria-pressed="false" aria-label="Bookmark HE4">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE5"><a href="#HE5" class="navlink" data-target="HE5"><span class="pid">HE5</span>Assessing effects on heritage assets</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE5" aria-pressed="false" aria-label="Bookmark HE5">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE6" data-refusal="1"><a href="#HE6" class="navlink" data-target="HE6"><span class="pid">HE6</span>Proposals affecting designated heritage assets</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE6" aria-pressed="false" aria-label="Bookmark HE6">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE7"><a href="#HE7" class="navlink" data-target="HE7"><span class="pid">HE7</span>Decisions on non-designated heritage assets</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE7" aria-pressed="false" aria-label="Bookmark HE7">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE8"><a href="#HE8" class="navlink" data-target="HE8"><span class="pid">HE8</span>World Heritage Sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE8" aria-pressed="false" aria-label="Bookmark HE8">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE9"><a href="#HE9" class="navlink" data-target="HE9"><span class="pid">HE9</span>Conservation areas</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE9" aria-pressed="false" aria-label="Bookmark HE9">&#9734;</button></li>
+<li data-mode="dm" data-policy="HE10"><a href="#HE10" class="navlink" data-target="HE10"><span class="pid">HE10</span>Loss or removal of heritage assets</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="HE10" aria-pressed="false" aria-label="Bookmark HE10">&#9734;</button></li>
 </ul>
 </li>
 <li class="navgroup">Annexes</li>
 <li class="nav-ch" data-chmode="both" data-kind="annex"><a href="#annexA" class="navlink chlink" data-target="annexA"><span class="cn">A</span>Implementation</a>
 <ul class="nav-pol">
-<li data-mode="both"><a href="#annexA-for-the-purposes-of-decision-making" class="navlink" data-target="annexA-for-the-purposes-of-decision-making">For the purposes of decision-making</a></li>
-<li data-mode="both"><a href="#annexA-for-the-purposes-of-plan-making" class="navlink" data-target="annexA-for-the-purposes-of-plan-making">For the purposes of plan-making</a></li>
-<li data-mode="both"><a href="#annexA-planning-freedoms" class="navlink" data-target="annexA-planning-freedoms">Planning freedoms</a></li>
-<li data-mode="both"><a href="#annexA-written-ministerial-statements-and-other-planning-policy-doc" class="navlink" data-target="annexA-written-ministerial-statements-and-other-planning-policy-doc">Written Ministerial Statements and other planning policy documents which have been incorporated or superseded</a></li>
+<li data-mode="both" data-bm="annexA-for-the-purposes-of-decision-making"><a href="#annexA-for-the-purposes-of-decision-making" class="navlink" data-target="annexA-for-the-purposes-of-decision-making">For the purposes of decision-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexA-for-the-purposes-of-decision-making" aria-pressed="false" aria-label="Bookmark For the purposes of decision-making">&#9734;</button></li>
+<li data-mode="both" data-bm="annexA-for-the-purposes-of-plan-making"><a href="#annexA-for-the-purposes-of-plan-making" class="navlink" data-target="annexA-for-the-purposes-of-plan-making">For the purposes of plan-making</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexA-for-the-purposes-of-plan-making" aria-pressed="false" aria-label="Bookmark For the purposes of plan-making">&#9734;</button></li>
+<li data-mode="both" data-bm="annexA-planning-freedoms"><a href="#annexA-planning-freedoms" class="navlink" data-target="annexA-planning-freedoms">Planning freedoms</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexA-planning-freedoms" aria-pressed="false" aria-label="Bookmark Planning freedoms">&#9734;</button></li>
+<li data-mode="both" data-bm="annexA-written-ministerial-statements-and-other-planning-policy-doc"><a href="#annexA-written-ministerial-statements-and-other-planning-policy-doc" class="navlink" data-target="annexA-written-ministerial-statements-and-other-planning-policy-doc">Written Ministerial Statements and other planning policy documents which have been incorporated or superseded</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexA-written-ministerial-statements-and-other-planning-policy-doc" aria-pressed="false" aria-label="Bookmark Written Ministerial Statements and other planning policy documents which have been incorporated or superseded">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both" data-kind="annex"><a href="#annexB" class="navlink chlink" data-target="annexB"><span class="cn">B</span>Glossary</a>
@@ -563,10 +574,10 @@ table.tbl li::marker{color:var(--ink3)}
 </li>
 <li class="nav-ch" data-chmode="both" data-kind="annex"><a href="#annexD" class="navlink chlink" data-target="annexD"><span class="cn">D</span>Housing calculations and supply</a>
 <ul class="nav-pol">
-<li data-mode="both"><a href="#annexD-the-standard-method" class="navlink" data-target="annexD-the-standard-method">The standard method</a></li>
-<li data-mode="both"><a href="#annexD-five-year-housing-land-supply" class="navlink" data-target="annexD-five-year-housing-land-supply">Five year housing land supply</a></li>
-<li data-mode="both"><a href="#annexD-five-year-supply-of-traveller-sites" class="navlink" data-target="annexD-five-year-supply-of-traveller-sites">Five year supply of traveller sites</a></li>
-<li data-mode="both"><a href="#annexD-the-housing-delivery-test" class="navlink" data-target="annexD-the-housing-delivery-test">The Housing Delivery Test</a></li>
+<li data-mode="both" data-bm="annexD-the-standard-method"><a href="#annexD-the-standard-method" class="navlink" data-target="annexD-the-standard-method">The standard method</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexD-the-standard-method" aria-pressed="false" aria-label="Bookmark The standard method">&#9734;</button></li>
+<li data-mode="both" data-bm="annexD-five-year-housing-land-supply"><a href="#annexD-five-year-housing-land-supply" class="navlink" data-target="annexD-five-year-housing-land-supply">Five year housing land supply</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexD-five-year-housing-land-supply" aria-pressed="false" aria-label="Bookmark Five year housing land supply">&#9734;</button></li>
+<li data-mode="both" data-bm="annexD-five-year-supply-of-traveller-sites"><a href="#annexD-five-year-supply-of-traveller-sites" class="navlink" data-target="annexD-five-year-supply-of-traveller-sites">Five year supply of traveller sites</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexD-five-year-supply-of-traveller-sites" aria-pressed="false" aria-label="Bookmark Five year supply of traveller sites">&#9734;</button></li>
+<li data-mode="both" data-bm="annexD-the-housing-delivery-test"><a href="#annexD-the-housing-delivery-test" class="navlink" data-target="annexD-the-housing-delivery-test">The Housing Delivery Test</a><button type="button" class="bookmark-btn nav-bookmark-btn" data-bookmark="annexD-the-housing-delivery-test" aria-pressed="false" aria-label="Bookmark The Housing Delivery Test">&#9734;</button></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both" data-kind="annex"><a href="#annexE" class="navlink chlink" data-target="annexE"><span class="cn">E</span>Green Belt assessments</a>
@@ -613,8 +624,8 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="tx srch">This chapter explains the role of the Framework, practical points on its structure and use, and an overview of the purpose of the planning system. The chapter does not contain substantive policy; the policies to be used for plan-making and decision-making are set out in the chapters that follow.</div>
 </div>
 </div>
-<div class="secgrp" id="ch1-s1" data-mode="both">
-<h2 class="section-h srch">Using the Framework</h2>
+<div class="secgrp" id="ch1-s1" data-bm="ch1-s1" data-mode="both">
+<h2 class="section-h bm"><span class="srch">Using the Framework</span><button type="button" class="bookmark-btn" data-bookmark="ch1-s1" aria-pressed="false" aria-label="Bookmark Using the Framework">&#9734;</button></h2>
 <div class="node para" id="ch1-5" data-page="5">
 <div class="row">
 <span class="mk">5.</span>
@@ -658,8 +669,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" id="ch1-s2" data-mode="both">
-<h2 class="section-h srch">Other policy and guidance</h2>
+<div class="secgrp" id="ch1-s2" data-bm="ch1-s2" data-mode="both">
+<h2 class="section-h bm"><span class="srch">Other policy and guidance</span><button type="button" class="bookmark-btn" data-bookmark="ch1-s2" aria-pressed="false" aria-label="Bookmark Other policy and guidance">&#9734;</button></h2>
 <div class="node para" id="ch1-12" data-page="6">
 <div class="row">
 <span class="mk">12.</span>
@@ -679,8 +690,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" id="ch1-s3" data-mode="both">
-<h2 class="section-h srch">Purpose of the planning system</h2>
+<div class="secgrp" id="ch1-s3" data-bm="ch1-s3" data-mode="both">
+<h2 class="section-h bm"><span class="srch">Purpose of the planning system</span><button type="button" class="bookmark-btn" data-bookmark="ch1-s3" aria-pressed="false" aria-label="Bookmark Purpose of the planning system">&#9734;</button></h2>
 <div class="node para" id="ch1-15" data-page="6">
 <div class="row">
 <span class="mk">15.</span>
@@ -7220,8 +7231,8 @@ table.tbl li::marker{color:var(--ink3)}
 </section>
 <section class="chapter annex" id="annexA" data-kind="annex" data-chmode="both">
 <h1 class="chapter-h"><span class="cn">Annex A</span> <span class="srch">Implementation</span></h1>
-<div class="secgrp" data-mode="both" id="annexA-for-the-purposes-of-decision-making">
-<h2 class="section-h srch">For the purposes of decision-making</h2>
+<div class="secgrp" data-mode="both" id="annexA-for-the-purposes-of-decision-making" data-bm="annexA-for-the-purposes-of-decision-making">
+<h2 class="section-h bm"><span class="srch">For the purposes of decision-making</span><button type="button" class="bookmark-btn" data-bookmark="annexA-for-the-purposes-of-decision-making" aria-pressed="false" aria-label="Bookmark For the purposes of decision-making">&#9734;</button></h2>
 <div class="node para" id="annexA-for-the-purposes-of-decision-making-1" data-page="101">
 <div class="row">
 <span class="mk">1.</span>
@@ -7241,8 +7252,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexA-for-the-purposes-of-plan-making">
-<h2 class="section-h srch">For the purposes of plan-making</h2>
+<div class="secgrp" data-mode="both" id="annexA-for-the-purposes-of-plan-making" data-bm="annexA-for-the-purposes-of-plan-making">
+<h2 class="section-h bm"><span class="srch">For the purposes of plan-making</span><button type="button" class="bookmark-btn" data-bookmark="annexA-for-the-purposes-of-plan-making" aria-pressed="false" aria-label="Bookmark For the purposes of plan-making">&#9734;</button></h2>
 <div class="node para" id="annexA-for-the-purposes-of-plan-making-4" data-page="101">
 <div class="row">
 <span class="mk">4.</span>
@@ -7274,8 +7285,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexA-planning-freedoms">
-<h2 class="section-h srch">Planning freedoms</h2>
+<div class="secgrp" data-mode="both" id="annexA-planning-freedoms" data-bm="annexA-planning-freedoms">
+<h2 class="section-h bm"><span class="srch">Planning freedoms</span><button type="button" class="bookmark-btn" data-bookmark="annexA-planning-freedoms" aria-pressed="false" aria-label="Bookmark Planning freedoms">&#9734;</button></h2>
 <div class="node para" id="annexA-planning-freedoms-9" data-page="102">
 <div class="row">
 <span class="mk">9.</span>
@@ -7283,8 +7294,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexA-written-ministerial-statements-and-other-planning-policy-doc">
-<h2 class="section-h srch">Written Ministerial Statements and other planning policy documents which have been incorporated or superseded</h2>
+<div class="secgrp" data-mode="both" id="annexA-written-ministerial-statements-and-other-planning-policy-doc" data-bm="annexA-written-ministerial-statements-and-other-planning-policy-doc">
+<h2 class="section-h bm"><span class="srch">Written Ministerial Statements and other planning policy documents which have been incorporated or superseded</span><button type="button" class="bookmark-btn" data-bookmark="annexA-written-ministerial-statements-and-other-planning-policy-doc" aria-pressed="false" aria-label="Bookmark Written Ministerial Statements and other planning policy documents which have been incorporated or superseded">&#9734;</button></h2>
 <div class="node para" id="annexA-written-ministerial-statements-and-other-planning-policy-doc-10" data-page="102">
 <div class="row">
 <span class="mk">10.</span>
@@ -7899,8 +7910,8 @@ table.tbl li::marker{color:var(--ink3)}
 <div class="tx srch">This Annex sets out how housing need should be calculated using the standard method, how land supply should be assessed, and the Housing Delivery Test applied. It also sets out how a five year supply of traveller sites should be established. It should be read alongside Chapter 4 (Achieving Sustainable Development) and Chapter 6 (Delivering A Sufficient Supply of Homes), and the Housing Delivery Test Rule Book.<em><strong> </strong></em></div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexD-the-standard-method">
-<h2 class="section-h srch">The standard method</h2>
+<div class="secgrp" data-mode="both" id="annexD-the-standard-method" data-bm="annexD-the-standard-method">
+<h2 class="section-h bm"><span class="srch">The standard method</span><button type="button" class="bookmark-btn" data-bookmark="annexD-the-standard-method" aria-pressed="false" aria-label="Bookmark The standard method">&#9734;</button></h2>
 <div class="node para" id="annexD-the-standard-method-2" data-page="120">
 <div class="row">
 <span class="mk">2.</span>
@@ -7951,8 +7962,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexD-five-year-housing-land-supply">
-<h2 class="section-h srch">Five year housing land supply</h2>
+<div class="secgrp" data-mode="both" id="annexD-five-year-housing-land-supply" data-bm="annexD-five-year-housing-land-supply">
+<h2 class="section-h bm"><span class="srch">Five year housing land supply</span><button type="button" class="bookmark-btn" data-bookmark="annexD-five-year-housing-land-supply" aria-pressed="false" aria-label="Bookmark Five year housing land supply">&#9734;</button></h2>
 <div class="node para" id="annexD-five-year-housing-land-supply-8" data-page="120">
 <div class="row">
 <span class="mk">8.</span>
@@ -7986,8 +7997,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexD-five-year-supply-of-traveller-sites">
-<h2 class="section-h srch">Five year supply of traveller sites</h2>
+<div class="secgrp" data-mode="both" id="annexD-five-year-supply-of-traveller-sites" data-bm="annexD-five-year-supply-of-traveller-sites">
+<h2 class="section-h bm"><span class="srch">Five year supply of traveller sites</span><button type="button" class="bookmark-btn" data-bookmark="annexD-five-year-supply-of-traveller-sites" aria-pressed="false" aria-label="Bookmark Five year supply of traveller sites">&#9734;</button></h2>
 <div class="node para" id="annexD-five-year-supply-of-traveller-sites-10" data-page="121">
 <div class="row">
 <span class="mk">10.</span>
@@ -7995,8 +8006,8 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="secgrp" data-mode="both" id="annexD-the-housing-delivery-test">
-<h2 class="section-h srch">The Housing Delivery Test</h2>
+<div class="secgrp" data-mode="both" id="annexD-the-housing-delivery-test" data-bm="annexD-the-housing-delivery-test">
+<h2 class="section-h bm"><span class="srch">The Housing Delivery Test</span><button type="button" class="bookmark-btn" data-bookmark="annexD-the-housing-delivery-test" aria-pressed="false" aria-label="Bookmark The Housing Delivery Test">&#9734;</button></h2>
 <div class="node para" id="annexD-the-housing-delivery-test-11" data-page="121">
 <div class="row">
 <span class="mk">11.</span>
@@ -8664,8 +8675,8 @@ const sub = document.getElementById('sub');
 
 function deriveVisibility(){
   document.querySelectorAll('section.chapter').forEach(c=>{
-    const vis = (MODE === 'all' && !BOOKMARKS_ONLY) || !!c.dataset.kind
-                || !!c.querySelector('.policy:not(.mhide):not(.bhide)');
+    const vis = (!BOOKMARKS_ONLY && (MODE === 'all' || !!c.dataset.kind))
+                || !!c.querySelector('.policy:not(.mhide):not(.bhide), [data-bm]:not(.bhide)');
     c.classList.toggle('mhide', !vis);
     const li = document.querySelector('nav li.nav-ch[data-chmode] a[data-target="'+c.id+'"]');
     if(li) li.parentElement.classList.toggle('mhide', !vis);
@@ -8709,21 +8720,23 @@ function saveBookmarks(){
   catch(e){ /* storage unavailable (private mode, quota) - bookmarks just won't persist */ }
 }
 
-function syncBookmarkUI(pid){
-  const on = BOOKMARKS.has(pid);
-  const btn = document.querySelector('.bookmark-btn[data-bookmark="'+pid+'"]');
-  if(btn){ btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-           btn.textContent = on ? '★' : '☆'; }
-  const navLi = document.querySelector('nav li[data-policy="'+pid+'"]');
+function syncBookmarkUI(id){
+  const on = BOOKMARKS.has(id);
+  document.querySelectorAll('.bookmark-btn[data-bookmark="'+id+'"]').forEach(btn=>{
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? '★' : '☆';
+  });
+  const navLi = document.querySelector('nav li[data-policy="'+id+'"], nav li[data-bm="'+id+'"]');
   if(navLi) navLi.classList.toggle('bookmarked', on);
 }
 
 function applyBookmarkFilter(){
-  document.querySelectorAll('.policy[data-policy]').forEach(p=>{
-    p.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(p.dataset.policy));
+  document.querySelectorAll('[data-policy]').forEach(el=>{
+    el.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(el.dataset.policy));
   });
-  document.querySelectorAll('nav li[data-policy]').forEach(li=>{
-    li.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(li.dataset.policy));
+  document.querySelectorAll('[data-bm]').forEach(el=>{
+    el.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(el.dataset.bm));
   });
   deriveVisibility();
   hidePop();
@@ -8732,12 +8745,12 @@ function applyBookmarkFilter(){
 }
 
 document.querySelectorAll('.bookmark-btn').forEach(btn=>{
-  const pid = btn.dataset.bookmark;
-  syncBookmarkUI(pid);
+  const id = btn.dataset.bookmark;
+  syncBookmarkUI(id);
   btn.addEventListener('click', ()=>{
-    if(BOOKMARKS.has(pid)) BOOKMARKS.delete(pid); else BOOKMARKS.add(pid);
+    if(BOOKMARKS.has(id)) BOOKMARKS.delete(id); else BOOKMARKS.add(id);
     saveBookmarks();
-    syncBookmarkUI(pid);
+    syncBookmarkUI(id);
     bmCount.textContent = BOOKMARKS.size;
     if(BOOKMARKS_ONLY) applyBookmarkFilter();
   });

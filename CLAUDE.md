@@ -102,22 +102,52 @@ only adds an HTML attribute and doesn't touch any verified text.
 
 ## Bookmarks
 
-Every policy heading has a star button (`.bookmark-btn`, in `render.py`'s
-`walk()`) that saves the policy id to `localStorage` under the key
-`nppf-bookmarks` — per-browser, no backend. A sidebar checkbox (`#bookmarkToggle`,
-toggling the module-level `BOOKMARKS_ONLY` flag) filters the document down to
-just the bookmarked policies, composing with the existing plan-making /
-decision-making filter (`MODE`) via the `.bhide` class, exactly parallel to how
-`.mhide` implements that filter. See `deriveVisibility()`, `applyBookmarkFilter()`
-and `syncBookmarkUI()` in the `JS` string.
+Every policy, plus the "sections" of the introduction and of Annexes A and D
+(the `secgrp`/`section-h` groupings — e.g. "Using the Framework", "The standard
+method" — *not* the annex subheads/tables), has a star button that saves its
+id to `localStorage` under the key `nppf-bookmarks` — per-browser, no backend.
+A sidebar checkbox (`#bookmarkToggle`, toggling the module-level
+`BOOKMARKS_ONLY` flag) filters the document down to just the bookmarked
+policies/sections, composing with the existing plan-making / decision-making
+filter (`MODE`) via the `.bhide` class, exactly parallel to how `.mhide`
+implements that filter. See `deriveVisibility()`, `applyBookmarkFilter()` and
+`syncBookmarkUI()` in the `JS` string.
+
+Two independent identity attributes feed this: `.policy` divs and their nav
+`<li>` keep the pre-existing `data-policy="{pid}"`; bookmarkable sections (and
+*their* nav `<li>`) get a new `data-bm="{sid}"`, added in `render.py`'s
+`walk()` (gated to chapter `'1'`, the introduction) and in `render_annex_node()`
+(every annex `section`-type node — Annex A and D are the only annexes that
+have any). `applyBookmarkFilter()` toggles `.bhide` by querying `[data-policy]`
+and `[data-bm]` generically, so it doesn't care which kind of id it's hiding.
+Every bookmarkable unit gets **two** star buttons sharing one
+`data-bookmark="{id}"` — one on its own heading, one as a sibling of its `<a>`
+in the nav (never nested inside it — buttons can't nest inside links). Both
+are wired by one delegated `.bookmark-btn` click handler and kept in sync by
+`syncBookmarkUI()`, which now does `querySelectorAll` (not `querySelector`)
+precisely because there are two buttons per id.
+
+Because sections can now be bookmarked, the introduction and the annexes are
+**no longer unconditionally visible** the way they are under the plan-making /
+decision-making filter — `deriveVisibility()`'s chapter-visibility check only
+takes that `data-kind` shortcut when `BOOKMARKS_ONLY` is off; when it's on, an
+intro/annex chapter shows only if it has a visible bookmarked policy or
+section, same as any other chapter. Annexes B, C, E and F have no `section`-type
+nodes at all (Annex B is glossentries, C is basically one table, E and F use
+`subhead`, not `section`, for their sub-groupings) — under "bookmarks only"
+they disappear entirely unless something in this list is re-scoped to make
+them bookmarkable too.
 
 **The bookmark button's markup must stay excluded from `verify.py`'s HTML
 extraction.** It's interactive chrome (a star glyph + label), not document
 text, so it's stripped by name (`<button ... class="bookmark-btn">...</button>`)
 in the same place the `fnback` back-arrows are — before the generic
-tag-stripping regex runs. Forgetting this, or renaming the class without
-updating the regex, makes every rendered-HTML fidelity check fail with a
-`★`/`☆` glyph showing up in the diff.
+tag-stripping regex runs. This only matters for the *content-area* buttons:
+the nav lives in `<aside>`, entirely outside the `<div id="noresults">…<div
+class="footer">` region verify.py extracts, so nav bookmark buttons need no
+exclusion of their own. Forgetting the content-area exclusion, or renaming the
+class without updating the regex, makes every rendered-HTML fidelity check
+fail with a `★`/`☆` glyph showing up in the diff.
 
 ## Traps that have already bitten us
 

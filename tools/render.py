@@ -136,6 +136,13 @@ def fnmode(n):
     return m.pop() if len(m) == 1 else 'both'
 
 
+def nav_bookmark_btn(bmid, label):
+    """A bookmark star for a nav <li>, sibling to its <a> (never nested inside it)."""
+    return (f'<button type="button" class="bookmark-btn nav-bookmark-btn" '
+            f'data-bookmark="{bmid}" aria-pressed="false" '
+            f'aria-label="Bookmark {html.escape(label, quote=True)}">&#9734;</button>')
+
+
 nav = []
 body = []
 
@@ -179,9 +186,19 @@ for ch in chapters:
               sid = cid + '-s' + str(len(navsections) + 1)
               navsections.append((sid, title))
               current_mode[0] = mode_of(ch['marker'], title)
-              body.append(f'<div class="secgrp" id="{sid}" '
+              bookmarkable = ch['marker'] == '1'
+              bm_attr = f' data-bm="{sid}"' if bookmarkable else ''
+              body.append(f'<div class="secgrp" id="{sid}"{bm_attr} '
                           f'data-mode="{current_mode[0]}">')
-              body.append(f'<h2 class="section-h srch">{html.escape(title)}</h2>')
+              if bookmarkable:
+                  body.append(f'<h2 class="section-h bm"><span class="srch">'
+                              f'{html.escape(title)}</span>'
+                              f'<button type="button" class="bookmark-btn" data-bookmark="{sid}" '
+                              f'aria-pressed="false" '
+                              f'aria-label="Bookmark {html.escape(title, quote=True)}">'
+                              f'&#9734;</button></h2>')
+              else:
+                  body.append(f'<h2 class="section-h srch">{html.escape(title)}</h2>')
               st['section'] = True
               walk(node['children'])
           elif k == 'policy':
@@ -238,13 +255,14 @@ for ch in chapters:
             nav.append(f'<li data-mode="{pmode}" data-policy="{pid}"{refusal_attr}>'
                        f'<a href="#{pid}" class="navlink" data-target="{pid}">'
                        f'<span class="pid">{pid}</span>'
-                       f'{html.escape(title)}</a></li>')
+                       f'{html.escape(title)}</a>{nav_bookmark_btn(pid, pid)}</li>')
         nav.append('</ul>')
     elif navsections:
         nav.append('<ul class="nav-pol">')
         for sid, title in navsections:
-            nav.append(f'<li data-mode="both"><a href="#{sid}" class="navlink" '
-                       f'data-target="{sid}">{html.escape(title)}</a></li>')
+            nav.append(f'<li data-mode="both" data-bm="{sid}"><a href="#{sid}" class="navlink" '
+                       f'data-target="{sid}">{html.escape(title)}</a>'
+                       f'{nav_bookmark_btn(sid, title)}</li>')
         nav.append('</ul>')
     nav.append('</li>')
 
@@ -303,9 +321,12 @@ def render_annex_node(n, path, out, navsub, idx=0):
     if k == 'section':
         title = plain(n['runs'])
         sid = path + '-' + slug(title)
-        navsub.append((sid, title))
-        out.append(f'<div class="secgrp" data-mode="both" id="{sid}">')
-        out.append(f'<h2 class="section-h srch">{html.escape(title)}</h2>')
+        navsub.append((sid, title, True))
+        out.append(f'<div class="secgrp" data-mode="both" id="{sid}" data-bm="{sid}">')
+        out.append(f'<h2 class="section-h bm"><span class="srch">{html.escape(title)}</span>'
+                   f'<button type="button" class="bookmark-btn" data-bookmark="{sid}" '
+                   f'aria-pressed="false" '
+                   f'aria-label="Bookmark {html.escape(title, quote=True)}">&#9734;</button></h2>')
         for i, c in enumerate(n['children']):
             render_annex_node(c, sid, out, navsub, i)
         out.append('</div>')
@@ -314,7 +335,7 @@ def render_annex_node(n, path, out, navsub, idx=0):
         title = plain(n['runs'])
         sid = path + '-' + slug(title)
         if title.lower().startswith('table '):
-            navsub.append((sid, title.split(':')[0]))
+            navsub.append((sid, title.split(':')[0], False))
         out.append(f'<div class="subgrp" id="{sid}">')
         out.append(f'<h3 class="subhead srch">{runs_html(n["runs"])}</h3>')
         for i, c in enumerate(n['children']):
@@ -406,9 +427,11 @@ for an in annexes:
                      f'{html.escape(norm(an["title"]))}</a>')
     if navsub:
         annex_nav.append('<ul class="nav-pol">')
-        for sid, title in navsub:
-            annex_nav.append(f'<li data-mode="both"><a href="#{sid}" class="navlink" '
-                             f'data-target="{sid}">{html.escape(title)}</a></li>')
+        for sid, title, bookmarkable in navsub:
+            bm_attr = f' data-bm="{sid}"' if bookmarkable else ''
+            bm_btn = nav_bookmark_btn(sid, title) if bookmarkable else ''
+            annex_nav.append(f'<li data-mode="both"{bm_attr}><a href="#{sid}" class="navlink" '
+                             f'data-target="{sid}">{html.escape(title)}</a>{bm_btn}</li>')
         annex_nav.append('</ul>')
     annex_nav.append('</li>')
 
@@ -516,9 +539,16 @@ nav{overflow-y:auto;overscroll-behavior:contain;padding:16px 14px 48px;flex:1;
   scrollbar-width:thin}
 .navtoggle{display:none}
 nav ul{list-style:none;margin:0;padding:0}
+nav li{position:relative}
 nav .navlink{position:relative;display:block;text-decoration:none;color:var(--ink2);
   padding:4px 10px 4px 12px;font-size:12.5px;line-height:1.38;
   border-left:2px solid transparent;transition:color .12s,border-color .12s}
+nav li:not(.nav-ch) > .navlink{padding-right:26px}
+nav .nav-bookmark-btn{position:absolute;right:2px;top:50%;transform:translateY(-50%);
+  font-size:12px;padding:3px 5px;opacity:0;transition:opacity .13s,color .13s,background .13s}
+nav li:hover .nav-bookmark-btn,nav .nav-bookmark-btn.on,
+nav .nav-bookmark-btn:focus-visible{opacity:1}
+@media (hover:none){ nav .nav-bookmark-btn{opacity:1} }
 nav .chlink{color:var(--ink);font-weight:600;font-size:12.5px;margin-top:12px;
   letter-spacing:.005em}
 nav .navlink:hover{color:var(--accent)}
@@ -566,6 +596,7 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 .section-h{margin:44px 0 2px;font:600 10.5px/1.5 var(--sans);letter-spacing:.15em;
   text-transform:uppercase;color:var(--accent);padding-bottom:8px;
   border-bottom:1px solid var(--rule)}
+.section-h.bm{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
 .secgrp{margin:0}
 
 /* ---------- policies ---------- */
@@ -576,13 +607,16 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 .policy-h .policy-title{flex:1 1 auto;min-width:0;text-wrap:pretty}
 .policy-h .pid{display:inline-block;margin-right:.45em;font:700 11.5px/1 var(--sans);
   letter-spacing:.1em;color:var(--accent);vertical-align:2.5px}
-.bookmark-btn{flex:0 0 auto;margin-top:.15em;padding:2px 4px;border:0;border-radius:3px;
-  background:none;color:var(--rule2);font-size:16px;line-height:1;cursor:pointer;
-  transition:color .13s,background .13s}
+.bookmark-btn{border:0;border-radius:3px;background:none;color:var(--rule2);
+  line-height:1;cursor:pointer;transition:color .13s,background .13s}
 .bookmark-btn:hover{color:var(--accent2);background:var(--tint)}
 .bookmark-btn.on{color:var(--star)}
 .bookmark-btn.on:hover{color:var(--star)}
+.policy-h .bookmark-btn{flex:0 0 auto;margin-top:.15em;padding:2px 4px;font-size:16px}
+.section-h .bookmark-btn{flex:0 0 auto;padding:2px 4px;font-size:13px;
+  text-transform:none;letter-spacing:0}
 nav li.bookmarked .pid{color:var(--star)}
+nav li.bookmarked:not([data-policy]) > .navlink{color:var(--star)}
 [id]{scroll-margin-top:26px}
 
 /* landing marker: a persistent accent bar in the margin plus a background that
@@ -760,8 +794,8 @@ const sub = document.getElementById('sub');
 
 function deriveVisibility(){
   document.querySelectorAll('section.chapter').forEach(c=>{
-    const vis = (MODE === 'all' && !BOOKMARKS_ONLY) || !!c.dataset.kind
-                || !!c.querySelector('.policy:not(.mhide):not(.bhide)');
+    const vis = (!BOOKMARKS_ONLY && (MODE === 'all' || !!c.dataset.kind))
+                || !!c.querySelector('.policy:not(.mhide):not(.bhide), [data-bm]:not(.bhide)');
     c.classList.toggle('mhide', !vis);
     const li = document.querySelector('nav li.nav-ch[data-chmode] a[data-target="'+c.id+'"]');
     if(li) li.parentElement.classList.toggle('mhide', !vis);
@@ -805,21 +839,23 @@ function saveBookmarks(){
   catch(e){ /* storage unavailable (private mode, quota) - bookmarks just won't persist */ }
 }
 
-function syncBookmarkUI(pid){
-  const on = BOOKMARKS.has(pid);
-  const btn = document.querySelector('.bookmark-btn[data-bookmark="'+pid+'"]');
-  if(btn){ btn.classList.toggle('on', on); btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-           btn.textContent = on ? '★' : '☆'; }
-  const navLi = document.querySelector('nav li[data-policy="'+pid+'"]');
+function syncBookmarkUI(id){
+  const on = BOOKMARKS.has(id);
+  document.querySelectorAll('.bookmark-btn[data-bookmark="'+id+'"]').forEach(btn=>{
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? '★' : '☆';
+  });
+  const navLi = document.querySelector('nav li[data-policy="'+id+'"], nav li[data-bm="'+id+'"]');
   if(navLi) navLi.classList.toggle('bookmarked', on);
 }
 
 function applyBookmarkFilter(){
-  document.querySelectorAll('.policy[data-policy]').forEach(p=>{
-    p.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(p.dataset.policy));
+  document.querySelectorAll('[data-policy]').forEach(el=>{
+    el.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(el.dataset.policy));
   });
-  document.querySelectorAll('nav li[data-policy]').forEach(li=>{
-    li.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(li.dataset.policy));
+  document.querySelectorAll('[data-bm]').forEach(el=>{
+    el.classList.toggle('bhide', BOOKMARKS_ONLY && !BOOKMARKS.has(el.dataset.bm));
   });
   deriveVisibility();
   hidePop();
@@ -828,12 +864,12 @@ function applyBookmarkFilter(){
 }
 
 document.querySelectorAll('.bookmark-btn').forEach(btn=>{
-  const pid = btn.dataset.bookmark;
-  syncBookmarkUI(pid);
+  const id = btn.dataset.bookmark;
+  syncBookmarkUI(id);
   btn.addEventListener('click', ()=>{
-    if(BOOKMARKS.has(pid)) BOOKMARKS.delete(pid); else BOOKMARKS.add(pid);
+    if(BOOKMARKS.has(id)) BOOKMARKS.delete(id); else BOOKMARKS.add(id);
     saveBookmarks();
-    syncBookmarkUI(pid);
+    syncBookmarkUI(id);
     bmCount.textContent = BOOKMARKS.size;
     if(BOOKMARKS_ONLY) applyBookmarkFilter();
   });
