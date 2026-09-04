@@ -17,6 +17,7 @@
   --accent:#2d5044; --accent2:#44705e; --tint:#eaefec;
   --mark:#f6e7a6;   --marktx:#3b3005;
   --sel:#bfd9cb;    --seltx:#0f221a;  --flash:#e6ede9;
+  --refusal:#a5502e; --refusaltint:#f4e8e0;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,ui-serif,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --fs:16.5px; --lh:1.66; --line:calc(var(--fs) * var(--lh));
@@ -29,6 +30,7 @@
     --accent:#8dc4ad;--accent2:#a4d4bf;--tint:#1e2523;
     --mark:#4b3f13;  --marktx:#f4ecd3;
     --sel:#3a5b4d;   --seltx:#f0f6f2;  --flash:#232d29;
+    --refusal:#d98a6e; --refusaltint:#2b211d;
   }
 }
 *{box-sizing:border-box}
@@ -65,6 +67,12 @@ aside{width:306px;flex:0 0 306px;position:sticky;top:0;height:100vh;
 .modebar button:hover{color:var(--accent);background:var(--tint)}
 .modebar button.on{color:var(--accent);background:var(--tint);
   box-shadow:inset 0 -2px 0 var(--accent)}
+
+.refusalbar{display:flex;align-items:center;gap:8px;margin:12px 24px 0;
+  font:500 11px/1.35 var(--sans);color:var(--ink2);cursor:pointer}
+.refusalbar input{accent-color:var(--refusal);width:13px;height:13px;flex:0 0 auto;
+  cursor:pointer}
+.refusalbar:hover{color:var(--ink)}
 
 .searchbox{position:relative;margin:16px 24px 0;border-bottom:1px solid var(--rule2)}
 .searchbox input{width:100%;padding:7px 22px 7px 19px;font:400 13.5px/1.4 var(--sans);
@@ -155,6 +163,15 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 @media (prefers-reduced-motion:reduce){
   .policy:target,.node:target>.row,.fn:target{animation:none;background:var(--flash)}
 }
+
+/* S4/S5 refusal-policy highlight, toggled by the sidebar checkbox */
+body.show-refusal .policy[data-refusal]{background:var(--refusaltint)}
+body.show-refusal .policy[data-refusal]::after{
+  content:'';position:absolute;left:-17px;top:1px;bottom:1px;width:2px;
+  background:var(--refusal);border-radius:1px}
+body.show-refusal .policy[data-refusal] .policy-h,
+body.show-refusal .policy[data-refusal] .policy-h .pid{color:var(--refusal)}
+body.show-refusal nav li[data-refusal] .pid{color:var(--refusal)}
 
 /* ---------- numbered / lettered structure ---------- */
 .node{margin:0}
@@ -279,6 +296,11 @@ table.tbl li::marker{color:var(--ink3)}
     <button type="button" data-setmode="pm" title="Plan-making policies only">Plan-making</button>
     <button type="button" data-setmode="dm" title="National decision-making policies only">Decision-making</button>
   </div>
+  <label class="refusalbar" for="refusalToggle"
+         title="Policies S4 and S5: national decision-making policies which state that development proposals should be refused in specific circumstances">
+    <input type="checkbox" id="refusalToggle">
+    <span>Highlight S4/S5 refusal policies</span>
+  </label>
   <div class="searchbox">
     <span class="ico">&#9906;</span>
     <input id="q" type="search" placeholder="Search the Framework&hellip;" autocomplete="off" spellcheck="false">
@@ -375,7 +397,7 @@ table.tbl li::marker{color:var(--ink3)}
 <ul class="nav-pol">
 <li data-mode="pm"><a href="#TC1" class="navlink" data-target="TC1"><span class="pid">TC1</span>Planning for town centres</a></li>
 <li data-mode="dm"><a href="#TC2" class="navlink" data-target="TC2"><span class="pid">TC2</span>Development in town centres</a></li>
-<li data-mode="dm"><a href="#TC3" class="navlink" data-target="TC3"><span class="pid">TC3</span>Main town centre uses outside town centres</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#TC3" class="navlink" data-target="TC3"><span class="pid">TC3</span>Main town centre uses outside town centres</a></li>
 <li data-mode="dm"><a href="#TC4" class="navlink" data-target="TC4"><span class="pid">TC4</span>Assessing the impact of development on town centres</a></li>
 </ul>
 </li>
@@ -399,7 +421,7 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="pm"><a href="#M2" class="navlink" data-target="M2"><span class="pid">M2</span>Safeguarding mineral resources and infrastructure through plan-making</a></li>
 <li data-mode="dm"><a href="#M3" class="navlink" data-target="M3"><span class="pid">M3</span>Assessing the benefits of mineral development</a></li>
 <li data-mode="dm"><a href="#M4" class="navlink" data-target="M4"><span class="pid">M4</span>Considering the impacts of mineral development</a></li>
-<li data-mode="dm"><a href="#M5" class="navlink" data-target="M5"><span class="pid">M5</span>Development involving peat, coal or onshore oil and gas</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#M5" class="navlink" data-target="M5"><span class="pid">M5</span>Development involving peat, coal or onshore oil and gas</a></li>
 <li data-mode="dm"><a href="#M6" class="navlink" data-target="M6"><span class="pid">M6</span>Safeguarding mineral resources and infrastructure through decision-making</a></li>
 </ul>
 </li>
@@ -407,7 +429,7 @@ table.tbl li::marker{color:var(--ink3)}
 <ul class="nav-pol">
 <li data-mode="pm"><a href="#L1" class="navlink" data-target="L1"><span class="pid">L1</span>Planning for an effective use of land</a></li>
 <li data-mode="dm"><a href="#L2" class="navlink" data-target="L2"><span class="pid">L2</span>Making effective use of land</a></li>
-<li data-mode="dm"><a href="#L3" class="navlink" data-target="L3"><span class="pid">L3</span>Achieving appropriate densities</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#L3" class="navlink" data-target="L3"><span class="pid">L3</span>Achieving appropriate densities</a></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch13" class="navlink chlink" data-target="ch13"><span class="cn">13</span>Protecting Green Belt land</a>
@@ -417,7 +439,7 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="pm"><a href="#GB3" class="navlink" data-target="GB3"><span class="pid">GB3</span>Altering existing Green Belt boundaries</a></li>
 <li data-mode="pm"><a href="#GB4" class="navlink" data-target="GB4"><span class="pid">GB4</span>Defining Green Belt boundaries</a></li>
 <li data-mode="pm"><a href="#GB5" class="navlink" data-target="GB5"><span class="pid">GB5</span>Beneficial uses of Green Belt land</a></li>
-<li data-mode="dm"><a href="#GB6" class="navlink" data-target="GB6"><span class="pid">GB6</span>Control of development in the Green Belt</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#GB6" class="navlink" data-target="GB6"><span class="pid">GB6</span>Control of development in the Green Belt</a></li>
 <li data-mode="dm"><a href="#GB7" class="navlink" data-target="GB7"><span class="pid">GB7</span>Development which is not inappropriate in the Green Belt</a></li>
 <li data-mode="dm"><a href="#GB8" class="navlink" data-target="GB8"><span class="pid">GB8</span>The Golden Rules</a></li>
 </ul>
@@ -426,7 +448,7 @@ table.tbl li::marker{color:var(--ink3)}
 <ul class="nav-pol">
 <li data-mode="pm"><a href="#DP1" class="navlink" data-target="DP1"><span class="pid">DP1</span>A strategy for design</a></li>
 <li data-mode="pm"><a href="#DP2" class="navlink" data-target="DP2"><span class="pid">DP2</span>Local design guides, design codes and masterplans</a></li>
-<li data-mode="dm"><a href="#DP3" class="navlink" data-target="DP3"><span class="pid">DP3</span>Key principles for well-designed places</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#DP3" class="navlink" data-target="DP3"><span class="pid">DP3</span>Key principles for well-designed places</a></li>
 <li data-mode="dm"><a href="#DP4" class="navlink" data-target="DP4"><span class="pid">DP4</span>The design process</a></li>
 </ul>
 </li>
@@ -437,7 +459,7 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="dm"><a href="#TR3" class="navlink" data-target="TR3"><span class="pid">TR3</span>Locating development in sustainable locations</a></li>
 <li data-mode="dm"><a href="#TR4" class="navlink" data-target="TR4"><span class="pid">TR4</span>Street design, access and parking</a></li>
 <li data-mode="dm"><a href="#TR5" class="navlink" data-target="TR5"><span class="pid">TR5</span>Roadside facilities</a></li>
-<li data-mode="dm"><a href="#TR6" class="navlink" data-target="TR6"><span class="pid">TR6</span>Assessing transport impacts</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#TR6" class="navlink" data-target="TR6"><span class="pid">TR6</span>Assessing transport impacts</a></li>
 <li data-mode="dm"><a href="#TR7" class="navlink" data-target="TR7"><span class="pid">TR7</span>Marine ports, airports and other aviation facilities</a></li>
 <li data-mode="dm"><a href="#TR8" class="navlink" data-target="TR8"><span class="pid">TR8</span>Public rights of way</a></li>
 </ul>
@@ -448,7 +470,7 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="pm"><a href="#HC2" class="navlink" data-target="HC2"><span class="pid">HC2</span>Local Green Space</a></li>
 <li data-mode="dm"><a href="#HC3" class="navlink" data-target="HC3"><span class="pid">HC3</span>Community facilities and public service infrastructure serving new development</a></li>
 <li data-mode="dm"><a href="#HC4" class="navlink" data-target="HC4"><span class="pid">HC4</span>Proposals for new and improved community facilities, public service infrastructure and development providing public health benefits</a></li>
-<li data-mode="dm"><a href="#HC5" class="navlink" data-target="HC5"><span class="pid">HC5</span>Hot food takeaways</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#HC5" class="navlink" data-target="HC5"><span class="pid">HC5</span>Hot food takeaways</a></li>
 <li data-mode="dm"><a href="#HC6" class="navlink" data-target="HC6"><span class="pid">HC6</span>Retention of key community facilities and public service infrastructure</a></li>
 <li data-mode="dm"><a href="#HC7" class="navlink" data-target="HC7"><span class="pid">HC7</span>Development affecting existing recreational land and facilities</a></li>
 <li data-mode="dm"><a href="#HC8" class="navlink" data-target="HC8"><span class="pid">HC8</span>Development affecting Local Green Space</a></li>
@@ -471,8 +493,8 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="pm"><a href="#F3" class="navlink" data-target="F3"><span class="pid">F3</span>Managing coastal change</a></li>
 <li data-mode="dm"><a href="#F4" class="navlink" data-target="F4"><span class="pid">F4</span>Assessing flood risk for decision-making</a></li>
 <li data-mode="dm"><a href="#F5" class="navlink" data-target="F5"><span class="pid">F5</span>The sequential test</a></li>
-<li data-mode="dm"><a href="#F6" class="navlink" data-target="F6"><span class="pid">F6</span>Development in areas at risk of flooding from rivers or the sea</a></li>
-<li data-mode="dm"><a href="#F7" class="navlink" data-target="F7"><span class="pid">F7</span>Ensuring development is safe from flooding</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#F6" class="navlink" data-target="F6"><span class="pid">F6</span>Development in areas at risk of flooding from rivers or the sea</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#F7" class="navlink" data-target="F7"><span class="pid">F7</span>Ensuring development is safe from flooding</a></li>
 <li data-mode="dm"><a href="#F8" class="navlink" data-target="F8"><span class="pid">F8</span>Sustainable drainage systems and watercourses</a></li>
 <li data-mode="dm"><a href="#F9" class="navlink" data-target="F9"><span class="pid">F9</span>Development in Coastal Change Management Areas</a></li>
 </ul>
@@ -480,11 +502,11 @@ table.tbl li::marker{color:var(--ink3)}
 <li class="nav-ch" data-chmode="both"><a href="#ch19" class="navlink chlink" data-target="ch19"><span class="cn">19</span>Conserving and enhancing the natural environment</a>
 <ul class="nav-pol">
 <li data-mode="pm"><a href="#N1" class="navlink" data-target="N1"><span class="pid">N1</span>Identifying environmental opportunities and safeguards</a></li>
-<li data-mode="dm"><a href="#N2" class="navlink" data-target="N2"><span class="pid">N2</span>Improving the natural environment</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#N2" class="navlink" data-target="N2"><span class="pid">N2</span>Improving the natural environment</a></li>
 <li data-mode="dm"><a href="#N3" class="navlink" data-target="N3"><span class="pid">N3</span>Trees in new development</a></li>
-<li data-mode="dm"><a href="#N4" class="navlink" data-target="N4"><span class="pid">N4</span>Protected Landscapes</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#N4" class="navlink" data-target="N4"><span class="pid">N4</span>Protected Landscapes</a></li>
 <li data-mode="dm"><a href="#N5" class="navlink" data-target="N5"><span class="pid">N5</span>Maintaining the character of the coast</a></li>
-<li data-mode="dm"><a href="#N6" class="navlink" data-target="N6"><span class="pid">N6</span>Areas of particular importance for biodiversity and geodiversity</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#N6" class="navlink" data-target="N6"><span class="pid">N6</span>Areas of particular importance for biodiversity and geodiversity</a></li>
 </ul>
 </li>
 <li class="nav-ch" data-chmode="both"><a href="#ch20" class="navlink chlink" data-target="ch20"><span class="cn">20</span>Conserving and enhancing the historic environment</a>
@@ -494,7 +516,7 @@ table.tbl li::marker{color:var(--ink3)}
 <li data-mode="pm"><a href="#HE3" class="navlink" data-target="HE3"><span class="pid">HE3</span>Historic Environment Records</a></li>
 <li data-mode="dm"><a href="#HE4" class="navlink" data-target="HE4"><span class="pid">HE4</span>Securing the conservation of heritage assets</a></li>
 <li data-mode="dm"><a href="#HE5" class="navlink" data-target="HE5"><span class="pid">HE5</span>Assessing effects on heritage assets</a></li>
-<li data-mode="dm"><a href="#HE6" class="navlink" data-target="HE6"><span class="pid">HE6</span>Proposals affecting designated heritage assets</a></li>
+<li data-mode="dm" data-refusal="1"><a href="#HE6" class="navlink" data-target="HE6"><span class="pid">HE6</span>Proposals affecting designated heritage assets</a></li>
 <li data-mode="dm"><a href="#HE7" class="navlink" data-target="HE7"><span class="pid">HE7</span>Decisions on non-designated heritage assets</a></li>
 <li data-mode="dm"><a href="#HE8" class="navlink" data-target="HE8"><span class="pid">HE8</span>World Heritage Sites</a></li>
 <li data-mode="dm"><a href="#HE9" class="navlink" data-target="HE9"><span class="pid">HE9</span>Conservation areas</a></li>
@@ -3514,7 +3536,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="TC3" data-policy="TC3" data-mode="dm" data-page="46">
+<div class="policy" id="TC3" data-policy="TC3" data-mode="dm" data-refusal="1" data-page="46">
 <h3 class="policy-h"><span class="pid">TC3:</span> <span class="srch">Main town centre uses outside town centres</span></h3>
 <div class="node para" id="TC3-1" data-page="46">
 <div class="row">
@@ -4038,7 +4060,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="M5" data-policy="M5" data-mode="dm" data-page="55">
+<div class="policy" id="M5" data-policy="M5" data-mode="dm" data-refusal="1" data-page="55">
 <h3 class="policy-h"><span class="pid">M5:</span> <span class="srch">Development involving peat, coal or onshore oil and gas</span></h3>
 <div class="node para" id="M5-1" data-page="55">
 <div class="row">
@@ -4315,7 +4337,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="L3" data-policy="L3" data-mode="dm" data-page="59">
+<div class="policy" id="L3" data-policy="L3" data-mode="dm" data-refusal="1" data-page="59">
 <h3 class="policy-h"><span class="pid">L3:</span> <span class="srch">Achieving appropriate densities</span></h3>
 <div class="node para" id="L3-1" data-page="59">
 <div class="row">
@@ -4614,7 +4636,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="secgrp" id="ch13-s2" data-mode="dm">
 <h2 class="section-h srch">National decision-making policies</h2>
-<div class="policy" id="GB6" data-policy="GB6" data-mode="dm" data-page="63">
+<div class="policy" id="GB6" data-policy="GB6" data-mode="dm" data-refusal="1" data-page="63">
 <h3 class="policy-h"><span class="pid">GB6:</span> <span class="srch">Control of development in the Green Belt</span></h3>
 <div class="node para" id="GB6-1" data-page="63">
 <div class="row">
@@ -4979,7 +5001,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="secgrp" id="ch14-s2" data-mode="dm">
 <h2 class="section-h srch">National decision-making policies</h2>
-<div class="policy" id="DP3" data-policy="DP3" data-mode="dm" data-page="68">
+<div class="policy" id="DP3" data-policy="DP3" data-mode="dm" data-refusal="1" data-page="68">
 <h3 class="policy-h"><span class="pid">DP3:</span> <span class="srch">Key principles for well-designed places</span></h3>
 <div class="node para" id="DP3-1" data-page="68">
 <div class="row">
@@ -5347,7 +5369,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="TR6" data-policy="TR6" data-mode="dm" data-page="73">
+<div class="policy" id="TR6" data-policy="TR6" data-mode="dm" data-refusal="1" data-page="73">
 <h3 class="policy-h"><span class="pid">TR6:</span> <span class="srch">Assessing transport impacts</span></h3>
 <div class="node para" id="TR6-1" data-page="73">
 <div class="row">
@@ -5632,7 +5654,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="HC5" data-policy="HC5" data-mode="dm" data-page="78">
+<div class="policy" id="HC5" data-policy="HC5" data-mode="dm" data-refusal="1" data-page="78">
 <h3 class="policy-h"><span class="pid">HC5:</span> <span class="srch">Hot food takeaways</span></h3>
 <div class="node para" id="HC5-1" data-page="78">
 <div class="row">
@@ -6240,7 +6262,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="F6" data-policy="F6" data-mode="dm" data-page="87">
+<div class="policy" id="F6" data-policy="F6" data-mode="dm" data-refusal="1" data-page="87">
 <h3 class="policy-h"><span class="pid">F6:</span> <span class="srch">Development in areas at risk of flooding from rivers or the sea</span></h3>
 <div class="node para" id="F6-1" data-page="87">
 <div class="row">
@@ -6303,7 +6325,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="F7" data-policy="F7" data-mode="dm" data-page="88">
+<div class="policy" id="F7" data-policy="F7" data-mode="dm" data-refusal="1" data-page="88">
 <h3 class="policy-h"><span class="pid">F7:</span> <span class="srch">Ensuring development is safe from flooding</span></h3>
 <div class="node para" id="F7-1" data-page="88">
 <div class="row">
@@ -6488,7 +6510,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 <div class="secgrp" id="ch19-s2" data-mode="dm">
 <h2 class="section-h srch">National decision-making policies</h2>
-<div class="policy" id="N2" data-policy="N2" data-mode="dm" data-page="91">
+<div class="policy" id="N2" data-policy="N2" data-mode="dm" data-refusal="1" data-page="91">
 <h3 class="policy-h"><span class="pid">N2:</span> <span class="srch">Improving the natural environment</span></h3>
 <div class="node para" id="N2-1" data-page="91">
 <div class="row">
@@ -6582,7 +6604,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="N4" data-policy="N4" data-mode="dm" data-page="92">
+<div class="policy" id="N4" data-policy="N4" data-mode="dm" data-refusal="1" data-page="92">
 <h3 class="policy-h"><span class="pid">N4:</span> <span class="srch">Protected Landscapes</span></h3>
 <div class="node para" id="N4-1" data-page="92">
 <div class="row">
@@ -6650,7 +6672,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="N6" data-policy="N6" data-mode="dm" data-page="93">
+<div class="policy" id="N6" data-policy="N6" data-mode="dm" data-refusal="1" data-page="93">
 <h3 class="policy-h"><span class="pid">N6:</span> <span class="srch">Areas of particular importance for biodiversity and geodiversity</span></h3>
 <div class="node para" id="N6-1" data-page="93">
 <div class="row">
@@ -6961,7 +6983,7 @@ table.tbl li::marker{color:var(--ink3)}
 </div>
 </div>
 </div>
-<div class="policy" id="HE6" data-policy="HE6" data-mode="dm" data-page="97">
+<div class="policy" id="HE6" data-policy="HE6" data-mode="dm" data-refusal="1" data-page="97">
 <h3 class="policy-h"><span class="pid">HE6:</span> <span class="srch">Proposals affecting designated heritage assets</span></h3>
 <div class="node para" id="HE6-1" data-page="97">
 <div class="row">
@@ -8642,6 +8664,12 @@ function applyMode(m){
   if(q.length >= 2) run(input.value); else clearAll();
 }
 modeBtns.forEach(b=>b.addEventListener('click', ()=>applyMode(b.dataset.setmode)));
+
+/* ---------- S4/S5 refusal-policy highlight ---------- */
+const refusalToggle = document.getElementById('refusalToggle');
+refusalToggle.addEventListener('change', ()=>{
+  document.body.classList.toggle('show-refusal', refusalToggle.checked);
+});
 
 /* ---------- search ---------- */
 const searchable = Array.from(document.querySelectorAll('.srch'));

@@ -12,6 +12,29 @@ footnotes = {f['num']: f for f in doc['footnotes']}
 footnotes.update({f['num']: f for f in adoc['footnotes']})
 FN_NUMS = set(footnotes)
 
+# National decision-making policies that state development proposals "should
+# be refused" (or equivalently "should not be approved") in specific
+# circumstances -- the class of policy that policies S4 and S5 refer to when
+# describing when the presumption in favour of development is displaced.
+# Curated by reading every dm policy for that mandatory-refusal language;
+# there is no structural marker in the PDF for this, so this list must be
+# re-checked by hand against the new text whenever the source PDF changes.
+REFUSAL_POLICIES = {
+    'TC3',   # sequential test failure / significant adverse impact under TC4
+    'DP3',   # conflict with the design principles in paragraphs 1-2
+    'TR6',   # severe impact on the transport network or highway safety
+    'HC5',   # hot food takeaways near schools / adding to a harmful concentration
+    'M5',    # peat extraction; coal or onshore oil and gas without necessity
+    'L3',    # development that fails to make efficient use of land
+    'GB6',   # inappropriate development in the Green Belt
+    'F6',    # use incompatible with flood risk / failing the exception test
+    'F7',    # development that is not safe from flooding
+    'N2',    # unavoidable, unmitigated, uncompensated harm to biodiversity
+    'N4',    # major development in Protected Landscapes without exceptional circumstances
+    'N6',    # harm to a habitats site, or loss of irreplaceable habitats
+    'HE6',   # substantial harm to, or total loss of, a designated heritage asset
+}
+
 fn_owner = {}          # footnote num -> chapter marker (where referenced)
 fn_modes = {}          # footnote num -> set of modes referencing it
 current_chapter = [None]
@@ -167,8 +190,9 @@ for ch in chapters:
               title = plain(node['runs'])
               navpolicies.append((pid, title, current_mode[0]))
               POL_MODE[pid] = current_mode[0]
+              refusal_attr = ' data-refusal="1"' if pid in REFUSAL_POLICIES else ''
               body.append(f'<div class="policy" id="{pid}" data-policy="{pid}" '
-                          f'data-mode="{current_mode[0]}" '
+                          f'data-mode="{current_mode[0]}"{refusal_attr} '
                           f'data-page="{node["page"]}">')
               body.append(f'<h3 class="policy-h"><span class="pid">{pid}:</span> '
                           f'<span class="srch">{html.escape(title)}</span></h3>')
@@ -207,7 +231,8 @@ for ch in chapters:
     if navpolicies:
         nav.append('<ul class="nav-pol">')
         for pid, title, pmode in navpolicies:
-            nav.append(f'<li data-mode="{pmode}"><a href="#{pid}" '
+            refusal_attr = ' data-refusal="1"' if pid in REFUSAL_POLICIES else ''
+            nav.append(f'<li data-mode="{pmode}"{refusal_attr}><a href="#{pid}" '
                        f'class="navlink" data-target="{pid}">'
                        f'<span class="pid">{pid}</span>'
                        f'{html.escape(title)}</a></li>')
@@ -403,6 +428,7 @@ CSS = r"""
   --accent:#2d5044; --accent2:#44705e; --tint:#eaefec;
   --mark:#f6e7a6;   --marktx:#3b3005;
   --sel:#bfd9cb;    --seltx:#0f221a;  --flash:#e6ede9;
+  --refusal:#a5502e; --refusaltint:#f4e8e0;
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,ui-serif,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --fs:16.5px; --lh:1.66; --line:calc(var(--fs) * var(--lh));
@@ -415,6 +441,7 @@ CSS = r"""
     --accent:#8dc4ad;--accent2:#a4d4bf;--tint:#1e2523;
     --mark:#4b3f13;  --marktx:#f4ecd3;
     --sel:#3a5b4d;   --seltx:#f0f6f2;  --flash:#232d29;
+    --refusal:#d98a6e; --refusaltint:#2b211d;
   }
 }
 *{box-sizing:border-box}
@@ -451,6 +478,12 @@ aside{width:306px;flex:0 0 306px;position:sticky;top:0;height:100vh;
 .modebar button:hover{color:var(--accent);background:var(--tint)}
 .modebar button.on{color:var(--accent);background:var(--tint);
   box-shadow:inset 0 -2px 0 var(--accent)}
+
+.refusalbar{display:flex;align-items:center;gap:8px;margin:12px 24px 0;
+  font:500 11px/1.35 var(--sans);color:var(--ink2);cursor:pointer}
+.refusalbar input{accent-color:var(--refusal);width:13px;height:13px;flex:0 0 auto;
+  cursor:pointer}
+.refusalbar:hover{color:var(--ink)}
 
 .searchbox{position:relative;margin:16px 24px 0;border-bottom:1px solid var(--rule2)}
 .searchbox input{width:100%;padding:7px 22px 7px 19px;font:400 13.5px/1.4 var(--sans);
@@ -541,6 +574,15 @@ section.annex .chapter-h .cn{font:600 11px/1 var(--sans);letter-spacing:.16em;
 @media (prefers-reduced-motion:reduce){
   .policy:target,.node:target>.row,.fn:target{animation:none;background:var(--flash)}
 }
+
+/* S4/S5 refusal-policy highlight, toggled by the sidebar checkbox */
+body.show-refusal .policy[data-refusal]{background:var(--refusaltint)}
+body.show-refusal .policy[data-refusal]::after{
+  content:'';position:absolute;left:-17px;top:1px;bottom:1px;width:2px;
+  background:var(--refusal);border-radius:1px}
+body.show-refusal .policy[data-refusal] .policy-h,
+body.show-refusal .policy[data-refusal] .policy-h .pid{color:var(--refusal)}
+body.show-refusal nav li[data-refusal] .pid{color:var(--refusal)}
 
 /* ---------- numbered / lettered structure ---------- */
 .node{margin:0}
@@ -722,6 +764,12 @@ function applyMode(m){
 }
 modeBtns.forEach(b=>b.addEventListener('click', ()=>applyMode(b.dataset.setmode)));
 
+/* ---------- S4/S5 refusal-policy highlight ---------- */
+const refusalToggle = document.getElementById('refusalToggle');
+refusalToggle.addEventListener('change', ()=>{
+  document.body.classList.toggle('show-refusal', refusalToggle.checked);
+});
+
 /* ---------- search ---------- */
 const searchable = Array.from(document.querySelectorAll('.srch'));
 searchable.forEach(el => el.dataset.orig = el.innerHTML);
@@ -896,6 +944,11 @@ HTML = """<!DOCTYPE html>
     <button type="button" data-setmode="pm" title="Plan-making policies only">Plan-making</button>
     <button type="button" data-setmode="dm" title="National decision-making policies only">Decision-making</button>
   </div>
+  <label class="refusalbar" for="refusalToggle"
+         title="Policies S4 and S5: national decision-making policies which state that development proposals should be refused in specific circumstances">
+    <input type="checkbox" id="refusalToggle">
+    <span>Highlight S4/S5 refusal policies</span>
+  </label>
   <div class="searchbox">
     <span class="ico">&#9906;</span>
     <input id="q" type="search" placeholder="Search the Framework&hellip;" autocomplete="off" spellcheck="false">

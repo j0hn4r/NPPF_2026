@@ -79,6 +79,26 @@ tools/build.py                runs the lot, exits non-zero on any failure
 | Which pages are read | `extract.py` `START/END`, `annex.py` `START/END` | 0-based page indices |
 | How hierarchy is detected | `parse.py` | Indent thresholds and marker regexes |
 | Annex tables, glossary entries | `annex.py` | The trickiest code in the repo — read below |
+| Which dm policies are tagged as "S4/S5 refusal policies" | `render.py` → `REFUSAL_POLICIES` | Hand-curated — see below |
+
+## The S4/S5 refusal-policy highlight
+
+Policies S4 and S5 displace the presumption in favour of development where a
+proposal "would fail to comply with one of the national decision-making
+policies which state that development proposals should be refused in specific
+circumstances." The sidebar checkbox (`#refusalToggle`, toggling `body.
+show-refusal`) highlights exactly those policies, tagged with
+`data-refusal="1"` in both the document and the nav.
+
+`REFUSAL_POLICIES` in `render.py` is a hand-curated set of policy codes — there
+is no structural marker for this in the PDF, so it was built by reading every
+national decision-making policy for mandatory refusal/non-approval language
+("should be refused", "should not be approved ... except/unless"), and
+deliberately excludes self-referential wording inside S4/S5 itself and
+procedural "should not be approved without [steps]" clauses that aren't a
+refusal test. **Re-derive this list by hand** against the new text whenever
+the source PDF changes; nothing will fail verification if it drifts, since it
+only adds an HTML attribute and doesn't touch any verified text.
 
 ## Traps that have already bitten us
 

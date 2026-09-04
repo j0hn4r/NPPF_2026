@@ -15,6 +15,11 @@ Generated from the official PDF and checked character-for-character against it.
 - **Plan-making / decision-making filter** — 52 plan-making policies, 79 national
   decision-making policies. The introduction and annexes stay visible, since the
   Framework designates them as neither.
+- **S4/S5 refusal-policy highlight** — a sidebar checkbox marks the national
+  decision-making policies which state that development proposals should be
+  refused in specific circumstances, the class of policy that policies S4 and
+  S5 refer to when describing when the presumption in favour of development is
+  displaced.
 - **Full-text search** with match highlighting, reaching into table cells and
   glossary definitions.
 - **Footnotes 1–78** with markers exactly where they appear in the source; hover or
